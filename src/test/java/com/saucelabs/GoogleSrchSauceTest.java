@@ -24,7 +24,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.*;
 import static org.openqa.selenium.OutputType.*;
 
-public class GoogleSearchSauce implements SauceOnDemandSessionIdProvider {
+public class GoogleSrchSauceTest implements SauceOnDemandSessionIdProvider {
     private String sessionId;
     public SauceOnDemandAuthentication authentication = new SauceOnDemandAuthentication("Purush_88", "e497cff7-27f0-4dbc-8d2b-49e1af75a583");
     public @Rule SauceOnDemandTestWatcher resultReportingTestWatcher = new SauceOnDemandTestWatcher(this, authentication);
@@ -35,7 +35,7 @@ public class GoogleSearchSauce implements SauceOnDemandSessionIdProvider {
     @Before
     public void setUp() throws Exception {
         DesiredCapabilities caps = DesiredCapabilities.chrome();
-            caps.setCapability("name", "GoogleSearchSauce");
+            caps.setCapability("name", "GoogleSrchSauceTest");
         wd = new RemoteWebDriver(
             new URL("http://Purush_88:e497cff7-27f0-4dbc-8d2b-49e1af75a583@ondemand.saucelabs.com:80/wd/hub"),
             caps);
@@ -44,7 +44,7 @@ public class GoogleSearchSauce implements SauceOnDemandSessionIdProvider {
     }
     
     @Test
-    public void GoogleSearchSauce() {
+    public void GoogleSrchSauceTest() {
         wd.get("https://www.google.co.in/");
         wd.findElement(By.id("lst-ib")).click();
         wd.findElement(By.id("lst-ib")).clear();
