@@ -59,9 +59,9 @@ public class QCTest implements SauceOnDemandSessionIdProvider {
             wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_skipAACheckbox")).click();
         }
         wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_logOn")).click();
-        if (!wd.findElement(By.tagName("html")).getText().contains("Messages")) {
+   /*     if (!wd.findElement(By.tagName("html")).getText().contains("Messages")) {
             System.out.println("verifyTextPresent failed");
-        }
+        }*/
     }
     
     @After
