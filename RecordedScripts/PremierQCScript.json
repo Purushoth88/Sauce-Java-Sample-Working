@@ -121,7 +121,7 @@
   },
   "inputs": [
     {
-      "ResultPath": "C:\\JsonFiles\\Result\\RS2092016_1600.json"
+      "ResultPath": "JsonFiles/Result/RS2092016_1600.json"
     }
   ],
   "timeoutSeconds": 60
