@@ -1,0 +1,128 @@
+{
+  "type": "script",
+  "seleniumVersion": "2",
+  "formatVersion": 2,
+  "steps": [
+    {
+      "type": "get",
+      "url": "https://leqlb030.portal.hewitt.com/web/premieruat/login"
+    },
+    {
+      "type": "verifyTextPresent",
+      "text": "Log On"
+    },
+    {
+      "type": "storeCurrentUrl",
+      "variable": "LogOnUrl"
+    },
+    {
+      "type": "setElementText",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_userId"
+      },
+      "text": "000HEW00044020"
+    },
+    {
+      "type": "setElementText",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_password"
+      },
+      "text": "99999999"
+    },
+    {
+      "type": "setElementText",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_testCfgList[0].cfgValue"
+      },
+      "text": "l77b"
+    },
+    {
+      "type": "setElementText",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_testCfgList[1].cfgValue"
+      },
+      "text": "m6hb"
+    },
+    {
+      "type": "setElementSelected",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_skipAACheckbox"
+      }
+    },
+    {
+      "type": "clickElement",
+      "locator": {
+        "type": "id",
+        "value": "_ParticipantLogon20_WAR_ahcommonauthportlet_logOn"
+      }
+    },
+    {
+      "type": "pause",
+      "waitTime": "4000"
+    },
+    {
+      "type": "storeCurrentUrl",
+      "variable": "HomeUrl"
+    },
+    {
+      "type": "clickElement",
+      "locator": {
+        "type": "id",
+        "value": "ahDialogCloseBtn"
+      }
+    },
+    {
+      "type": "verifyTextPresent",
+      "text": "Highlights for You"
+    },
+    {
+      "type": "verifyTextPresent",
+      "text": "Health & Insurance"
+    },
+    {
+      "type": "clickElement",
+      "locator": {
+        "type": "link text",
+        "value": "Health & Insurance"
+      }
+    },
+    {
+      "type": "pause",
+      "waitTime": "4000"
+    },
+    {
+      "type": "storeCurrentUrl",
+      "variable": "HealthlangingUrl"
+    },
+    {
+      "type": "verifyTextPresent",
+      "text": "Benefits Coverage"
+    },
+    {
+      "type": "verifyTextPresent",
+      "text": "Log Off"
+    },
+    {
+      "type": "clickElement",
+      "locator": {
+        "type": "link text",
+        "value": "Log Off"
+      }
+    }
+  ],
+  "data": {
+    "configs": {},
+    "source": "none"
+  },
+  "inputs": [
+    {
+      "ResultPath": "C:\\JsonFiles\\Result\\RS2092016_1600.json"
+    }
+  ],
+  "timeoutSeconds": 60
+}
