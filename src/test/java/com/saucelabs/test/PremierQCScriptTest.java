@@ -10,7 +10,7 @@ import com.saucelabs.test.Utils.SauceRunner;
 
 public class PremierQCScriptTest {
 	
-	static String jsonFilePath = "/RecordedScripts/PremierQCScript.json";
+	static String jsonFilePath = "RecordedScripts/PremierQCScript.json";
 	
 /*    public static void main(String[] aa) throws InvalidFormatException,
     InterruptedException, IOException {
