@@ -1,15 +1,16 @@
-
-import prerequistes.JsonConfig;
-import prerequistes.SauceRunner;
+package com.saucelabs.test;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.Test;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
+import com.saucelabs.test.Utils.JsonConfig;
+import com.saucelabs.test.Utils.SauceRunner;
+
 public class PremierQCScriptTest {
 	
-	static String jsonFilePath = "C:\\Users\\Ah0144719\\Desktop\\Sauce Labs\\PremierQCScript.json";
+	static String jsonFilePath = "/PremierQCScript.json";
 	
 /*    public static void main(String[] aa) throws InvalidFormatException,
     InterruptedException, IOException {
