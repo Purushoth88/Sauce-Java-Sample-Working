@@ -74,13 +74,16 @@ public class PremierQCScriptTest {
             System.out.println("verifyTextPresent failed");
         }
         wd.findElement(By.linkText("Log Off")).click();
+			System.out.println("Log Off before Quit---------");
         wd.quit();
-			
+			System.out.println("Log Off After Quit---------");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} finally{
+			System.out.println("finally before Quit---------");
 			JsonConfig.closeExcel();
+			System.out.println("finally After Quit---------");
 		}
 	}
     
