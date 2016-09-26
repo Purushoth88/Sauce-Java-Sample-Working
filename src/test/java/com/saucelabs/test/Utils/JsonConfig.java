@@ -199,7 +199,7 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		try {
-			String file = "SauceGeneratedResults" + "/Result_"
+			String file = "SauceGeneratedResults/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			FileOutputStream out = new FileOutputStream(file, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
