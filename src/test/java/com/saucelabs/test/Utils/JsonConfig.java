@@ -50,7 +50,7 @@ public class JsonConfig {
 
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 
-		 System.out.println("readAndCompareJson File: " + readAndCompareJson);
+		 System.out.println("readAndCompareJson File: ");
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
 		fileParentPath = jsonFile.getAbsolutePath();
