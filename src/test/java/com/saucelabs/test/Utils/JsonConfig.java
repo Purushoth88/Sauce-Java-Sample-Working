@@ -46,7 +46,7 @@ public class JsonConfig {
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
-	static String buildPath = "SauceGeneratedResults";
+	static String buildPath = System.getProperty("user.dir");
 
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 
@@ -200,7 +200,7 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		try {
-			String file = buildPath + "\\Result_"
+			String file = buildPath + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			FileOutputStream out = new FileOutputStream(file, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
