@@ -47,7 +47,7 @@ public class JsonConfig {
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
 	static String buildPath = System.getProperty("user.dir");
-
+System.out.println(System.getProperty("user.dir"));
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 
 		 System.out.println("readAndCompareJson File: ");
