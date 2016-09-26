@@ -75,11 +75,12 @@ public class PremierQCScriptTest {
         }
         wd.findElement(By.linkText("Log Off")).click();
         wd.quit();
+			JsonConfig.closeExcel();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		JsonConfig.closeExcel();
+		//JsonConfig.closeExcel();
 	}
     
     public static boolean isAlertPresent(FirefoxDriver wd) {
