@@ -11,6 +11,13 @@
         that run using JUnit
     </description>
 
+	
+	  <scm>
+    		<connection>scm:git:http://github.com/Purushoth88/Sauce-Java-Sample-Working.git</connection>
+    		<developerConnection>scm:git:ssh://github.com/Purushoth88/Sauce-Java-Sample-Working.git</developerConnection>
+    		<url>http://github.com/Purushoth88/Sauce-Java-Sample-Working</url>
+	  </scm>
+	
 
 	<repositories>
 		<repository>
