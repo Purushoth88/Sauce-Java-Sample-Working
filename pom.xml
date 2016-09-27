@@ -212,9 +212,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>2.18.1</version>
                 <configuration>
-		    	<outputDirectory>SauceGeneratedResults</outputDirectory>
-    			<redirectTestOutputToFile>true</redirectTestOutputToFile>
-    			<reportsDirectory>../SauceGeneratedResults</reportsDirectory>
+                    	<systemPropertyVariables>
+           			 <redirectTestOutputToFile>${project.basedir}/SauceGeneratedResults/Results/</redirectTestOutputToFile>
+          		</systemPropertyVariables>
                 </configuration>
             </plugin>
         </plugins>
