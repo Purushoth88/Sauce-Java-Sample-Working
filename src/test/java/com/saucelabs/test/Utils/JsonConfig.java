@@ -46,11 +46,8 @@ public class JsonConfig {
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
-	static String buildPath = System.getProperty("user.dir");
 
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
-
-		 System.out.println("readAndCompareJson File: ");
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
 		fileParentPath = jsonFile.getAbsolutePath();
@@ -201,11 +198,9 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		try {
-			System.out.println("closeExcel File: ");
-			String file = buildPath + "/Result_"
+			String file = System.getProperty("user.dir") + "\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("closeExcel File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -251,10 +246,8 @@ public class JsonConfig {
 				}
 
 			}
-
 			wb.write(out);
 			out.flush();
-			System.out.println("Result File: " + file);
 			out.close();
 		} catch (Exception e) {
 			System.out.println("unable to write to excel");
