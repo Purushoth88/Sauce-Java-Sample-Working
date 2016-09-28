@@ -199,7 +199,7 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		try {
-			System.out.println(System.getProperty("user.home"));
+			System.out.println(System.getProperty("user.dir"));
 			String file = gitHubRepositoryUrl + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File: " + file);
