@@ -188,7 +188,7 @@ public class JsonConfig {
 			File Output = new File(generatedResultPath);
 			System.out.println("Absolute Path gitHubRepositoryUrl: " + Output.getAbsolutePath());
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String file = Output + "/Result_"
+			String file = Output.getAbsolutePath() + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File: " + file);
 			FileOutputStream out = new FileOutputStream(file, true);
@@ -237,7 +237,9 @@ public class JsonConfig {
 				}
 
 			}
+			System.out.println("Before write to excel");
 			wb.write(out);
+			System.out.println("After write to excel");
 			out.flush();
 			out.close();
 		} catch (Exception e) {
