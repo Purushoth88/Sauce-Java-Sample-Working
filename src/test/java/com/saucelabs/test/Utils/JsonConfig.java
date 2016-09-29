@@ -35,6 +35,12 @@ import org.testng.asserts.SoftAssert;
 
 import com.google.common.base.Verify;
 import com.jayway.jsonpath.JsonPath;
+import com.jcabi.github.RtGithub;
+import com.jcabi.github.Issue;
+import com.jcabi.github.Coordinates;
+import com.jcabi.github.Github;
+import com.jcabi.github.Repo;
+import com.jcabi.github.Repos;
 
 @SuppressWarnings("unused")
 public class JsonConfig {
@@ -191,8 +197,8 @@ public class JsonConfig {
 			String file = Output.getAbsolutePath() + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File: " + file);
-			FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("out File: " + out);
+			//FileOutputStream out = new FileOutputStream(file, true);
+			//System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -238,15 +244,38 @@ public class JsonConfig {
 				}
 
 			}
-			System.out.println("Before write to excel");
-			wb.write(out);
-			System.out.println("After write to excel");
-			out.flush();
-			out.close();
+			
+			Github github = new RtGithub("Purushoth88", "October@12");
+			Coordinates coords = new Coordinates.Simple("Purushoth88/Sauce-Java-Sample-Working");
+			Repos repo = github.repos();
+		    	Git git = new Git((Repository) repo); 
+		    	addFile(git, "testfile"); 
+		    	commit(git, "initial commit"); 
+			
+			//System.out.println("Before write to excel");
+			//wb.write(out);
+			//System.out.println("After write to excel");
+			//out.flush();
+			//out.close();
 		} catch (Exception e) {
 			System.out.println("unable to write to excel");
 		}
 	}
+	
+    public static void addFile(Git git, String filename) throws IOException, NoFilepatternException { 
+        FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename)); 
+        writer.write(filename + "\n"); 
+        writer.close(); 
+        AddCommand add = git.add(); 
+        add.addFilepattern(filename).call(); 
+    } 
+ 
+    public static void commit(Git git, String message) throws NoHeadException, NoMessageException, 
+        UnmergedPathException, 
+        ConcurrentRefUpdateException, WrongRepositoryStateException { 
+        CommitCommand commit = git.commit(); 
+        commit.setMessage(message).call(); 
+    } 
 
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
