@@ -11,6 +11,7 @@ import com.saucelabs.test.Utils.SauceRunner;
 public class PremierQCScriptTest {
 	
 	static String jsonFilePath = "RecordedScripts/PremierQCScript.json";
+	static String generatedResultPath = "OutputFolder/Results";
 	
 /*    public static void main(String[] aa) throws InvalidFormatException,
     InterruptedException, IOException {
@@ -82,7 +83,7 @@ public class PremierQCScriptTest {
 			e.printStackTrace();
 		} finally{
 			System.out.println("finally before Quit---------");
-			JsonConfig.closeExcel();
+			JsonConfig.closeExcel(generatedResultPath);
 			System.out.println("finally After Quit---------");
 		}
 	}
