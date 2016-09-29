@@ -52,6 +52,7 @@ public class JsonConfig {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
 		fileParentPath = jsonFile.getAbsolutePath();
+                System.out.println("Absolute Path : " + jsonFile.getAbsolutePath());
 		String[] resultPathObjArray = null;
 
 		String[] resultXpathListArray = null;
