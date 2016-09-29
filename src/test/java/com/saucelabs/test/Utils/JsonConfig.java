@@ -192,6 +192,7 @@ public class JsonConfig {
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File: " + file);
 			FileOutputStream out = new FileOutputStream(file, true);
+			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
