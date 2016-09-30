@@ -255,13 +255,18 @@ public class JsonConfig {
 			}
 			
 		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
+			System.out.println("Builder : " + builder);
 	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/master/OutputFolder/Results", file); 
-	        FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir) 
-	            .readEnvironment().findGitDir().build(); 
+			System.out.println("gitdir : " + gitdir);
+	        FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
+			System.out.println("remoteRepository2 : " + remoteRepository2);
 	        Git git = new Git(remoteRepository2); 
+			System.out.println("git : " + git);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repo); 
+			System.out.println("Before Getting into Add file : ");
 		addFile(git, file); 
+			System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
 		//wb.write(out);
 		//out.flush();
@@ -275,7 +280,9 @@ public class JsonConfig {
 	}
 	
     	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
-        	FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
+        	System.out.println("Inside Addd file" + git);
+		System.out.println("Inside filename file" + filename);
+		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
         	System.out.println(git.getRepository().getWorkTree());
         	System.out.println(git.getRepository().getDirectory());
         	writer.write(filename + "\n"); 
