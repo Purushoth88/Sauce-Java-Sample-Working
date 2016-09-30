@@ -254,17 +254,17 @@ public class JsonConfig {
 
 			}
 			
-		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
-			System.out.println("Builder : " + builder);
-	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce"); 
-			System.out.println("gitdir : " + gitdir);
-		//FileRepository remoteRepository2 = (FileRepository) builder.findGitDir(gitdir).build(); 
-	        //FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
-			//System.out.println("remoteRepository2 : " + remoteRepository2);
-	        Git git = Git.open(gitdir);
-			System.out.println("git : " + git);
+			File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working.git"); 
+			FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
+			 //FileRepositoryBuilder builder = new FileRepositoryBuilder();
+	            Repository repository = builder.setGitDir(gitdir)
+	                    .readEnvironment() // scan environment GIT_* variables
+	                    .findGitDir() // scan up the file system tree
+	                    .build();
+			System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
-		//Git git = new Git(repo); 
+		Git git = new Git(repository); 
+		System.out.println("Git Repository : " + git);
 		System.out.println("Before Getting into Add file : ");
 		System.out.println("Work Tree" + git.getRepository().getWorkTree());
         	System.out.println(" Directory" + git.getRepository().getDirectory());
