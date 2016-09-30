@@ -265,7 +265,9 @@ public class JsonConfig {
 			System.out.println("git : " + git);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repo); 
-			System.out.println("Before Getting into Add file : ");
+		System.out.println("Before Getting into Add file : ");
+		System.out.println("Work Tree" + git.getRepository().getWorkTree());
+        	System.out.println(" Directory" + git.getRepository().getDirectory());
 		addFile(git, file); 
 			System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
@@ -283,8 +285,8 @@ public class JsonConfig {
     	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
         	System.out.println("Inside Addd file" + git);
 		System.out.println("Inside filename file" + filename);
-		System.out.println(git.getRepository().getWorkTree());
-        	System.out.println(git.getRepository().getDirectory());
+		System.out.println("Work Tree" + git.getRepository().getWorkTree());
+        	System.out.println(" Directory" + git.getRepository().getDirectory());
 		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
         	System.out.println(git.getRepository().getWorkTree());
         	System.out.println(git.getRepository().getDirectory());
