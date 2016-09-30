@@ -2,6 +2,7 @@ package com.saucelabs.test;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.junit.Test;
+import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
