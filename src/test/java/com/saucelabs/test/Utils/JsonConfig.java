@@ -189,7 +189,7 @@ public class JsonConfig {
 			File Output = new File(generatedResultPath);
 			System.out.println("Absolute Path gitHubRepositoryUrl: " + Output.getAbsolutePath());
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String file = Output.getAbsolutePath() + "/Result_"
+			String file = Output + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File: " + file);
 			FileOutputStream out = new FileOutputStream(file, true);
