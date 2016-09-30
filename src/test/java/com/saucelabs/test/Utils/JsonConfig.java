@@ -39,7 +39,6 @@ import com.jayway.jsonpath.JsonPath;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.AbortedByHookException;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
@@ -286,7 +285,7 @@ public class JsonConfig {
     	} 
  
     	public static void commit(Git git, String message) throws UnmergedPathException, 
-	        UnmergedPathsException, AbortedByHookException, GitAPIException { 
+	        UnmergedPathsException, GitAPIException { 
 	        CommitCommand commit = git.commit(); 
 	        commit.setMessage(message).call(); 
     	} 
