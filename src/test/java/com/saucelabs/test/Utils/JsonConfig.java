@@ -39,10 +39,13 @@ import com.jayway.jsonpath.JsonPath;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.errors.AbortedByHookException;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
+import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
@@ -253,13 +256,10 @@ public class JsonConfig {
 			}
 			
 		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
-		System.out.println("builder Url : " + builder);
 	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/master/OutputFolder/Results", file); 
-	        System.out.println("gitdir Url : " + gitdir);
-		FileRepository remoteRepository2 = builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
-		System.out.println("remoteRepository2 Url : " + remoteRepository2);
+	        FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir) 
+	            .readEnvironment().findGitDir().build(); 
 	        Git git = new Git(remoteRepository2); 
-		System.out.println("remoteRepository2 Url : " + git);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repo); 
 		addFile(git, file); 
@@ -268,28 +268,27 @@ public class JsonConfig {
 		//out.flush();
 		System.out.println("Result File: " + file);
 		//out.close();
+		} catch (IOException io) {
+			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
-			System.out.println("unable to write to excel");
+			System.out.println("unable to write to excel" + e);
 		}
 	}
 	
-	public static void addFile(Git git, String filename) throws IOException, NoFilepatternException { 
-		System.out.println("git Repository: " + git);
-		System.out.println("Add file inside: " + filename);
-        	FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename)); 
-		System.out.println("git.getRepository().getWorkTree()" + git.getRepository().getWorkTree());
-		System.out.println("git.getRepository().getDirectory()" + git.getRepository().getDirectory());
+    	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
+        	FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
+        	System.out.println(git.getRepository().getWorkTree());
+        	System.out.println(git.getRepository().getDirectory());
         	writer.write(filename + "\n"); 
         	writer.close(); 
         	AddCommand add = git.add(); 
         	add.addFilepattern(filename).call(); 
     	} 
  
-    	public static void commit(Git git, String message) throws NoHeadException, NoMessageException, 
-        	UnmergedPathException, 
-        	ConcurrentRefUpdateException, WrongRepositoryStateException { 
-        	CommitCommand commit = git.commit(); 
-        	commit.setMessage(message).call(); 
+    	public static void commit(Git git, String message) throws UnmergedPathException, 
+	        UnmergedPathsException, AbortedByHookException, GitAPIException { 
+	        CommitCommand commit = git.commit(); 
+	        commit.setMessage(message).call(); 
     	} 
 	
 	public static void createExcel() throws FileNotFoundException {
