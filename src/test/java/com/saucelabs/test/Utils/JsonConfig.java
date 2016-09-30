@@ -203,7 +203,8 @@ public class JsonConfig {
 			File Output = new File(generatedResultPath);
 			System.out.println("Absolute Path gitHubRepositoryUrl: " + Output.getAbsolutePath());
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String file = System.getProperty("user.dir") + "/OutputFolder/Results/Result_"
+			String localRepo = System.getProperty("user.dir") + "/OutputFolder/Results";
+			String file = "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File name :" + file);
 			//FileOutputStream out = new FileOutputStream(file, true);
@@ -255,7 +256,7 @@ public class JsonConfig {
 			}
 			
 		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
-		Git git = Git.init().setDirectory(new File(gitWorkDir, file)).setBare(true).call(); 
+		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(true).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repository); 
