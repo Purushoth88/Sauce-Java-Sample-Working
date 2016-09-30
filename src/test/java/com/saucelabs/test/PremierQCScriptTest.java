@@ -12,7 +12,7 @@ import com.saucelabs.test.Utils.SauceRunner;
 public class PremierQCScriptTest {
 	
 	static String jsonFilePath = "RecordedScripts/PremierQCScript.json";
-	static String generatedResultPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/OutputFolder/Results";
+	static String generatedResultPath = "OutputFolder/Results";
 	
 /*    public static void main(String[] aa) throws InvalidFormatException,
     InterruptedException, IOException {
@@ -34,7 +34,7 @@ public class PremierQCScriptTest {
     	RemoteWebDriver wd;
     	wd = (RemoteWebDriver) SauceRunner.sauceCapabilities();
         wd.get("https://leqlb030.portal.hewitt.com/web/premieruat/login");
-	Assert.assertEquals("Login  - Premier Company", wd.getTitle());
+	Assert.assertEquals("Login  - Premier Company" , wd.getTitle());
         if (!wd.findElement(By.tagName("html")).getText().contains("Log On")) {
             System.out.println("verifyTextPresent failed");
         }
