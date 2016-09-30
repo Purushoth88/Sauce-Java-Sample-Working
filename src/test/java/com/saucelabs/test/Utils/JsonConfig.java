@@ -254,7 +254,7 @@ public class JsonConfig {
 
 			}
 			
-			File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working.git"); 
+			File gitdir = new File("home/testrunner/workspace/workers/3/OutputFolder/Results"); 
 			FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
 			 //FileRepositoryBuilder builder = new FileRepositoryBuilder();
 	            Repository repository = builder.setGitDir(gitdir)
