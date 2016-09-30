@@ -254,16 +254,11 @@ public class JsonConfig {
 
 			}
 			
-			File gitdir = new File("/home/testrunner/workspace/workers/3/OutputFolder/Results"); 
-			FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
-			 //FileRepositoryBuilder builder = new FileRepositoryBuilder();
-	            Repository repository = builder.setGitDir(gitdir)
-	                    .readEnvironment() // scan environment GIT_* variables
-	                    .findGitDir() // scan up the file system tree
-	                    .build();
-			System.out.println("repository : " + repository);
+		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
+		Git git = Git.init().setDirectory(new File(gitWorkDir, file)).setBare(true).call(); 
+		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
-		Git git = new Git(repository); 
+		//Git git = new Git(repository); 
 		System.out.println("Git Repository : " + git);
 		System.out.println("Before Getting into Add file : ");
 		System.out.println("Work Tree" + git.getRepository());
