@@ -266,7 +266,7 @@ public class JsonConfig {
 		Git git = new Git(repository); 
 		System.out.println("Git Repository : " + git);
 		System.out.println("Before Getting into Add file : ");
-		System.out.println("Work Tree" + git.getRepository().getWorkTree());
+		System.out.println("Work Tree" + git.getRepository());
         	System.out.println(" Directory" + git.getRepository().getDirectory());
 		addFile(git, file); 
 			System.out.println("After Getting into Add file : ");
