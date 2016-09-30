@@ -192,6 +192,25 @@
 			<scope>system</scope>
     		<systemPath>${basedir}/lib/poi-ooxml-3.9.jar</systemPath>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
+		<dependency>
+    			<groupId>org.eclipse.jgit</groupId>
+    			<artifactId>org.eclipse.jgit</artifactId>
+    			<version>4.5.0.201609210915-r</version>
+    			<scope>system</scope>
+    			<systemPath>${basedir}/lib/org.eclipse.jgit-4.5.0.201609210915-r.jar</systemPath>
+		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+		<dependency>
+    			<groupId>com.jcraft</groupId>
+    			<artifactId>jsch</artifactId>
+    			<version>0.1.54</version>
+			<scope>system</scope>
+    			<systemPath>${basedir}/lib/jsch-0.1.54.jar</systemPath>
+		</dependency>
+
 
 		<dependency>
 			<groupId>org.apache.common</groupId>
