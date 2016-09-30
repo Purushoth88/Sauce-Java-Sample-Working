@@ -283,6 +283,8 @@ public class JsonConfig {
     	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
         	System.out.println("Inside Addd file" + git);
 		System.out.println("Inside filename file" + filename);
+		System.out.println(git.getRepository().getWorkTree());
+        	System.out.println(git.getRepository().getDirectory());
 		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
         	System.out.println(git.getRepository().getWorkTree());
         	System.out.println(git.getRepository().getDirectory());
