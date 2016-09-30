@@ -256,7 +256,7 @@ public class JsonConfig {
 			
 		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
 			System.out.println("Builder : " + builder);
-	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working", file); 
+	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce", file); 
 			System.out.println("gitdir : " + gitdir);
 		//FileRepository remoteRepository2 = (FileRepository) builder.findGitDir(gitdir).build(); 
 	        FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
