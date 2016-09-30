@@ -34,7 +34,7 @@ public class PremierQCScriptTest {
     	RemoteWebDriver wd;
     	wd = (RemoteWebDriver) SauceRunner.sauceCapabilities();
         wd.get("https://leqlb030.portal.hewitt.com/web/premieruat/login");
-	Assert.assertEquals("Login  - Premier Company" , wd.getTitle());
+	Assert.assertEquals("Login[ ] - Premier Company" , wd.getTitle());
         if (!wd.findElement(By.tagName("html")).getText().contains("Log On")) {
             System.out.println("verifyTextPresent failed");
         }
