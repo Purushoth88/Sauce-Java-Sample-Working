@@ -203,7 +203,7 @@ public class JsonConfig {
 			File Output = new File(generatedResultPath);
 			System.out.println("Absolute Path gitHubRepositoryUrl: " + Output.getAbsolutePath());
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String file = generatedResultPath + "//Result_"
+			String file = generatedResultPath + "/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("Result File name :" + file);
 			//FileOutputStream out = new FileOutputStream(file, true);
@@ -256,7 +256,7 @@ public class JsonConfig {
 			
 		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
 			System.out.println("Builder : " + builder);
-	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce", file); 
+	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working", file); 
 			System.out.println("gitdir : " + gitdir);
 		//FileRepository remoteRepository2 = (FileRepository) builder.findGitDir(gitdir).build(); 
 	        FileRepository remoteRepository2 = (FileRepository) builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
