@@ -252,12 +252,10 @@ public class JsonConfig {
 
 			}
 			
-		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
-	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/master/OutputFolder/Results"); 
-	        FileRepository remoteRepository2 = builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
-	        Git git = new Git(remoteRepository2); 
-		addFile(git, file); 
-		commit(git, "initial commit"); 
+		wb.write(out);
+		out.flush();
+		System.out.println("Result File: " + file);
+		out.close();
 		} catch (Exception e) {
 			System.out.println("unable to write to excel");
 		}
