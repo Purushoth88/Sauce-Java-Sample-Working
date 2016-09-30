@@ -261,21 +261,6 @@ public class JsonConfig {
 		}
 	}
 	
-    public static void addFile(Git git, String filename) throws IOException, NoFilepatternException { 
-        FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename)); 
-        writer.write(filename + "\n"); 
-        writer.close(); 
-        AddCommand add = git.add(); 
-        add.addFilepattern(filename).call(); 
-    } 
- 
-    public static void commit(Git git, String message) throws NoHeadException, NoMessageException, 
-        UnmergedPathException, 
-        ConcurrentRefUpdateException, WrongRepositoryStateException { 
-        CommitCommand commit = git.commit(); 
-        commit.setMessage(message).call(); 
-    } 
-
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
 		CellStyle style = wb.createCellStyle();
