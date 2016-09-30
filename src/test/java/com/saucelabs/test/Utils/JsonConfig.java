@@ -245,18 +245,12 @@ public class JsonConfig {
 
 			}
 			
-			Github github = new RtGithub("Purushoth88", "October@12");
-			Coordinates coords = new Coordinates.Simple("Purushoth88/Sauce-Java-Sample-Working");
-			Repos repo = github.repos();
-		    	Git git = new Git((Repository) repo); 
-		    	addFile(git, "testfile"); 
-		    	commit(git, "initial commit"); 
-			
-			//System.out.println("Before write to excel");
-			//wb.write(out);
-			//System.out.println("After write to excel");
-			//out.flush();
-			//out.close();
+		FileRepositoryBuilder builder = new FileRepositoryBuilder(); 
+	        File gitdir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/master/OutputFolder/Results"); 
+	        FileRepository remoteRepository2 = builder.setGitDir(gitdir).readEnvironment().findGitDir().build(); 
+	        Git git = new Git(remoteRepository2); 
+		addFile(git, file); 
+		commit(git, "initial commit"); 
 		} catch (Exception e) {
 			System.out.println("unable to write to excel");
 		}
