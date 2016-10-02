@@ -258,7 +258,7 @@ public class JsonConfig {
 			}
 			
 
-		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working/tree/Sauce";
+		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working";
 		System.out.println("Git Repository wcPath: " + wcPath);
 		String repoPath = wcPath + "/.git";
 		System.out.println("Git Repository repoPath: " + repoPath);
@@ -273,6 +273,7 @@ public class JsonConfig {
 		System.out.println("Git Repository testFilePath: " + testFilePath);
 		BufferedWriter outWrite = new BufferedWriter(new FileWriter(testFilePath));
 		System.out.println("Git Repository outWrite: " + outWrite);
+		outWrite.write("a\n");
 		outWrite.flush(); 
 		git.add().addFilepattern(ResultfileToImport).call(); 
 		RevCommit commit = git.commit().setMessage("commit 1").call();
