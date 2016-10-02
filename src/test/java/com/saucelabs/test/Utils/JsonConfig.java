@@ -202,6 +202,8 @@ public class JsonConfig {
 		try {
 			String file = System.getProperty("user.home") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			String ResultfileToImport = "Result_"
+				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("Result File name :" + file);
 			FileOutputStream out = new FileOutputStream(file, true);
@@ -258,7 +260,7 @@ public class JsonConfig {
 		System.out.println("Result File: " + file);
 		out.close();
 		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
-		Git git = Git.init().setDirectory(new File(gitWorkDir, file)).setBare(true).call(); 
+		Git git = Git.init().setDirectory(new File(gitWorkDir, ResultfileToImport)).setBare(true).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repository); 
@@ -266,7 +268,8 @@ public class JsonConfig {
 		System.out.println("Before Getting into Add file : ");
 		System.out.println("Work Tree" + git.getRepository());
         	System.out.println(" Directory" + git.getRepository().getDirectory());
-		addFile(git, file); 
+		System.out.println("ResultfileToImport : " + ResultfileToImport);
+		addFile(git, ResultfileToImport); 
 		System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
 		} catch (IOException io) {
