@@ -13,6 +13,8 @@ import java.util.Random;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
 import java.io.BufferedWriter;
+import org.eclipse.jgit.lib.Repository;
+import org.apache.commons.io.FileUtils;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -258,26 +260,25 @@ public class JsonConfig {
 			}
 			
 
-		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working";
+		String dirName = "OutputFolder"; 
+		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working/tree/Sauce";
 		System.out.println("Git Repository wcPath: " + wcPath);
 		String repoPath = wcPath + "/.git";
 		System.out.println("Git Repository repoPath: " + repoPath);
 		File repoDir = new File(repoPath); 
 		System.out.println("Git Repository repoDir: " + repoDir);
-		Repository repo = new RepositoryBuilder().setGitDir(repoDir).build(); 
+		Repository repo = new RepositoryBuilder().setGitDir(new File(repoPath)).build();
 		System.out.println("Git Repository repo: " + repo);
 		repo.create(false);
 		Git git = new Git(repo);
-		System.out.println("Git Repository : " + git);
-		String testFilePath = wcPath + "/" + ResultfileToImport; 
-		System.out.println("Git Repository testFilePath: " + testFilePath);
-		BufferedWriter outWrite = new BufferedWriter(new FileWriter(testFilePath));
-		System.out.println("Git Repository outWrite: " + outWrite);
-		outWrite.write("a\n");
-		outWrite.flush(); 
+        FileUtils.forceMkdir(new File(wcPath + "/" + dirName)); 
+        FileUtils.touch(new File(wcPath + "/" + ResultfileToImport)); 
+        git.add().addFilepattern(dirName).call(); 
+        git.add().addFilepattern(ResultfileToImport).call(); 
+        git.commit().setMessage("test").call(); 
+        repo.close();
 		git.add().addFilepattern(ResultfileToImport).call(); 
 		RevCommit commit = git.commit().setMessage("commit 1").call();
-		System.out.println("Git com mitRepository : " + commit);
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
