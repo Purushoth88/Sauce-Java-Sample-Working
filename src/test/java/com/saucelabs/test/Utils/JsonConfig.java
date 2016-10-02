@@ -205,6 +205,7 @@ public class JsonConfig {
 	public static void closeExcel() {
 		
 		try {
+			String email = "purush_it2007@yahoo.co.in";
 			String file = System.getProperty("user.home") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String ResultfileToImport = "Result_"
@@ -275,7 +276,7 @@ public class JsonConfig {
         FileUtils.touch(new File(wcPath + "/" + ResultfileToImport)); 
         git.add().addFilepattern(dirName).call(); 
         git.add().addFilepattern(ResultfileToImport).call(); 
-        git.commit().setMessage("test").call(); 
+                git.commit().setMessage("test").setAuthor("Purushoth", email).call();  
         repo.close();
 		git.add().addFilepattern(ResultfileToImport).call(); 
 		RevCommit commit = git.commit().setMessage("commit 1").call();
