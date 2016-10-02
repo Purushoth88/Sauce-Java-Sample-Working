@@ -200,15 +200,12 @@ public class JsonConfig {
 	public static void closeExcel(String generatedResultPath) {
 		
 		try {
-			File Output = new File(generatedResultPath);
-			System.out.println("Absolute Path gitHubRepositoryUrl: " + Output.getAbsolutePath());
-			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String localRepo = System.getProperty("user.dir") + "/OutputFolder/Results";
-			String file = "/Result_"
+			String file = System.getProperty("user.home") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("Result File name :" + file);
-			//FileOutputStream out = new FileOutputStream(file, true);
-			//System.out.println("out File: " + out);
+			FileOutputStream out = new FileOutputStream(file, true);
+			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -255,22 +252,11 @@ public class JsonConfig {
 
 			}
 			
-		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
-		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(true).call(); 
-		//System.out.println("repository : " + repository);
-		//Repository repo = (Repository) github.repos();
-		//Git git = new Git(repository); 
-		System.out.println("Git Repository : " + git);
-		System.out.println("Before Getting into Add file : ");
-		System.out.println("Work Tree" + git.getRepository());
-        	System.out.println(" Directory" + git.getRepository().getDirectory());
-		addFile(git, file); 
-			System.out.println("After Getting into Add file : ");
-		commit(git, "initial commit"); 
-		//wb.write(out);
-		//out.flush();
+
+		wb.write(out);
+		out.flush();
 		System.out.println("Result File: " + file);
-		//out.close();
+		out.close();
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
