@@ -50,6 +50,8 @@ import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.lib.RepositoryBuilder;
+import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
 public class JsonConfig {
@@ -255,24 +257,25 @@ public class JsonConfig {
 			}
 			
 
-		wb.write(out);
-		out.flush();
-		System.out.println("Result File: " + file);
-		out.close();
-		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results/");
-		Git git = Git.init().setDirectory(new File(gitWorkDir, ResultfileToImport)).setBare(false).call(); 
-		//System.out.println("repository : " + repository);
-		//Repository repo = (Repository) github.repos();
-		//Git git = new Git(repository); 
+		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working/tree/Sauce";
+		System.out.println("Git Repository wcPath: " + wcPath);
+		String repoPath = wcPath + "/.git";
+		System.out.println("Git Repository repoPath: " + repoPath);
+		File repoDir = new File(repoPath); 
+		System.out.println("Git Repository repoDir: " + repoDir);
+		Repository repo = new RepositoryBuilder().setGitDir(repoDir).build(); 
+		System.out.println("Git Repository repo: " + repo);
+		repo.create(false);
+		Git git = new Git(repo);
 		System.out.println("Git Repository : " + git);
-		System.out.println("Before Getting into Add file : ");
-		System.out.println("Work Tree" + git.getRepository());
-        	System.out.println(" Directory" + git.getRepository().getDirectory());
-		System.out.println("ResultfileToImport : " + ResultfileToImport);
-		addFile(git, ResultfileToImport); 
-		System.out.println("After Getting into Add file : ");
-		commit(git, "initial commit"); 
-		//git.push();
+		String testFilePath = wcPath + "/" + ResultfileToImport; 
+		System.out.println("Git Repository testFilePath: " + testFilePath);
+		BufferedWriter outWrite = new BufferedWriter(new FileWriter(testFilePath));
+		System.out.println("Git Repository outWrite: " + outWrite);
+		outWrite.flush(); 
+		git.add().addFilepattern(ResultfileToImport).call(); 
+		RevCommit commit = git.commit().setMessage("commit 1").call();
+		System.out.println("Git com mitRepository : " + commit);
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
