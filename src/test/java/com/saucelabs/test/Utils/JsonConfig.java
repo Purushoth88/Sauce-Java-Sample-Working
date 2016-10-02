@@ -260,7 +260,7 @@ public class JsonConfig {
 		System.out.println("Result File: " + file);
 		out.close();
 		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
-		Git git = Git.init().setDirectory(new File(gitWorkDir, ResultfileToImport)).setBare(true).call(); 
+		Git git = Git.init().setDirectory(new File(gitWorkDir, ResultfileToImport)).setBare(false).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repository); 
