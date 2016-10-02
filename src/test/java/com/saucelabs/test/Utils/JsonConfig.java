@@ -197,12 +197,12 @@ public class JsonConfig {
 
 	// static SoftAssert softAssert= new SoftAssert();
 
-	public static void closeExcel(String generatedResultPath) {
+	public static void closeExcel() {
 		
 		try {
 			String file = System.getProperty("user.home") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			FileOutputStream out = new FileOutputStream(file, true);
+			//FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("Result File name :" + file);
 			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
