@@ -272,6 +272,7 @@ public class JsonConfig {
 		addFile(git, ResultfileToImport); 
 		System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
+		//git.push();
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -297,6 +298,7 @@ public class JsonConfig {
 	        UnmergedPathsException, GitAPIException { 
 	        CommitCommand commit = git.commit(); 
 	        commit.setMessage(message).call(); 
+		git.push();
     	} 
 	
 	public static void createExcel() throws FileNotFoundException {
