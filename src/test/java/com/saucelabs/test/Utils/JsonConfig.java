@@ -257,6 +257,18 @@ public class JsonConfig {
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
+		File gitWorkDir = new File("https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/");
+		Git git = Git.init().setDirectory(new File(gitWorkDir, file)).setBare(true).call(); 
+		//System.out.println("repository : " + repository);
+		//Repository repo = (Repository) github.repos();
+		//Git git = new Git(repository); 
+		System.out.println("Git Repository : " + git);
+		System.out.println("Before Getting into Add file : ");
+		System.out.println("Work Tree" + git.getRepository());
+        	System.out.println(" Directory" + git.getRepository().getDirectory());
+		addFile(git, file); 
+		System.out.println("After Getting into Add file : ");
+		commit(git, "initial commit"); 
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
