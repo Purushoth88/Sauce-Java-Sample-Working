@@ -12,7 +12,7 @@ import com.saucelabs.test.Utils.SauceRunner;
 public class PremierQCScriptTest {
 	
 	static String jsonFilePath = "RecordedScripts/PremierQCScript.json";
-	static String generatedResultPath = "/home/travis/build/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results";
+	//static String generatedResultPath = "/home/travis/build/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results";
 	
 /*    public static void main(String[] aa) throws InvalidFormatException,
     InterruptedException, IOException {
@@ -85,7 +85,7 @@ public class PremierQCScriptTest {
 			e.printStackTrace();
 		} finally{
 			System.out.println("finally before Quit---------");
-			JsonConfig.closeExcel(generatedResultPath);
+			JsonConfig.closeExcel();
 			System.out.println("finally After Quit---------");
 		}
 	}
