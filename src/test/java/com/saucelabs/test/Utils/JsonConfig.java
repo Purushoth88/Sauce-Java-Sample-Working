@@ -282,17 +282,29 @@ public class JsonConfig {
 		out.close();
 		CredentialsProvider credentials = null; 
         	credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
-        	PushCommand command = git.push().setRemote(gitWorkDir); 
-        	command.setCredentialsProvider(credentials); 
-        	Iterable<PushResult> results = command.call(); 
-        	int updates = 0; 
-        	for (PushResult result:results){ 
-        		updates += result.getRemoteUpdates().size(); 
-        		} 
-		} catch (IOException io) {
-			System.out.println("unable to write to excel" + io);
-		} catch (Exception e) {
-			System.out.println("unable to write to excel" + e);
+		try {
+			System.out.println("Git Push " + git.push().setRemote("Sauce-Java-Sample-Working"));
+			PushCommand command = git.push().setRemote(gitWorkDir);
+			System.out.println("command " + command);
+			command.setCredentialsProvider(credentials);
+			Iterable<PushResult> results = command.call();
+			int updates = 0;
+			for (PushResult result : results) {
+				updates += result.getRemoteUpdates().size();
+			}
+			if (updates == 0) {
+				System.out.println("No updates pushed. Something maybe failed?");
+			} else if (updates == 1) {
+				System.out.println("Update pushed.");
+			} else {
+				System.out.println(updates + " updates pushed.");
+			}
+		} catch (JGitInternalException e) {
+			System.out.println("Push failed. Did you remember to commit first? " + e.getMessage());
+		} catch (InvalidRemoteException e) {
+			System.out.println("Push failed: " + e.getMessage());
+		} catch (TransportException e) {
+			System.out.println("Push failed: " + e.getMessage());
 		}
 	}
 	
