@@ -205,7 +205,6 @@ public class JsonConfig {
 	public static void closeExcel() {
 		
 		try {
-			String email = "purush_it2007@yahoo.co.in";
 			String file = System.getProperty("user.home") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String ResultfileToImport = "Result_"
@@ -260,7 +259,9 @@ public class JsonConfig {
 
 			}
 			
-
+		wb.write(out);
+		wb.write(out);
+		out.flush();
 		String dirName = "OutputFolder"; 
 		String wcPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working/tree/Sauce";
 		System.out.println("Git Repository wcPath: " + wcPath);
