@@ -20,6 +20,7 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.eclipse.jgit.transport.PushResult;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
