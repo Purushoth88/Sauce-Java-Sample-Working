@@ -280,13 +280,7 @@ public class JsonConfig {
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
-		//CredentialsProvider credentials = null; 
-        	//credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
-		System.out.println("git.push().setRemote(gitWorkDir) " + git.push().setRemote("Sauce-Java-Sample-Working"));
-		git.push().setRemote(gitWorkDir).call();
-		//System.out.println("command : " + command);
-		//command.setCredentialsProvider(credentials);
-		//System.out.println("command.getRemote()" + command.getRemote());  
+		git.push().setPushAll().call(); 
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
