@@ -277,9 +277,6 @@ public class JsonConfig {
 		wb.write(out);
 		System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
-		out.flush();
-		System.out.println("Result File: " + file);
-		out.close();
 		git.push().setPushAll().call(); 
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
