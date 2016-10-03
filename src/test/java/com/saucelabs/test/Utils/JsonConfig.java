@@ -288,8 +288,9 @@ public class JsonConfig {
 			PushCommand command = git.push().setRemote(gitWorkDir);
 			System.out.println("command : " + command);
 			//command.setCredentialsProvider(credentials);
-			Iterable<PushResult> results = command.call();
 			System.out.println("command.getRemote()" + command.getRemote());
+			Iterable<PushResult> results = command.call();
+			
 			System.out.println("results : " + results);
 			int updates = 0;
 			for (PushResult result : results) {
