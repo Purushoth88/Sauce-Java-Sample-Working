@@ -286,9 +286,11 @@ public class JsonConfig {
 		try {
 			System.out.println("git.push().setRemote(gitWorkDir) " + git.push().setRemote("Sauce-Java-Sample-Working"));
 			PushCommand command = git.push().setRemote(gitWorkDir);
-			System.out.println("command" + command);
-			command.setCredentialsProvider(credentials);
+			System.out.println("command : " + command);
+			//command.setCredentialsProvider(credentials);
 			Iterable<PushResult> results = command.call();
+			System.out.println("command.getRemote()" + command.getRemote());
+			System.out.println("results : " + results);
 			int updates = 0;
 			for (PushResult result : results) {
 				updates += result.getRemoteUpdates().size();
