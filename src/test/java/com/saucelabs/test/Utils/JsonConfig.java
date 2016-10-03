@@ -21,7 +21,6 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.JGitInternalException;
-import org.eclipse.jgit.api.errors.TransportException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -301,11 +300,7 @@ public class JsonConfig {
 			}
 		} catch (JGitInternalException e) {
 			System.out.println("Push failed. Did you remember to commit first? " + e.getMessage());
-		} catch (InvalidRemoteException e) {
-			System.out.println("Push failed: " + e.getMessage());
-		} catch (TransportException e) {
-			System.out.println("Push failed: " + e.getMessage());
-		}
+		}  
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
