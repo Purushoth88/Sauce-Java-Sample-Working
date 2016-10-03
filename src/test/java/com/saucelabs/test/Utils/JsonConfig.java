@@ -204,12 +204,11 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		
-		try {
-			String file = System.getProperty("user.home") + "//Result_"
+				try {
+			System.out.println("Close Excel" + System.getProperty("user.dir"));
+			String localRepo = System.getProperty("user.dir") + "/OutputFolder/Results/";
+			String file = "Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			String ResultfileToImport = "Result_"
-				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("Result File name :" + file);
 			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
@@ -259,28 +258,23 @@ public class JsonConfig {
 
 			}
 			
+		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/";
+		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(false).call(); 
+		//System.out.println("repository : " + repository);
+		//Repository repo = (Repository) github.repos();
+		//Git git = new Git(repository); 
+		System.out.println("Git Repository : " + git);
+		System.out.println("Before Getting into Add file : ");
+		System.out.println("Work Tree" + git.getRepository());
+        	System.out.println(" Directory" + git.getRepository().getDirectory());
+		addFile(git, file); 
 		wb.write(out);
-		wb.write(out);
+		System.out.println("After Getting into Add file : ");
+		commit(git, "initial commit"); 
 		out.flush();
-		String dirName = "OutputFolder"; 
-		String wcPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working/tree/Sauce";
-		System.out.println("Git Repository wcPath: " + wcPath);
-		String repoPath = wcPath + "/.git";
-		System.out.println("Git Repository repoPath: " + repoPath);
-		File repoDir = new File(repoPath); 
-		System.out.println("Git Repository repoDir: " + repoDir);
-		Repository repo = new RepositoryBuilder().setGitDir(new File(repoPath)).build();
-		System.out.println("Git Repository repo: " + repo);
-		repo.create(false);
-		Git git = new Git(repo);
-        FileUtils.forceMkdir(new File(wcPath + "/" + dirName)); 
-        FileUtils.touch(new File(wcPath + "/" + ResultfileToImport)); 
-        git.add().addFilepattern(dirName).call(); 
-        git.add().addFilepattern(ResultfileToImport).call(); 
-                git.commit().setMessage("test").setAuthor("Purushoth", email).call();  
-        repo.close();
-		git.add().addFilepattern(ResultfileToImport).call(); 
-		RevCommit commit = git.commit().setMessage("commit 1").call();
+		System.out.println("Result File: " + file);
+		out.close();
+		git.push().getRepository().getRemoteName(gitWorkDir);
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -306,8 +300,8 @@ public class JsonConfig {
 	        UnmergedPathsException, GitAPIException { 
 	        CommitCommand commit = git.commit(); 
 	        commit.setMessage(message).call(); 
-		git.push();
     	} 
+	
 	
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
