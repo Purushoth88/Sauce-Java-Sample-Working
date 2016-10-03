@@ -17,6 +17,9 @@ import org.eclipse.jgit.lib.Repository;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RefSpec;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.api.PushCommand;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -277,10 +280,15 @@ public class JsonConfig {
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
-		RefSpec spec = new RefSpec(branch + ":" + branch);
-		Iterable<PushResult> resultIterable = git.push().setRemote(gitWorkDir).setRefSpecs(spec).call();
-		PushResult result = resultIterable.iterator().next();
-		System.out.println("result" + result);
+		CredentialsProvider credentials = null; 
+        	credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
+        	PushCommand command = git.push().setRemote(gitWorkDir); 
+        	command.setCredentialsProvider(credentials); 
+        	Iterable<PushResult> results = command.call(); 
+        	int updates = 0; 
+        	for (PushResult result:results){ 
+        		updates += result.getRemoteUpdates().size(); 
+        		} 
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
