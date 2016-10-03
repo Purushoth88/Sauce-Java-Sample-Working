@@ -263,8 +263,7 @@ public class JsonConfig {
 
 			}
 					
-		String branch = "refs/heads/Sauce";
-		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/";
+		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results/";
 		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(false).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
@@ -277,7 +276,29 @@ public class JsonConfig {
 		wb.write(out);
 		System.out.println("After Getting into Add file : ");
 		commit(git, "initial commit"); 
-		git.push().setPushAll().call(); 
+		out.flush();
+		System.out.println("Result File: " + file);
+		out.close();
+		CredentialsProvider credentials = null; 
+        credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
+        try {
+			PushCommand command = git.push().setRemote(gitWorkDir);
+			command.setCredentialsProvider(credentials);
+			Iterable<PushResult> results = command.call();
+			int updates = 0;
+			for (PushResult result : results) {
+				updates += result.getRemoteUpdates().size();
+			}
+			if (updates == 0) {
+				System.out.println("No updates pushed. Something maybe failed?");
+			} else if (updates == 1) {
+				System.out.println("Update pushed.");
+			} else {
+				System.out.println(updates + " updates pushed.");
+			}
+		} catch (JGitInternalException e) {
+			System.out.println("Push failed. Did you remember to commit first? " + e.getMessage());
+		} 
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -302,6 +323,8 @@ public class JsonConfig {
     	public static void commit(Git git, String message) throws UnmergedPathException, 
 	        UnmergedPathsException, GitAPIException { 
 	        CommitCommand commit = git.commit(); 
+		System.out.println(commit.getMessage());
+	        System.out.println(commit.getCommitter());
 	        commit.setMessage(message).call(); 
     	} 
 	
