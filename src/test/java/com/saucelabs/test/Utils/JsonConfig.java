@@ -284,7 +284,9 @@ public class JsonConfig {
 		CredentialsProvider credentials = null; 
         	credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
 		try {
+			System.out.println("git.push().setRemote(gitWorkDir) " + git.push().setRemote("Sauce-Java-Sample-Working"));
 			PushCommand command = git.push().setRemote(gitWorkDir);
+			System.out.println("command" + command);
 			command.setCredentialsProvider(credentials);
 			Iterable<PushResult> results = command.call();
 			int updates = 0;
