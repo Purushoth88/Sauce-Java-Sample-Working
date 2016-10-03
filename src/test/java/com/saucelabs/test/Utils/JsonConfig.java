@@ -273,10 +273,13 @@ public class JsonConfig {
 		System.out.println("Before Getting into Add file : ");
 		System.out.println("Work Tree" + git.getRepository());
         	System.out.println(" Directory" + git.getRepository().getDirectory());
-		addFile(git, file); 
+		//addFile(git, file); 
 		wb.write(out);
-		System.out.println("After Getting into Add file : ");
-		commit(git, "initial commit"); 
+		//System.out.println("After Getting into Add file : ");
+		git.add().addFilepattern(file).call();
+		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file).call());
+		git.commit().setMessage("Added Xls file").call();
+		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
