@@ -262,7 +262,7 @@ public class JsonConfig {
 			
 
 		String dirName = "OutputFolder"; 
-		String wcPath = "https://" + "Purushoth88" + "/" + "Sauce-Java-Sample-Working/tree/Sauce";
+		String wcPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working/tree/Sauce";
 		System.out.println("Git Repository wcPath: " + wcPath);
 		String repoPath = wcPath + "/.git";
 		System.out.println("Git Repository repoPath: " + repoPath);
