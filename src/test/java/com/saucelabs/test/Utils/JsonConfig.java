@@ -15,7 +15,6 @@ import java.util.concurrent.TimeUnit;
 import java.io.BufferedWriter;
 import org.eclipse.jgit.lib.Repository;
 import org.apache.commons.io.FileUtils;
-import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.RefSpec;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
@@ -283,11 +282,11 @@ public class JsonConfig {
 		out.close();
 		//CredentialsProvider credentials = null; 
         	//credentials = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"); 
-			System.out.println("git.push().setRemote(gitWorkDir) " + git.push().setRemote("Sauce-Java-Sample-Working"));
-			PushCommand command = git.push().setRemote(gitWorkDir).call();
-			System.out.println("command : " + command);
-			//command.setCredentialsProvider(credentials);
-			System.out.println("command.getRemote()" + command.getRemote());  
+		System.out.println("git.push().setRemote(gitWorkDir) " + git.push().setRemote("Sauce-Java-Sample-Working"));
+		git.push().setRemote(gitWorkDir).call();
+		//System.out.println("command : " + command);
+		//command.setCredentialsProvider(credentials);
+		//System.out.println("command.getRemote()" + command.getRemote());  
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
