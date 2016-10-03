@@ -15,6 +15,8 @@ import java.util.concurrent.TimeUnit;
 import java.io.BufferedWriter;
 import org.eclipse.jgit.lib.Repository;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.transport.PushResult;
+import org.eclipse.jgit.transport.RefSpec;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
@@ -204,7 +206,7 @@ public class JsonConfig {
 
 	public static void closeExcel() {
 		
-				try {
+		try {
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
 			String localRepo = System.getProperty("user.dir") + "/OutputFolder/Results/";
 			String file = "Result_"
@@ -257,7 +259,8 @@ public class JsonConfig {
 				}
 
 			}
-			
+					
+		String branch = "refs/heads/Sauce";
 		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/SauceGeneratedResults/Results/";
 		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(false).call(); 
 		//System.out.println("repository : " + repository);
@@ -274,7 +277,10 @@ public class JsonConfig {
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
-		git.push().getRepository().getRemoteName(gitWorkDir);
+		RefSpec spec = new RefSpec(branch + ":" + branch);
+		Iterable<PushResult> resultIterable = git.push().setRemote(gitWorkDir).setRefSpecs(spec).call();
+		PushResult result = resultIterable.iterator().next();
+		System.out.println("result" + result);
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
