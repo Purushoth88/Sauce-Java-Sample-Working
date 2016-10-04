@@ -274,7 +274,7 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(file);
+	        File dir = new File(ResultfileToImport);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
@@ -282,7 +282,7 @@ public class JsonConfigFinal {
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-	        ac.addFilepattern(ResultfileToImport);
+	        ac.addFilepattern(file);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
@@ -291,7 +291,8 @@ public class JsonConfigFinal {
 
 	        // commit
 	        CommitCommand commit = git.commit();
-	        commit.setMessage("Generated file");
+	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
+	                .setMessage("Importing the Output Result files");
 	        try {
 	            commit.call();
 		        PushCommand pc = git.push();
