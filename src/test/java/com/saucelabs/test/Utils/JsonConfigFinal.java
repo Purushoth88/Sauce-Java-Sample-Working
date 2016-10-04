@@ -275,13 +275,18 @@ public class JsonConfigFinal {
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
 	        File dir = new File(file);
+			File dir1 = new File(ResultfileToImport);
+			System.out.println("File Directory name :" + dir1);
+			System.out.println("File Directory name :" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
 	                .setURI(url);
+			System.out.println("CloneCommand Directory name :" + cc);
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
+			System.out.println("AddCommand Directory name :" + ac);
 	        ac.addFilepattern(file);
 	        try {
 	            ac.call();
@@ -291,6 +296,7 @@ public class JsonConfigFinal {
 
 	        // commit
 	        CommitCommand commit = git.commit();
+			System.out.println("CommitCommand Directory name :" + commit);
 	        commit.setMessage("Generated file");
 	        try {
 	            commit.call();
