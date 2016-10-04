@@ -224,6 +224,7 @@ public class JsonConfigFinal {
 				Integer key = e.getKey();
 				String value = e.getValue();
 				Row row1 = ws.createRow(key);
+				System.out.println("Inside of generating Xls: " + row1);
 				ws.addMergedRegion(new CellRangeAddress(key, key, 0, 4));
 				row1.createCell(0).setCellValue(value);
 				CellStyle style1 = wb.createCellStyle();
@@ -263,7 +264,7 @@ public class JsonConfigFinal {
 					row.createCell(4).setCellValue(valuesList.get(4));
 					row.getCell(4).setCellStyle(style);
 				}
-
+			System.out.println("Finall of generating Xls:");
 			}
 			
  		String name = "Purushoth88";
@@ -273,7 +274,7 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File("/OutputFolder/Results" + ResultfileToImport);
+	        File dir = new File(file);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
