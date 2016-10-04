@@ -1,0 +1,7 @@
+language: java
+env:
+  global:
+  - secure: "nDrA1a6uLr3xwKEeewaM4g0HhzY1qWmwe1el+1+Uw81VlZVajSTd3KcLAHJL\ntT2E8fnnCaaLtdV46nMibijZZ6tvUzjoBHUL6ElV2Aomm3uIH9Tm5SSrJyYC\nHKV7I0OsABEUXyio4yuPHEoscK4++zldck23xYaI2vIZw4aNwKs="
+  - secure: "ND8xdFAGAji1sTe77ycYut5KMNXwFtWkIxavxjvsW8r0z4ime3SPUqGdA4Dg\n03BdviE04jzcBhhx0HbhLqHSid+ElNR3WCZzaFpgIA+H0ym/uF/TaziTh7Wc\n64oRqgMp+jd8fPpL+88eWoO5JgaGxQAhJbMmfU7gxsyXnAj+Lsk="
+notifications:
+  email: false
