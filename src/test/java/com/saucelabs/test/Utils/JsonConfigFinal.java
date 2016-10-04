@@ -310,17 +310,11 @@ public class JsonConfigFinal {
 	        }
 	        // push
 	        PushCommand pc = git.push();
+		System.out.println("pc  --- " + pc);
 	        pc.setCredentialsProvider(cp)
 	                .setForce(true)
 	                .setPushAll();
-	        try {
-	            Iterator<PushResult> it = pc.call().iterator();
-	            if(it.hasNext()){
-	                System.out.println(it.next().toString());
-	            }
-	        } catch (InvalidRemoteException e) {
-	            e.printStackTrace();
-	        }
+	        pc.call();
 
 	        // cleanup
 	        dir.deleteOnExit();
