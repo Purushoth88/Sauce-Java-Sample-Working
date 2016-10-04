@@ -265,28 +265,22 @@ public class JsonConfigFinal {
 
 			}
 			
-		wb.write(out);
-	        String name = "Purushoth88";
+ 		String name = "Purushoth88";
 	        String password = "October@12";
-	        String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(ResultfileToImport);
-			//File dir1 = new File(ResultfileToImport);
-			//System.out.println("File Directory name :" + dir1);
-			System.out.println("File Directory name :" + dir);
+	        File dir = new File("/OutputFolder/Results" + ResultfileToImport);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
 	                .setURI(url);
-			System.out.println("CloneCommand Directory name :" + cc);
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-			System.out.println("AddCommand Directory name :" + ac);
-	        ac.addFilepattern(file);
+	        ac.addFilepattern(ResultfileToImport);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
@@ -295,10 +289,14 @@ public class JsonConfigFinal {
 
 	        // commit
 	        CommitCommand commit = git.commit();
-			System.out.println("CommitCommand Directory name :" + commit);
 	        commit.setMessage("Generated file");
 	        try {
 	            commit.call();
+		        PushCommand pc = git.push();
+		        System.out.println("pc  --- " + pc);
+		        pc.setCredentialsProvider(cp).setRemote(url)
+		                .setForce(true)
+		                .setPushAll().call();
 	        } catch (NoHeadException e) {
 	            e.printStackTrace();
 	        } catch (NoMessageException e) {
@@ -308,14 +306,6 @@ public class JsonConfigFinal {
 	        } catch (WrongRepositoryStateException e) {
 	            e.printStackTrace();
 	        }
-	        // push
-	        PushCommand pc = git.push();
-		System.out.println("pc  --- " + pc);
-	        pc.setCredentialsProvider(cp)
-	                .setForce(true)
-	                .setPushAll();
-	        pc.call();
-
 	        // cleanup
 	        dir.deleteOnExit();
 		} catch (IOException io) {
