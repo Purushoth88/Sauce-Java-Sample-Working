@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.openqa.selenium.*;
 import org.openqa.selenium.remote.RemoteWebDriver;
 
-import com.saucelabs.test.Utils.JsonConfig;
+import com.saucelabs.test.Utils.JsonConfigFinal;
 import com.saucelabs.test.Utils.SauceRunner;
 
 public class PremierQCScriptTest {
@@ -29,7 +29,7 @@ public class PremierQCScriptTest {
     
     @Test
     public void sumitascript() throws Exception {
-		JsonConfig.createExcel();
+		JsonConfigFinal.createExcel();
 		try {
     	RemoteWebDriver wd;
     	wd = (RemoteWebDriver) SauceRunner.sauceCapabilities();
@@ -39,7 +39,7 @@ public class PremierQCScriptTest {
             System.out.println("verifyTextPresent failed");
         }
         String LogOnUrl = wd.getCurrentUrl();
-        JsonConfig.readAndCompareJson(jsonFilePath, wd);
+        JsonConfigFinal.readAndCompareJson(jsonFilePath, wd);
         wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_userId")).click();
         wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_userId")).clear();
         wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_userId")).sendKeys("000HEW00044020");
@@ -58,7 +58,7 @@ public class PremierQCScriptTest {
         wd.findElement(By.id("_ParticipantLogon20_WAR_ahcommonauthportlet_logOn")).click();
         try { Thread.sleep(4000l); } catch (Exception e) { throw new RuntimeException(e); }
         String HomeUrl = wd.getCurrentUrl();
-        JsonConfig.readAndCompareJson(jsonFilePath, wd);
+        JsonConfigFinal.readAndCompareJson(jsonFilePath, wd);
         wd.findElement(By.id("ahDialogCloseBtn")).click();
         if (!wd.findElement(By.tagName("html")).getText().contains("Highlights for You")) {
             System.out.println("verifyTextPresent failed");
@@ -69,7 +69,7 @@ public class PremierQCScriptTest {
         wd.findElement(By.linkText("Health & Insurance")).click();
         try { Thread.sleep(4000l); } catch (Exception e) { throw new RuntimeException(e); }
         String HealthlangingUrl = wd.getCurrentUrl();
-        JsonConfig.readAndCompareJson(jsonFilePath, wd);
+        JsonConfigFinal.readAndCompareJson(jsonFilePath, wd);
         if (!wd.findElement(By.tagName("html")).getText().contains("Benefits Coverage")) {
             System.out.println("verifyTextPresent failed");
         }
@@ -85,7 +85,7 @@ public class PremierQCScriptTest {
 			e.printStackTrace();
 		} finally{
 			System.out.println("finally before Quit---------");
-			JsonConfig.closeExcel();
+			JsonConfigFinal.closeExcel();
 			System.out.println("finally After Quit---------");
 		}
 	}
