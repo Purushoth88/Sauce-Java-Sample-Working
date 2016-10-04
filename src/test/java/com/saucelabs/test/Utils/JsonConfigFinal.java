@@ -265,7 +265,8 @@ public class JsonConfigFinal {
 
 			}
 			
-
+			wb.write(out);
+			out.flush();
 	        String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -273,7 +274,7 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(ResultfileToImport);
+	        File dir = new File(file);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
@@ -281,7 +282,7 @@ public class JsonConfigFinal {
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-	        ac.addFilepattern(ResultfileToImport);
+	        ac.addFilepattern(file);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
@@ -290,8 +291,7 @@ public class JsonConfigFinal {
 
 	        // commit
 	        CommitCommand commit = git.commit();
-	        commit.setCommitter("TMall", "open@tmall.com")
-	                .setMessage("push war");
+	        commit.setMessage("Generated file");
 	        try {
 	            commit.call();
 	        } catch (NoHeadException e) {
