@@ -28,7 +28,7 @@ public class PremierQCScriptTest {
     }*/
     
     @Test
-    public void sumitascript() throws Exception {
+    public void script() throws Exception {
 		JsonConfigFinal.createExcel();
 		try {
     	RemoteWebDriver wd;
