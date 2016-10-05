@@ -267,6 +267,7 @@ public class JsonConfigFinal {
 			System.out.println("Finall of generating Xls:");
 			}
 			
+		wb.write(out);
  		String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -318,7 +319,7 @@ public class JsonConfigFinal {
 		}
 	}
 	
-    	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
+    /*	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
         	System.out.println("Inside Addd file" + git);
 		System.out.println("Inside filename file" + filename);
 		System.out.println("Work Tree" + git.getRepository().getWorkTree());
@@ -337,7 +338,7 @@ public class JsonConfigFinal {
 	        CommitCommand commit = git.commit(); 
 	        commit.setMessage(message).call(); 
 		git.push();
-    	} 
+    	} */
 	
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
