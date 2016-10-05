@@ -286,7 +286,7 @@ public class JsonConfigFinal {
 		System.out.println("url dir  -- :" + url);
 		System.out.println("cc dir  -- :" + cc);
 		System.out.println("cc dir  -- :" + cc.getClass());
-	        System.out.println("cc cc.call()  -- :" + cc.call());
+	        //System.out.println("cc cc.call()  -- :" + cc.call());
 	        Git git = cc.call();
 		System.out.println("git dir  -- :" + git);
 	        // add
