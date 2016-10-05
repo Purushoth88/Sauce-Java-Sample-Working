@@ -269,7 +269,6 @@ public class JsonConfigFinal {
 			
 		System.out.println("Write into Xls" + wb);
 		wb.write(out);
-		out.flush();
  		String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -285,7 +284,7 @@ public class JsonConfigFinal {
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-	       	ac.addFilepattern(System.getProperty("user.home") + "/OutputFolder/Results" + ResultfileToImport);
+	       	ac.addFilepattern(file);
 
 	        try {
 	            ac.call();
@@ -296,7 +295,7 @@ public class JsonConfigFinal {
 	        // commit
 	        CommitCommand commit = git.commit();
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files" + ResultfileToImport);
+	                .setMessage("Importing the Output Result files" + file);
 	        try {
 	            commit.call();
 		        PushCommand pc = git.push();
@@ -315,6 +314,8 @@ public class JsonConfigFinal {
 	        }
 	        // cleanup
 	        dir.deleteOnExit();
+		out.flush();
+		out.close();
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
