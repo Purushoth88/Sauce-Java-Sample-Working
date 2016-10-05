@@ -277,7 +277,7 @@ public class JsonConfigFinal {
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
 		System.out.println("CredentialsProvider  -- :" + cp);
-	        File dir = new File(file);
+	        File dir = new File(ResultfileToImport);
 		System.out.println("File dir  -- :" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
