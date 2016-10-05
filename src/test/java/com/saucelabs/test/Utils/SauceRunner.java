@@ -38,7 +38,7 @@ public class SauceRunner implements SauceOnDemandSessionIdProvider {
 		wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		sessionId = wd.getSessionId().toString();
 
-		System.out.println("Appium SetUp for Android is successful and Appium Driver is launched successfully");
+		System.out.println("Sauce Launcher is launched successfully");
 		return wd;
 	}
 	
