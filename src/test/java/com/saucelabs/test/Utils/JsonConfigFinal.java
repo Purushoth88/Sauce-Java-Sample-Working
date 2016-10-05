@@ -218,7 +218,7 @@ public class JsonConfigFinal {
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(file, true);
+			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
