@@ -212,7 +212,7 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			String file = System.getProperty("user.home") + "//Result_"
+			String file = System.getProperty("user.home") + "/OutputFolder/Results/Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
@@ -276,15 +276,25 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
+		System.out.println("CredentialsProvider  -- :" + cp);
 	        File dir = new File(ResultfileToImport);
+		System.out.println("File dir  -- :" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
 	                .setURI(url);
+		System.out.println("url dir  -- :" + url);
+		System.out.println("cc dir  -- :" + cc);
+		System.out.println("cc dir  -- :" + cc.getClass());
+	        System.out.println("cc dir  -- :" + cc.getRepository());
 	        Git git = cc.call();
+		System.out.println("git dir  -- :" + git);
 	        // add
 	        AddCommand ac = git.add();
-	       	ac.addFilepattern(ResultfileToImport);
+		System.out.println("ac dir  -- :" + ac);
+		System.out.println("ac dir  -- :" + ac.getRepository());
+	       	ac.addFilepattern(file);
+		System.out.println("ac dir  -- :" + ac);
 
 	        try {
 	            ac.call();
@@ -294,8 +304,13 @@ public class JsonConfigFinal {
 
 	        // commit
 	        CommitCommand commit = git.commit();
+		System.out.println("ac dir  -- :" + commit);
+
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
 	                .setMessage("Importing the Output Result files" + file);
+		System.out.println("commit dir  -- :" + commit.getCommitter());
+	        System.out.println("commit dir  -- :" + commit.getAuthor());
+			
 	        try {
 	            commit.call();
 		        PushCommand pc = git.push();
