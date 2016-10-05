@@ -267,7 +267,9 @@ public class JsonConfigFinal {
 			System.out.println("Finall of generating Xls:");
 			}
 			
+		System.out.println(wb.write(out));
 		wb.write(out);
+		out.flush();
  		String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -283,7 +285,8 @@ public class JsonConfigFinal {
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-	        ac.addFilepattern(file);
+	       	ac.addFilepattern(System.getProperty("user.home") + "/OutputFolder/Results" + ResultfileToImport);
+
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
@@ -293,7 +296,7 @@ public class JsonConfigFinal {
 	        // commit
 	        CommitCommand commit = git.commit();
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files");
+	                .setMessage("Importing the Output Result files" + ResultfileToImport);
 	        try {
 	            commit.call();
 		        PushCommand pc = git.push();
