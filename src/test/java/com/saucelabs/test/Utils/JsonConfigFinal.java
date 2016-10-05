@@ -284,7 +284,7 @@ public class JsonConfigFinal {
 	        Git git = cc.call();
 	        // add
 	        AddCommand ac = git.add();
-	       	ac.addFilepattern(file);
+	       	ac.addFilepattern(ResultfileToImport);
 
 	        try {
 	            ac.call();
@@ -301,8 +301,7 @@ public class JsonConfigFinal {
 		        PushCommand pc = git.push();
 		        System.out.println("pc  --- " + pc);
 		        pc.setCredentialsProvider(cp).setRemote(url)
-		                .setForce(true)
-		                .setPushAll().call();
+		                .setForce(true).call();
 	        } catch (NoHeadException e) {
 	            e.printStackTrace();
 	        } catch (NoMessageException e) {
