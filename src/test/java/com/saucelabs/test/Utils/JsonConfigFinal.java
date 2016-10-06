@@ -283,8 +283,12 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(System.getProperty("user.home"));
-			System.out.println("After Write into dir" + dir);
+	        //File dir = new File(System.getProperty("user.home"));
+		
+		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+		System.out.println("After Write into directory" + directory);
+    		File dir = new File(directory, ResultfileToImport);
+		System.out.println("After Write into dir" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
