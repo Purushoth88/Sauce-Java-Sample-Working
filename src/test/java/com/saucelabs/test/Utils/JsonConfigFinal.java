@@ -212,13 +212,13 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			String ResultfileToImport = "Result_"
+//			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
+//					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			String generatedfile = "OutputFolder/Results/Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
+			System.out.println("Result File name :" + generatedfile);
+			FileOutputStream out = new FileOutputStream(generatedfile, true);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
@@ -277,7 +277,7 @@ public class JsonConfigFinal {
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
 		System.out.println("CredentialsProvider  -- :" + cp);
-	        File dir = new File(ResultfileToImport);
+	        File dir = new File(generatedfile);
 		System.out.println("File dir  -- :" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
@@ -293,7 +293,7 @@ public class JsonConfigFinal {
 	        AddCommand ac = git.add();
 		System.out.println("ac dir  -- :" + ac);
 		System.out.println("ac dir  -- :" + ac.getRepository());
-	       	ac.addFilepattern(file);
+	       	ac.addFilepattern(generatedfile);
 		System.out.println("ac dir  -- :" + ac);
 
 	        try {
@@ -307,7 +307,7 @@ public class JsonConfigFinal {
 		System.out.println("ac dir  -- :" + commit);
 
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files" + file);
+	                .setMessage("Importing the Output Result files" + generatedfile);
 		System.out.println("commit dir  -- :" + commit.getCommitter());
 	        System.out.println("commit dir  -- :" + commit.getAuthor());
 			
