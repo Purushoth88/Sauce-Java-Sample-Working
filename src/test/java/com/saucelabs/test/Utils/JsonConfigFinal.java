@@ -214,21 +214,16 @@ public class JsonConfigFinal {
 		try {
 			//String file = System.getProperty("user.home") + "\\Result_"
 			//		+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			String generatedfile = "OutputFolder/Results/Result_"
-				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			System.out.println("generatedfile File: " + generatedfile);
+			//String generatedfile = "OutputFolder/Results/Result_"
+			//	+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//System.out.println("generatedfile File: " + generatedfile);
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String file = System.getProperty("user.home") + "\\Result_"
+			String file = System.getProperty("user.home") + "\OutputFolder\Results\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
-			FileOutputStream out = new FileOutputStream(generatedResultPath + ResultfileToImport, true);
-			FileOutputStream out1 = new FileOutputStream(ResultfileToImport, true);
-			System.out.println("out File: " + out);
-			System.out.println("out1 File: " + out1);
-			System.out.println("out File: " + out.getFD());
-			System.out.println("out1 File: " + out1.getFD());
+			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -285,7 +280,7 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(generatedfile);
+	        File dir = new File(file);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
@@ -297,34 +292,13 @@ public class JsonConfigFinal {
 	        AddCommand ac = git.add();
 	        System.out.println("url dir  -- :" + url);
 	        System.out.println("ac dir  -- :" + ac.getRepository());
-	        ac.addFilepattern(generatedfile);
-	        try {
-	            ac.call();
-	        } catch (NoFilepatternException e) {
-	            e.printStackTrace();
-	        }
-	        
-	        //Org Dir
-	        File Orgdir = new File(file);	        
-	        CloneCommand orgdire = new CloneCommand()
-	                .setCredentialsProvider(cp)
-	                .setDirectory(Orgdir)
-	                .setURI(url);
-	        Git Orggit = orgdire.call();
-	        System.out.println("cc dir  -- :" + orgdire.getClass());
-	        System.out.println("cc dir  -- :" + orgdire.getRepository());
-	        
-	        // add
-	        AddCommand Orgac = git.add();
-	        System.out.println("url dir  -- :" + url);
-	        System.out.println("ac dir  -- :" + Orgac.getRepository());
 	        ac.addFilepattern(file);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
 	            e.printStackTrace();
 	        }
-
+	        
 	        // commit
 	        CommitCommand commit = git.commit();
 		System.out.println("ac dir  -- :" + commit);
