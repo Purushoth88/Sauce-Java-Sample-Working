@@ -212,14 +212,17 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-//			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
-//					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			String file = System.getProperty("user.home") + "/OutputFolder/Results/Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String generatedfile = "OutputFolder/Results/Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + generatedfile);
-			FileOutputStream out = new FileOutputStream(generatedfile, true);
+			System.out.println("Result File name :" + file);
+			//System.out.println("Result File name :" + generatedfile);
+			System.out.println("Result File name :" + file.length());
+			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
+			System.out.println("out File: " + out.getFD());
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -276,26 +279,40 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-		System.out.println("CredentialsProvider  -- :" + cp);
 	        File dir = new File(generatedfile);
-		System.out.println("File dir  -- :" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
 	                .setURI(url);
-		System.out.println("url dir  -- :" + url);
-		System.out.println("cc dir  -- :" + cc);
-		System.out.println("cc dir  -- :" + cc.getClass());
-	        //System.out.println("cc cc.call()  -- :" + cc.call());
 	        Git git = cc.call();
-		System.out.println("git dir  -- :" + git);
-	        // add
+	        System.out.println("cc dir  -- :" + cc.getClass());
+	        System.out.println("cc dir  -- :" + cc.getRepository());
+	     // add
 	        AddCommand ac = git.add();
-		System.out.println("ac dir  -- :" + ac);
-		System.out.println("ac dir  -- :" + ac.getRepository());
-	       	ac.addFilepattern(generatedfile);
-		System.out.println("ac dir  -- :" + ac);
-
+	        System.out.println("url dir  -- :" + url);
+	        System.out.println("ac dir  -- :" + ac.getRepository());
+	        ac.addFilepattern(generatedfile);
+	        try {
+	            ac.call();
+	        } catch (NoFilepatternException e) {
+	            e.printStackTrace();
+	        }
+	        
+	        //Org Dir
+	        File Orgdir = new File(file);	        
+	        CloneCommand orgdire = new CloneCommand()
+	                .setCredentialsProvider(cp)
+	                .setDirectory(Orgdir)
+	                .setURI(url);
+	        Git Orggit = orgdire.call();
+	        System.out.println("cc dir  -- :" + orgdire.getClass());
+	        System.out.println("cc dir  -- :" + orgdire.getRepository());
+	        
+	        // add
+	        AddCommand Orgac = git.add();
+	        System.out.println("url dir  -- :" + url);
+	        System.out.println("ac dir  -- :" + Orgac.getRepository());
+	        ac.addFilepattern(file);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
