@@ -212,14 +212,14 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			String file = System.getProperty("user.home") + "\\Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//String file = System.getProperty("user.home") + "\\Result_"
+			//		+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String generatedfile = "OutputFolder/Results/Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);
-			//System.out.println("Result File name :" + generatedfile);
-			System.out.println("Result File name :" + file.length());
+			System.out.println("generatedfile File: " + generatedfile);
+			String file = System.getProperty("user.home") + "\\Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			System.out.println("file File: " + file);
 			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
 			System.out.println("out File: " + out.getFD());
