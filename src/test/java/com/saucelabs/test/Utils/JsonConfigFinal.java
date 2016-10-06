@@ -73,7 +73,7 @@ public class JsonConfigFinal {
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
-
+	static String generatedResultPath = "OutputFolder/Results";
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
@@ -217,10 +217,14 @@ public class JsonConfigFinal {
 			String generatedfile = "OutputFolder/Results/Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("generatedfile File: " + generatedfile);
+			String ResultfileToImport = "//Result_"
+				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			System.out.println("ResultfileToImport File: " + ResultfileToImport);
 			String file = System.getProperty("user.home") + "\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
-			FileOutputStream out = new FileOutputStream(file, true);
+			FileOutputStream out = new FileOutputStream(generatedResultPath + ResultfileToImport, true);
+			FileOutputStream out = new FileOutputStream(System.getProperty("user.home") + "/OutputFolder/Results" + ResultfileToImport, true);
 			System.out.println("out File: " + out);
 			System.out.println("out File: " + out.getFD());
 			for (Entry<Integer, String> e : pageList.entrySet()) {
