@@ -65,7 +65,7 @@ import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
-public class JsonConfigLatest {
+public class JsonConfigFinal {
 	static String fileName = "";
 	static String fileParentPath = "";
 	static Workbook wb = new XSSFWorkbook();
