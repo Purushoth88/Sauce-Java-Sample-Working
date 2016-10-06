@@ -48,6 +48,7 @@ import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
@@ -64,7 +65,7 @@ import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
-public class JsonConfigFinal {
+public class JsonConfigLatest {
 	static String fileName = "";
 	static String fileParentPath = "";
 	static Workbook wb = new XSSFWorkbook();
@@ -74,6 +75,8 @@ public class JsonConfigFinal {
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
 	static String generatedResultPath = "OutputFolder/Results";
+	private static Git git;
+	
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
@@ -283,19 +286,32 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        //File dir = new File(System.getProperty("user.home"));
-		
-		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-		System.out.println("After Write into directory" + directory);
-    		File dir = new File(directory, "/" + ResultfileToImport);
-		System.out.println("After Write into dir" + dir);
-	        CloneCommand cc = new CloneCommand()
-	                .setCredentialsProvider(cp)
-	                .setDirectory(dir)
-	                .setURI(url);
-	        Git git = cc.call();
-	        System.out.println("cc dir  -- :" + cc.getClass());
-	        System.out.println("cc dir  -- :" + cc.getRepository());
+    		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+    		System.out.println("directory" + directory);
+    		File dirName = new File(directory, "/" + ResultfileToImport);
+    		System.out.println("DirName : " + dirName);
+    		CloneCommand command = Git.cloneRepository();
+    		System.out.println("command  ----" + command);
+    		command.setDirectory(directory);
+    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
+    		Git git2 = command.call();
+    		System.out.println("Write into Xls" + git2);
+    		
+    		// clone again
+    		command = Git.cloneRepository();
+    		System.out.println("command  ===" + command);
+    		command.setDirectory(directory);
+    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
+    		try {
+    			git2 = command.call();
+    			// we shouldn't get here
+    			//fail("destination directory already exists and is not an empty folder, cloning should fail");
+    		} catch (JGitInternalException e) {
+    			System.out.println(e);
+    			System.out.println("JsonConfigFinal.closeExcel()");
+    			//assertTrue(e.getMessage().contains("not an empty directory"));
+    			//assertTrue(e.getMessage().contains(dirName));
+    		}
 	     // add
 	        AddCommand ac = git.add();
 	        System.out.println("url dir  -- :" + url);
@@ -332,7 +348,7 @@ public class JsonConfigFinal {
 	            e.printStackTrace();
 	        }
 	        // cleanup
-	        dir.deleteOnExit();
+	        dirName.deleteOnExit();
 		out.flush();
 		out.close();
 		} catch (IOException io) {
@@ -402,6 +418,3 @@ public class JsonConfigFinal {
 	}*/
 
 }
-
-
-
