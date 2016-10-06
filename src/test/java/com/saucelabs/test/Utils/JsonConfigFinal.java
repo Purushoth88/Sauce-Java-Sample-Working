@@ -283,7 +283,7 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-	        File dir = new File(file);
+	        File dir = new File(System.getProperty("user.dir") + "/OutputFolder/Results/");
 			System.out.println("After Write into dir" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
@@ -296,7 +296,7 @@ public class JsonConfigFinal {
 	        AddCommand ac = git.add();
 	        System.out.println("url dir  -- :" + url);
 	        System.out.println("ac dir  -- :" + ac.getRepository());
-	        ac.addFilepattern(file);
+	        ac.addFilepattern(ResultfileToImport);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
