@@ -220,7 +220,7 @@ public class JsonConfigFinal {
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String file = System.getProperty("user.home") + "\OutputFolder\Results\\Result_"
+			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
 			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
