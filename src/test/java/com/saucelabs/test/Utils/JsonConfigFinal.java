@@ -223,7 +223,8 @@ public class JsonConfigFinal {
 			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
-			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
+			FileOutputStream out = new FileOutputStream(System.getProperty("user.home") + "/OutputFolder/Results" + ResultfileToImport, true);
+			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -273,6 +274,7 @@ public class JsonConfigFinal {
 			
 		System.out.println("Write into Xls" + wb);
 		wb.write(out);
+		System.out.println("After Write into wb");
  		String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -281,6 +283,7 @@ public class JsonConfigFinal {
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
 	        File dir = new File(file);
+			System.out.println("After Write into dir" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
 	                .setDirectory(dir)
