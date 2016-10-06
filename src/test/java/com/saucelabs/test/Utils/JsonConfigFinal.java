@@ -304,7 +304,7 @@ public class JsonConfigFinal {
 		System.out.println("ac dir  -- :" + commit);
 
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files" + generatedfile);
+	                .setMessage("Importing the Output Result files" + ResultfileToImport);
 		System.out.println("commit dir  -- :" + commit.getCommitter());
 	        System.out.println("commit dir  -- :" + commit.getAuthor());
 			
