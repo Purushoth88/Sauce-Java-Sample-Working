@@ -287,7 +287,7 @@ public class JsonConfigFinal {
 		
 		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
 		System.out.println("After Write into directory" + directory);
-    		File dir = new File(directory);
+    		File dir = new File(directory, "/" + ResultfileToImport);
 		System.out.println("After Write into dir" + dir);
 	        CloneCommand cc = new CloneCommand()
 	                .setCredentialsProvider(cp)
