@@ -65,7 +65,7 @@ import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
-public class JsonConfigFinal {
+public class JsonConfigLatest {
 	static String fileName = "";
 	static String fileParentPath = "";
 	static Workbook wb = new XSSFWorkbook();
@@ -215,6 +215,8 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
+			File localPath = File.createTempFile("TestGitRepository", ""); 
+	        	localPath.delete(); 
 			//String file = System.getProperty("user.home") + "\\Result_"
 			//		+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//String generatedfile = "OutputFolder/Results/Result_"
@@ -227,7 +229,8 @@ public class JsonConfigFinal {
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
 			System.out.println("User Directory" + System.getProperty("user.dir"));
-			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/OutputFolder/Results/" + ResultfileToImport, true);
+			System.out.println("localPath Directory" + localPath);
+			FileOutputStream out = new FileOutputStream(localPath + "/OutputFolder/Results/" + ResultfileToImport, true);
 			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
@@ -276,23 +279,23 @@ public class JsonConfigFinal {
 			System.out.println("Finall of generating Xls:");
 			}
 			
-		System.out.println("Write into Xls" + wb);
-		wb.write(out);
-		System.out.println("After Write into wb");
- 		String name = "Purushoth88";
+			System.out.println("Write into Xls" + wb);
+			wb.write(out);
+			System.out.println("After Write into wb");
+			String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-    		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-    		System.out.println("directory" + directory);
-    		File dirName = new File(directory, "/" + ResultfileToImport);
-    		System.out.println("DirName : " + dirName);
+    		//File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+    		//System.out.println("directory" + directory);
+    		//File dirName = new File(directory, "/" + ResultfileToImport);
+    		//System.out.println("DirName : " + dirName);
     		CloneCommand command = Git.cloneRepository();
     		System.out.println("command  ----" + command);
-    		command.setDirectory(directory);
+    		command.setDirectory(localPath);
     		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
     		Git git2 = command.call();
     		System.out.println("Write into Xls" + git2);
@@ -300,7 +303,7 @@ public class JsonConfigFinal {
     		// clone again
     		command = Git.cloneRepository();
     		System.out.println("command  ===" + command);
-    		command.setDirectory(directory);
+    		command.setDirectory(localPath);
     		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
     		try {
     			git2 = command.call();
@@ -348,7 +351,7 @@ public class JsonConfigFinal {
 	            e.printStackTrace();
 	        }
 	        // cleanup
-	        dirName.deleteOnExit();
+	        localPath.deleteOnExit();
 		out.flush();
 		out.close();
 		} catch (IOException io) {
