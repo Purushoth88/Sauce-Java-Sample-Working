@@ -307,7 +307,6 @@ public class JsonConfigFinal {
     			//assertTrue(e.getMessage().contains("not an empty directory"));
     			//assertTrue(e.getMessage().contains(dirName));
     		}
-    		System.out.println("Write into Xls" + git2);
     		
 	     // add
 	        AddCommand ac = git.add();
