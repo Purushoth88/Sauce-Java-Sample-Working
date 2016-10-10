@@ -297,8 +297,8 @@ public class JsonConfigFinal {
     		System.out.println("command  ----" + command);
     		command.setDirectory(localPath);
 		System.out.println("command localPath ----" + localPath);
-    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
-		System.out.println("File tree" + "file://" + git.getRepository().getWorkTree().getPath());
+    		command.setURI(url);
+		System.out.println("Repository Tree" + git.getRepository().getWorkTree().getPath());
     		Git git2 = command.call();
     		System.out.println("Write into Xls" + git2);
     		
@@ -307,8 +307,9 @@ public class JsonConfigFinal {
     		System.out.println("command  ===" + command);
     		command.setDirectory(localPath);
 		System.out.println("command localPath ----" + localPath);
-    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
+    		command.setURI(url);
 		System.out.println("File tree" + "file://" + git.getRepository().getWorkTree().getPath());
+		System.out.println("Url://" + url);
     		try {
     			git2 = command.call();
     			// we shouldn't get here
