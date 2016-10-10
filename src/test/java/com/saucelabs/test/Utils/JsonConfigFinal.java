@@ -298,26 +298,17 @@ public class JsonConfigFinal {
     		command.setDirectory(localPath);
 		System.out.println("command localPath ----" + localPath);
     		command.setURI(url);
-    		Git git2 = command.call();
-    		System.out.println("Write into Xls" + git2);
-    		
-    		// clone again
-    		command = Git.cloneRepository();
-    		System.out.println("command  ===" + command);
-    		command.setDirectory(localPath);
-		System.out.println("command localPath ----" + localPath);
-    		command.setURI(url);
-		System.out.println("Url://" + url);
-    		try {
-    			git2 = command.call();
-    			// we shouldn't get here
-    			//fail("destination directory already exists and is not an empty folder, cloning should fail");
-    		} catch (JGitInternalException e) {
+			
+		try {
+    			Git git2 = command.call();
+		} catch (JGitInternalException e) {
     			System.out.println(e);
     			System.out.println("JsonConfigFinal.closeExcel()");
     			//assertTrue(e.getMessage().contains("not an empty directory"));
     			//assertTrue(e.getMessage().contains(dirName));
     		}
+    		System.out.println("Write into Xls" + git2);
+    		
 	     // add
 	        AddCommand ac = git.add();
 		String LogStatus = git.log().toString();
