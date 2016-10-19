@@ -293,7 +293,8 @@ public class JsonConfigFinal {
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file exists :" + file.listFiles());
+			System.out.println("path file listFiles :" + file.listFiles());
+			System.out.println("path file getName :" + file.getName());
 			
 			try {
 				Git git = command.call();
