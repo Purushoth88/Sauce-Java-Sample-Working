@@ -7,6 +7,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -208,14 +209,17 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
+			String path = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
+			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
     		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-			String file = System.getProperty("user.dir") + "//Result_"
+    		/*String file = System.getProperty("user.dir") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/OutputFolder/Results" + ResultfileToImport, true);
+			System.out.println("Result File name :" + file);*/
+			FileOutputStream out = new FileOutputStream(file);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
@@ -268,11 +272,12 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
+	        File localPath = File.createTempFile("TestGitRepository", "");
+	        localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
-			command.setDirectory(directory);
-			System.out.println("command localPath ----" + directory);
+			command.setDirectory(localPath);
 			command.setURI(url);
 
 			try {
@@ -290,7 +295,7 @@ public class JsonConfigFinal {
 			System.out.println("GitStatus" + GitStatus);
 			System.out.println("url dir  -- :" + url);
 			System.out.println("ac dir  -- :" + ac.getRepository());
-			ac.addFilepattern(file);
+			ac.addFilepattern(file.toString());
 			try {
 				ac.call();
 			} catch (NoFilepatternException e) {
@@ -302,7 +307,7 @@ public class JsonConfigFinal {
 			System.out.println("ac dir  -- :" + commit);
 
 			commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-					.setMessage("Importing the Output Result files" + ResultfileToImport);
+					.setMessage("Importing the Output Result files" + file.toString());
 			System.out.println("commit dir  -- :" + commit.getCommitter());
 			System.out.println("commit dir  -- :" + commit.getAuthor());
 
@@ -366,32 +371,5 @@ public class JsonConfigFinal {
 		}
 
 	}
-
-	/*
-	 * public static AndroidDriver androidMobileChromeLauncher(String
-	 * deviceName, String deviceSerialNumber) throws InterruptedException,
-	 * IOException {
-	 *//**
-		 * DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		 * WebDriver wd = new ChromeDriver(capabilities);
-		 **//*
-			 * 
-			 * DesiredCapabilities caps = new DesiredCapabilities();
-			 * caps.setCapability("automationName","Appium");
-			 * caps.setCapability("platformName", "Android");
-			 * caps.setCapability("deviceName", deviceName);
-			 * caps.setCapability("newCommandTimeout", "120");
-			 * caps.setCapability("browserName", "Chrome");
-			 * caps.setCapability("udid", deviceSerialNumber); AndroidDriver wd
-			 * = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),
-			 * caps); System.out.println("session open" + wd); //
-			 * wd.get("https://l4dridap1273:8446/web/earth/login");
-			 * //wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-			 * //wd.get("https://l4dridap1273:8446/web/earth/login");
-			 * 
-			 * return wd;
-			 * 
-			 * }
-			 */
 
 }
