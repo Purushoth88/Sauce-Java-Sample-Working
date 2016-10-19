@@ -225,12 +225,13 @@ public class JsonConfigFinal {
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String file = System.getProperty("user.dir") + "\\OutputFolder\\Results\\Result_"
+			String filePath = localPath + "\\OutputFolder\\Results\\";
+			String file = localPath + "\\OutputFolder\\Results\\Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
 			System.out.println("User Directory" + System.getProperty("user.dir"));
 			System.out.println("localPath Directory" + localPath);
-			FileOutputStream out = new FileOutputStream(localPath + ResultfileToImport, true);
+			FileOutputStream out = new FileOutputStream(file, true);
 			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
@@ -316,7 +317,7 @@ public class JsonConfigFinal {
                 System.out.println("GitStatus" + GitStatus);
 	        System.out.println("url dir  -- :" + url);
 	        System.out.println("ac dir  -- :" + ac.getRepository());
-	        ac.addFilepattern(ResultfileToImport);
+	        ac.addFilepattern(filePath);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
