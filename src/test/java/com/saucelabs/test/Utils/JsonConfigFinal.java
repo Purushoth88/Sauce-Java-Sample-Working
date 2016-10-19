@@ -217,8 +217,8 @@ public class JsonConfigFinal {
 			// System.out.println("generatedfile File: " + generatedfile);
 			String ResultfileToImport = "Result_" + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String filePath = localPath + "\\OutputFolder\\Results\\";
-			String file = localPath + "\\OutputFolder\\Results\\Result_" + fileName + "_"
+			String filePath = localPath + "//OutputFolder//Results";
+			String file = localPath + "//OutputFolder//Results//Result_" + fileName + "_"
 					+ new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
 			System.out.println("User Directory" + System.getProperty("user.dir"));
