@@ -208,7 +208,7 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
-			FileRepository localPath = new FileRepository(System.getProperty("user.dir"));
+			FileRepository localPath = new FileRepository(System.getProperty("user.home"));
 
 			// String file = System.getProperty("user.home") + "\\Result_"
 			// + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
