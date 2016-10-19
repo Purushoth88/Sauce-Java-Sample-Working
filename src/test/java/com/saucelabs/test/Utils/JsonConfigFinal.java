@@ -217,6 +217,8 @@ public class JsonConfigFinal {
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.exists());
+			System.out.println("path file exists :" + file.listFiles());
+			
     			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
 			System.out.println("directory file  :" + directory);
     			/*String file = System.getProperty("user.dir") + "//Result_"
@@ -284,13 +286,14 @@ public class JsonConfigFinal {
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
 			command.setBare(false);
-			command.setDirectory(localPath);
+			command.setDirectory(file);
 			command.setURI(url);
 
 			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.exists());
+			System.out.println("path file exists :" + file.listFiles());
 			
 			try {
 				Git git = command.call();
