@@ -66,11 +66,6 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
 public class JsonConfigFinal {
-
-	private String localPath, remotePath;
-	private Repository repository;
-	private static FileRepositoryBuilder builder;
-
 	static String fileName = "";
 	static String fileParentPath = "";
 	static Workbook wb = new XSSFWorkbook();
@@ -214,18 +209,23 @@ public class JsonConfigFinal {
 
 		try {
 			File localPath = File.createTempFile("TestGitRepository", "");
-			System.out.println(localPath.isAbsolute());
-			System.out.println(localPath.getParentFile());
-			System.out.println(localPath.getPath());
-			builder = new FileRepositoryBuilder();
 			localPath.delete();
-
-			File myfile = new File(localPath + "/OutputFolder/Results/" + "Result_" + fileName + "_"
-					+ new Random().nextInt(50046846) + ".xlsx");
-			System.out.println(" myfile  " + myfile);
-
-			FileOutputStream out = new FileOutputStream(myfile, true);
-
+			// String file = System.getProperty("user.home") + "\\Result_"
+			// + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			// String generatedfile = "OutputFolder/Results/Result_"
+			// + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			// System.out.println("generatedfile File: " + generatedfile);
+			String ResultfileToImport = "Result_" + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			System.out.println("ResultfileToImport File: " + ResultfileToImport);
+			String filePath = localPath + "\\OutputFolder\\Results\\";
+			String file = localPath + "\\OutputFolder\\Results\\Result_" + fileName + "_"
+					+ new Random().nextInt(50046846) + ".xlsx";
+			System.out.println("file File: " + file);
+			System.out.println("User Directory" + System.getProperty("user.dir"));
+			System.out.println("localPath Directory" + localPath);
+			FileOutputStream out = new FileOutputStream(file, true);
+			// FileOutputStream out = new FileOutputStream(ResultfileToImport,
+			// true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -278,17 +278,14 @@ public class JsonConfigFinal {
 
 			// credentials
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			// clone
-			// File directory =
-			// File.createTempFile(System.getProperty("user.dir"),
-			// Long.toString(System.nanoTime()));
-			// System.out.println("directory" + directory);
-			// File dirName = new File(directory, "/" + ResultfileToImport);
-			// System.out.println("DirName : " + dirName);
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
 			command.setDirectory(localPath);
 			System.out.println("command localPath ----" + localPath);
+			System.out.println("command localPath getCanonicalPath----" + localPath.getCanonicalPath());
+			System.out.println("command localPath getAbsolutePath----" + localPath.getAbsolutePath());
+			System.out.println("command localPath listFiles----" + localPath.listFiles());
+			System.out.println("command localPath listRoots ----" + localPath.listRoots());
 			command.setURI(url);
 
 			try {
@@ -296,9 +293,6 @@ public class JsonConfigFinal {
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
-				// assertTrue(e.getMessage().contains("not an empty
-				// directory"));
-				// assertTrue(e.getMessage().contains(dirName));
 			}
 
 			// add
@@ -309,7 +303,7 @@ public class JsonConfigFinal {
 			System.out.println("GitStatus" + GitStatus);
 			System.out.println("url dir  -- :" + url);
 			System.out.println("ac dir  -- :" + ac.getRepository());
-			ac.addFilepattern(myfile.toString());
+			ac.addFilepattern(filePath);
 			try {
 				ac.call();
 			} catch (NoFilepatternException e) {
@@ -321,7 +315,7 @@ public class JsonConfigFinal {
 			System.out.println("ac dir  -- :" + commit);
 
 			commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-					.setMessage("Importing the Output Result files" + myfile);
+					.setMessage("Importing the Output Result files" + ResultfileToImport);
 			System.out.println("commit dir  -- :" + commit.getCommitter());
 			System.out.println("commit dir  -- :" + commit.getAuthor());
 
