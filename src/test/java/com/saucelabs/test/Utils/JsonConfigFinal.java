@@ -297,7 +297,7 @@ public class JsonConfigFinal {
 			System.out.println("path file getName :" + file.getName());
 			
 			try {
-				Git git = command.call();
+				git = command.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
