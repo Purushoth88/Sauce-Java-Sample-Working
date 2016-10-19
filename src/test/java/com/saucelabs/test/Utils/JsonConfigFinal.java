@@ -277,7 +277,8 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-	        	String localPath = System.getProperty("user.dir") + "/Test";
+		        File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+	        	//String localPath = System.getProperty("user.dir") + "/Test";
 	        	//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 			/*CloneCommand command = Git.cloneRepository();
@@ -288,13 +289,11 @@ public class JsonConfigFinal {
 			command.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"));
 			*/
 			try {
-				git = Git.cloneRepository()
-                    			.setURI(url)
-                    			.setDirectory(new File(localPath))
-                    			.setCredentialsProvider(cp)
-					.setBare(true)
-					.call();
-				System.out.println("Cloned");
+		        CloneCommand cc = new CloneCommand()
+		                .setCredentialsProvider(cp)
+		                .setDirectory(localPath)
+		                .setURI(url);
+		        Git git = cc.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
