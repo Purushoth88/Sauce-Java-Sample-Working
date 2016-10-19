@@ -396,6 +396,7 @@ public class JsonConfigFinal {
 		}
 
 	}
+	
 
 /*	public static AndroidDriver androidMobileChromeLauncher(String deviceName, String deviceSerialNumber) throws InterruptedException, IOException {
 		*//**DesiredCapabilities capabilities = DesiredCapabilities.chrome();
