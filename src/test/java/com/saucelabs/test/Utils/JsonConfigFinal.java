@@ -213,12 +213,9 @@ public class JsonConfigFinal {
 			System.out.println("path :" + path);
 			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
-			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file exists :" + file.listFiles());
-			
     			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
 			System.out.println("directory file  :" + directory);
     			/*String file = System.getProperty("user.dir") + "//Result_"
@@ -280,18 +277,33 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-	        	File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
-	       		//localPath.delete();
+	        File localPath = File.createTempFile("TestGitRepository", "");
+	        //localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			//Git command = Git.cloneRepository().setDirectory(localPath).setURI(url).setBare(true).call();
-			Git.cloneRepository().setURI(url).setDirectory(new File(localPath.toString())).call();
-			System.out.println("path file  :" + file);
+			CloneCommand command = Git.cloneRepository();
+			System.out.println("command  ----" + command);
+			command.setDirectory(file);
+			command.setURI(url);
+			command.setBare(false);
+			command.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"));
+			/*git = Git.cloneRepository()
+                    		.setURI(url)
+                    		.setDirectory(new File(localPath.toString()))
+                    		.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"))
+				.call();
+			*/
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file listFiles :" + file.listFiles());
+			System.out.println("path file exists :" + file.getName());
 			System.out.println("path file getName :" + file.getName());
 			
+			try {
+				Git git = command.call();
+			} catch (JGitInternalException e) {
+				System.out.println(e);
+				System.out.println("JsonConfigFinal.closeExcel()");
+			}
+
 			// add
 			AddCommand ac = git.add();
 			String LogStatus = git.log().toString();
