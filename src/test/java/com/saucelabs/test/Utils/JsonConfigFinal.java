@@ -278,7 +278,9 @@ public class JsonConfigFinal {
 
 			// credentials
 			//File dir = new File("text1.txt");
-		        File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+		        //File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+			String localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+			
 	        	//String localPath = System.getProperty("user.dir") + "/Test";
 	        	//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
