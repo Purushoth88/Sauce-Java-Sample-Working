@@ -287,6 +287,11 @@ public class JsonConfigFinal {
 			command.setDirectory(localPath);
 			command.setURI(url);
 
+			System.out.println("path file  :" + file);
+			System.out.println("path file Length :" + file.length());
+			System.out.println("path file lastModified :" + file.lastModified());
+			System.out.println("path file exists :" + file.exists());
+			
 			try {
 				Git git = command.call();
 			} catch (JGitInternalException e) {
