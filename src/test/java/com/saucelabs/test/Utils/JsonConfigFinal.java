@@ -283,12 +283,7 @@ public class JsonConfigFinal {
 	        	File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
 	       		//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			CloneCommand command = Git.cloneRepository();
-			System.out.println("command  ----" + command);
-			command.setBare(false);
-			command.setDirectory(localPath);
-			command.setURI(url);
-			command.call();
+			Git command = Git.cloneRepository().setDirectory(file).setURI(url).setBare(false).call();
 			
 			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
