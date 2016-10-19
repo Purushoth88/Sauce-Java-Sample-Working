@@ -208,8 +208,8 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
-			File localPath = File.createTempFile("TestGitRepository", "");
-			localPath.delete();
+			FileRepository localPath = new FileRepository(System.getProperty("user.dir") + "/.git");
+
 			// String file = System.getProperty("user.home") + "\\Result_"
 			// + fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			// String generatedfile = "OutputFolder/Results/Result_"
@@ -280,12 +280,7 @@ public class JsonConfigFinal {
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
-			command.setDirectory(localPath);
-			System.out.println("command localPath ----" + localPath);
-			System.out.println("command localPath getCanonicalPath----" + localPath.getCanonicalPath());
-			System.out.println("command localPath getAbsolutePath----" + localPath.getAbsolutePath());
-			System.out.println("command localPath listFiles----" + localPath.listFiles());
-			System.out.println("command localPath listRoots ----" + localPath.listRoots());
+			command.setDirectory(localPath.getDirectory());
 			command.setURI(url);
 
 			try {
