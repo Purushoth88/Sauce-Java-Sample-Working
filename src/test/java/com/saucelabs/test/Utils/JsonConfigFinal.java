@@ -214,6 +214,9 @@ public class JsonConfigFinal {
 			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("path file  :" + file);
+			System.out.println("path file Length :" + file.length());
+			System.out.println("path file lastModified :" + file.lastModified());
+			System.out.println("path file exists :" + file.exists());
     			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
 			System.out.println("directory file  :" + directory);
     			/*String file = System.getProperty("user.dir") + "//Result_"
