@@ -292,22 +292,22 @@ public class JsonConfigFinal {
                     			.setURI(url)
                     			.setDirectory(new File(localPath))
                     			.setCredentialsProvider(cp)
-					.setBare(false)
+					.setBare(true)
 					.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
 			}
 
+			System.out.println("path file Length :" + file.length());
+			System.out.println("path file lastModified :" + file.lastModified());
+			System.out.println("path file exists :" + file.getName());
+			System.out.println("path file getName :" + file.getName());
 			String LogStatus = git.log().toString();
 			System.out.println("LogStatus" + LogStatus);
 			String GitStatus = git.status().toString();
 			System.out.println("GitStatus" + GitStatus);
 			System.out.println("url dir  -- :" + url);
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.getName());
-			System.out.println("path file getName :" + file.getName());
 			
 			// add
 			AddCommand ac = git.add();
