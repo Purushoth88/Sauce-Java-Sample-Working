@@ -294,6 +294,7 @@ public class JsonConfigFinal {
                     			.setCredentialsProvider(cp)
 					.setBare(true)
 					.call();
+				System.out.println("Cloned");
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
