@@ -288,7 +288,8 @@ public class JsonConfigFinal {
 			command.setBare(false);
 			command.setDirectory(localPath);
 			command.setURI(url);
-
+			command.call();
+			
 			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
@@ -296,13 +297,6 @@ public class JsonConfigFinal {
 			System.out.println("path file listFiles :" + file.listFiles());
 			System.out.println("path file getName :" + file.getName());
 			
-			try {
-				git = command.call();
-			} catch (JGitInternalException e) {
-				System.out.println(e);
-				System.out.println("JsonConfigFinal.closeExcel()");
-			}
-
 			// add
 			AddCommand ac = git.add();
 			String LogStatus = git.log().toString();
