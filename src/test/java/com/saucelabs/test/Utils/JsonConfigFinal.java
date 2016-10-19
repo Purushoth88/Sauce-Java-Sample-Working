@@ -277,7 +277,8 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-		        File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+			File dir = new File("text1.txt");
+		        //File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
 	        	//String localPath = System.getProperty("user.dir") + "/Test";
 	        	//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
@@ -291,7 +292,7 @@ public class JsonConfigFinal {
 			try {
 		        CloneCommand cc = new CloneCommand()
 		                .setCredentialsProvider(cp)
-		                .setDirectory(localPath)
+		                .setDirectory(dir)
 		                .setURI(url);
 		        Git git = cc.call();
 			} catch (JGitInternalException e) {
