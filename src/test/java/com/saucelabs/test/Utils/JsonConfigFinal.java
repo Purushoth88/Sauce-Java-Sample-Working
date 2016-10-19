@@ -330,14 +330,25 @@ public class JsonConfigFinal {
 			System.out.println("url dir  -- :" + url);
 			
 			// add
-			AddCommand ac = git.add();
-			ac.addFilepattern(file.toString());
+			//AddCommand ac = git.add();
+			//ac.addFilepattern(file.toString());
+			//try {
+			//	ac.call();
+			//} catch (NoFilepatternException e) {
+			//	e.printStackTrace();
+			//}
 			try {
-				ac.call();
+			repository = builder.setGitDir(f).readEnvironment()
+					.findGitDir().build();
+			git = new Git(repository);
+			git.add().addFilepattern(localPath).call();
+			git.commit().setCommitter("Purushoth", "test").setMessage(" commit").call();
+			
 			} catch (NoFilepatternException e) {
 				e.printStackTrace();
 			}
-
+			
+			
 			// commit
 			CommitCommand commit = git.commit();
 			System.out.println("ac dir  -- :" + commit);
