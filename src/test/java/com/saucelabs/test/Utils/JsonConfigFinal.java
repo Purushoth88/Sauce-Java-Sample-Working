@@ -280,13 +280,13 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-	        	File localPath = File.createTempFile("TestGitRepository", "");
-	       		localPath.delete();
+	        	File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+	       		//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
 			command.setBare(false);
-			command.setDirectory(file);
+			command.setDirectory(localPath);
 			command.setURI(url);
 
 			System.out.println("path file  :" + file);
