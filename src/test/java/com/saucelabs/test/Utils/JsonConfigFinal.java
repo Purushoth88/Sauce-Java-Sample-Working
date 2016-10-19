@@ -298,7 +298,11 @@ public class JsonConfigFinal {
 				System.out.println("JsonConfigFinal.closeExcel()");
 			}
 
-			
+			String LogStatus = git.log().toString();
+			System.out.println("LogStatus" + LogStatus);
+			String GitStatus = git.status().toString();
+			System.out.println("GitStatus" + GitStatus);
+			System.out.println("url dir  -- :" + url);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.getName());
