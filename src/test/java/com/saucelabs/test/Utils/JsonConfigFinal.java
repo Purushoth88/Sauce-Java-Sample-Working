@@ -292,10 +292,6 @@ public class JsonConfigFinal {
                     		.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"))
 				.call();
 			*/
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.getName());
-			System.out.println("path file getName :" + file.getName());
 			
 			try {
 				Git git = command.call();
@@ -304,6 +300,12 @@ public class JsonConfigFinal {
 				System.out.println("JsonConfigFinal.closeExcel()");
 			}
 
+			
+			System.out.println("path file Length :" + file.length());
+			System.out.println("path file lastModified :" + file.lastModified());
+			System.out.println("path file exists :" + file.getName());
+			System.out.println("path file getName :" + file.getName());
+			
 			// add
 			AddCommand ac = git.add();
 			String LogStatus = git.log().toString();
