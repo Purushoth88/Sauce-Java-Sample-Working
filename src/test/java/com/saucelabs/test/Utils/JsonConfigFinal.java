@@ -340,9 +340,13 @@ public class JsonConfigFinal {
 			try {
 			repository = builder.setGitDir(f).readEnvironment()
 					.findGitDir().build();
+			System.out.println("repository  -- :" + repository);
 			git = new Git(repository);
+			System.out.println("git  -- :" + git);
 			git.add().addFilepattern(localPath).call();
+			System.out.println("sadasdsds  -- :");
 			git.commit().setCommitter("Purushoth", "test").setMessage(" commit").call();
+			System.out.println("after  -- :");
 			
 			} catch (NoFilepatternException e) {
 				e.printStackTrace();
