@@ -277,8 +277,8 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-			File dir = new File("text1.txt");
-		        //File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+			//File dir = new File("text1.txt");
+		        File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
 	        	//String localPath = System.getProperty("user.dir") + "/Test";
 	        	//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
@@ -289,6 +289,8 @@ public class JsonConfigFinal {
 			command.setBare(false);
 			command.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"));
 			*/
+			
+			/*
 			try {
 		        CloneCommand cc = new CloneCommand()
 		                .setCredentialsProvider(cp)
@@ -299,7 +301,22 @@ public class JsonConfigFinal {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
 			}
+			
+			*/
+			
+			FileRepositoryBuilder  builder= new FileRepositoryBuilder();
+			File f = new File(localPath);
+			Repository  repository = builder.setGitDir(f).readEnvironment()
+					.findGitDir().build();
+			git = new Git(repository);
+			CloneCommand clone = git.cloneRepository();
+			clone.setBare(false);
+			clone.setCloneAllBranches(true);
+			clone.setDirectory(f).setURI(url);
+			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider(name, password);
+			clone.setCredentialsProvider(user);
 
+			
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.getName());
