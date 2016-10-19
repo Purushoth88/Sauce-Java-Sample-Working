@@ -292,6 +292,7 @@ public class JsonConfigFinal {
                     			.setURI(url)
                     			.setDirectory(new File(localPath))
                     			.setCredentialsProvider(cp)
+					.setBare(false)
 					.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
@@ -310,12 +311,6 @@ public class JsonConfigFinal {
 			
 			// add
 			AddCommand ac = git.add();
-			String LogStatus = git.log().toString();
-			System.out.println("LogStatus" + LogStatus);
-			String GitStatus = git.status().toString();
-			System.out.println("GitStatus" + GitStatus);
-			System.out.println("url dir  -- :" + url);
-			System.out.println("ac dir  -- :" + ac.getRepository());
 			ac.addFilepattern(file.toString());
 			try {
 				ac.call();
