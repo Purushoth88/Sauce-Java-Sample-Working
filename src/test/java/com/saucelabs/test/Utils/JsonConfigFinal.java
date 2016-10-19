@@ -272,16 +272,17 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-	        File localPath = File.createTempFile("TestGitRepository", "");
-	        localPath.delete();
+	        	File localPath = File.createTempFile("TestGitRepository", "");
+	       		localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 			CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
+			command.setBare(false);
 			command.setDirectory(localPath);
 			command.setURI(url);
 
 			try {
-				Git git2 = command.call();
+				Git git = command.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
