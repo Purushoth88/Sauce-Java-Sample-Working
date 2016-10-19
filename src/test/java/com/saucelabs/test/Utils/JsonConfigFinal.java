@@ -329,7 +329,7 @@ public class JsonConfigFinal {
 				e.printStackTrace();
 			}
 			// cleanup
-			localPath.deleteOnExit();
+			localPath.close();
 			out.flush();
 			out.close();
 		} catch (IOException io) {
