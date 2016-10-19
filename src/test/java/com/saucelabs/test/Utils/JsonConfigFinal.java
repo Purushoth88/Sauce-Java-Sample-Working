@@ -279,7 +279,7 @@ public class JsonConfigFinal {
 			// credentials
 			//File dir = new File("text1.txt");
 		        //File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
-			String localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
+			String localPath = System.getProperty("user.dir") + "/Sauce-Java-Sample-Working";
 			
 	        	//String localPath = System.getProperty("user.dir") + "/Test";
 	        	//localPath.delete();
