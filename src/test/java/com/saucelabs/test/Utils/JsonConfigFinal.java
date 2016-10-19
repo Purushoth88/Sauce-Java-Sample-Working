@@ -210,10 +210,13 @@ public class JsonConfigFinal {
 
 		try {
 			String path = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
+			System.out.println("path :" + path);
 			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
-    		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-    		/*String file = System.getProperty("user.dir") + "//Result_"
+			System.out.println("path file  :" + file);
+    			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+			System.out.println("directory file  :" + directory);
+    			/*String file = System.getProperty("user.dir") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
