@@ -280,21 +280,19 @@ public class JsonConfigFinal {
 	        File localPath = File.createTempFile("TestGitRepository", "");
 	        //localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			CloneCommand command = Git.cloneRepository();
+			/*CloneCommand command = Git.cloneRepository();
 			System.out.println("command  ----" + command);
 			command.setDirectory(file);
 			command.setURI(url);
 			command.setBare(false);
 			command.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"));
-			/*git = Git.cloneRepository()
-                    		.setURI(url)
-                    		.setDirectory(new File(localPath.toString()))
-                    		.setCredentialsProvider(new UsernamePasswordCredentialsProvider("Purushoth88", "October@12"))
-				.call();
 			*/
-			
 			try {
-				Git git = command.call();
+				git = Git.cloneRepository()
+                    			.setURI(url)
+                    			.setDirectory(new File(localPath.toString()))
+                    			.setCredentialsProvider(cp)
+					.call();
 			} catch (JGitInternalException e) {
 				System.out.println(e);
 				System.out.println("JsonConfigFinal.closeExcel()");
