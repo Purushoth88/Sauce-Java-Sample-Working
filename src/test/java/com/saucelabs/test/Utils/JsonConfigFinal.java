@@ -48,6 +48,7 @@ import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
@@ -73,7 +74,9 @@ public class JsonConfigFinal {
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
-
+	static String generatedResultPath = "OutputFolder/Results";
+	private static Git git;
+	
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
@@ -212,14 +215,20 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			String file = System.getProperty("user.home") + "\\OutputFolder\\Results\\Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//String file = System.getProperty("user.home") + "\\Result_"
+			//		+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//String generatedfile = "OutputFolder/Results/Result_"
+			//	+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//System.out.println("generatedfile File: " + generatedfile);
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
-			System.out.println("out File: " + out);
+			System.out.println("ResultfileToImport File: " + ResultfileToImport);
+			String file = System.getProperty("user.dir") + "\\OutputFolder\\Results\\Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			System.out.println("file File: " + file);
+			System.out.println("User Directory" + System.getProperty("user.dir"));
+			FileOutputStream out = new FileOutputStream(System.getProperty("user.dir") + "/OutputFolder/Results/" + ResultfileToImport, true);
+			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -269,6 +278,7 @@ public class JsonConfigFinal {
 			
 		System.out.println("Write into Xls" + wb);
 		wb.write(out);
+		System.out.println("After Write into wb");
  		String name = "Purushoth88";
 	        String password = "October@12";
 	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -276,38 +286,49 @@ public class JsonConfigFinal {
 	        // credentials
 	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 	        // clone
-		System.out.println("CredentialsProvider  -- :" + cp);
-	        File dir = new File(ResultfileToImport);
-		System.out.println("File dir  -- :" + dir);
-	        CloneCommand cc = new CloneCommand()
-	                .setCredentialsProvider(cp)
-	                .setDirectory(dir)
-	                .setURI(url);
-		System.out.println("url dir  -- :" + url);
-		System.out.println("cc dir  -- :" + cc);
-		System.out.println("cc dir  -- :" + cc.getClass());
-	        //System.out.println("cc cc.call()  -- :" + cc.call());
-	        Git git = cc.call();
-		System.out.println("git dir  -- :" + git);
-	        // add
+    		File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+    		System.out.println("directory" + directory);
+    		File dirName = new File(directory, "/" + ResultfileToImport);
+    		System.out.println("DirName : " + dirName);
+    		CloneCommand command = Git.cloneRepository();
+    		System.out.println("command  ----" + command);
+    		command.setDirectory(directory);
+    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
+    		Git git2 = command.call();
+    		System.out.println("Write into Xls" + git2);
+    		
+    		// clone again
+    		command = Git.cloneRepository();
+    		System.out.println("command  ===" + command);
+    		command.setDirectory(directory);
+    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
+    		try {
+    			git2 = command.call();
+    			// we shouldn't get here
+    			//fail("destination directory already exists and is not an empty folder, cloning should fail");
+    		} catch (JGitInternalException e) {
+    			System.out.println(e);
+    			System.out.println("JsonConfigFinal.closeExcel()");
+    			//assertTrue(e.getMessage().contains("not an empty directory"));
+    			//assertTrue(e.getMessage().contains(dirName));
+    		}
+	     // add
 	        AddCommand ac = git.add();
-		System.out.println("ac dir  -- :" + ac);
-		System.out.println("ac dir  -- :" + ac.getRepository());
-	       	ac.addFilepattern(file);
-		System.out.println("ac dir  -- :" + ac);
-
+	        System.out.println("url dir  -- :" + url);
+	        System.out.println("ac dir  -- :" + ac.getRepository());
+	        ac.addFilepattern(ResultfileToImport);
 	        try {
 	            ac.call();
 	        } catch (NoFilepatternException e) {
 	            e.printStackTrace();
 	        }
-
+	        
 	        // commit
 	        CommitCommand commit = git.commit();
 		System.out.println("ac dir  -- :" + commit);
 
 	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files" + file);
+	                .setMessage("Importing the Output Result files" + ResultfileToImport);
 		System.out.println("commit dir  -- :" + commit.getCommitter());
 	        System.out.println("commit dir  -- :" + commit.getAuthor());
 			
@@ -327,7 +348,7 @@ public class JsonConfigFinal {
 	            e.printStackTrace();
 	        }
 	        // cleanup
-	        dir.deleteOnExit();
+	        dirName.deleteOnExit();
 		out.flush();
 		out.close();
 		} catch (IOException io) {
