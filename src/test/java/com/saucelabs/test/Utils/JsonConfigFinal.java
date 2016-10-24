@@ -278,15 +278,21 @@ public class JsonConfigFinal {
         	System.out.println(" Directory" + git.getRepository().getDirectory());
 		//addFile(git, file); 
 		wb.write(out);
+		out.flush();
+		out.close();
 		//System.out.println("After Getting into Add file : ");
 		git.add().addFilepattern(file.getPath()).call();
 		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
 		git.commit().setMessage("Added Xls file").call();
 		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
-		git.push().setPushAll().call(); 
-		out.flush();
 		System.out.println("Result File: " + file);
-		out.close();
+		//git.push().setRemote(gitWorkDir).call(); 
+		PushCommand push=git.push();
+		push.setRemote(gitWorkDir);
+		UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
+		push.setCredentialsProvider(user);
+		push.call();
+		
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
