@@ -6,6 +6,7 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -211,12 +212,22 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String localRepo = System.getProperty("user.dir") + "/OutputFolder/Results/";
-			String file = "Result_"
+			String path = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
+			System.out.println("path :" + path);
+			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
+			System.out.println("path file Length :" + file.length());
+			System.out.println("path file lastModified :" + file.lastModified());
+			System.out.println("path file exists :" + file.exists());
+    			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
+			System.out.println("directory file  :" + directory);
+    			/*String file = System.getProperty("user.dir") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(file, true);
+			String ResultfileToImport = "Result_"
+				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
+			//FileOutputStream out = new FileOutputStream(file, true);
+			System.out.println("Result File name :" + file);*/
+			FileOutputStream out = new FileOutputStream(file);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
@@ -265,7 +276,7 @@ public class JsonConfigFinal {
 			}
 					
 		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results/";
-		Git git = Git.init().setDirectory(new File(localRepo, file)).setBare(false).call(); 
+		Git git = Git.init().setDirectory(new File(file.toString())).setBare(false).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
 		//Git git = new Git(repository); 
@@ -276,8 +287,8 @@ public class JsonConfigFinal {
 		//addFile(git, file); 
 		wb.write(out);
 		//System.out.println("After Getting into Add file : ");
-		git.add().addFilepattern(file).call();
-		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file).call());
+		git.add().addFilepattern(file.toString()).call();
+		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.toString()).call());
 		git.commit().setMessage("Added Xls file").call();
 		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 		git.push().setPushAll().call(); 
