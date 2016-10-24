@@ -286,12 +286,7 @@ public class JsonConfigFinal {
 		git.commit().setMessage("Added Xls file").call();
 		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 		System.out.println("Result File: " + file);
-		//git.push().setRemote(gitWorkDir).call(); 
-		PushCommand push=git.push();
-		push.setRemote(gitWorkDir);
-		UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
-		push.setCredentialsProvider(user);
-		push.call();
+		git.push().setRemote(gitWorkDir).call(); 
 		
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
