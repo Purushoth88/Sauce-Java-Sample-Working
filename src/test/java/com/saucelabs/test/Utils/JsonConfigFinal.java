@@ -284,6 +284,11 @@ public class JsonConfigFinal {
 		out.flush();
 		System.out.println("Result File: " + file);
 		out.close();
+		} catch (IOException io) {
+			System.out.println("unable to write to excel" + io);
+		} catch (Exception e) {
+			System.out.println("unable to write to excel" + e);
+		}
 	}
 	
     	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
