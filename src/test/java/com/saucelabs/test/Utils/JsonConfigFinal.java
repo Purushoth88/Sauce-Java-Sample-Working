@@ -219,6 +219,7 @@ public class JsonConfigFinal {
 			System.out.println("Result File name :" + file);
 			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
+			System.out.println("file.toString() : " + file.length());
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -265,10 +266,15 @@ public class JsonConfigFinal {
 
 			}
 			
-			String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
-	        UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
+		wb.write(out);
+		out.flush();
+		out.close();
+		String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+	    UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
 		System.out.println("file.toString() : " + file.toString());
 		System.out.println("file.toString() : " + file.getPath());
+		System.out.println("file.length() : " + file.length());
+		System.out.println("file.exists() : " + file.exists());
 		Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call(); 
 		//System.out.println("repository : " + repository);
 		//Repository repo = (Repository) github.repos();
@@ -276,12 +282,7 @@ public class JsonConfigFinal {
 		System.out.println("Git Repository : " + git);
 		System.out.println("Before Getting into Add file : ");
 		System.out.println("Work Tree" + git.getRepository());
-        	System.out.println(" Directory" + git.getRepository().getDirectory());
-		//addFile(git, file); 
-		wb.write(out);
-		out.flush();
-		out.close();
-		//System.out.println("After Getting into Add file : ");
+        System.out.println(" Directory" + git.getRepository().getDirectory());
 		git.add().addFilepattern(file.getPath()).call();
 		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
 		git.commit().setMessage("Added Xls file").call();
