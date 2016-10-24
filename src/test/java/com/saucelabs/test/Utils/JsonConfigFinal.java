@@ -264,8 +264,9 @@ public class JsonConfigFinal {
 				}
 
 			}
-					
-		String gitWorkDir = "https://github.com/Purushoth88/Sauce-Java-Sample-Working/tree/Sauce/OutputFolder/Results/";
+			
+			String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+	        UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
 		System.out.println("file.toString() : " + file.toString());
 		System.out.println("file.toString() : " + file.getPath());
 		Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call(); 
@@ -286,8 +287,8 @@ public class JsonConfigFinal {
 		git.commit().setMessage("Added Xls file").call();
 		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 		System.out.println("Result File: " + file);
-		git.push().setRemote(gitWorkDir).call(); 
-		
+		git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -316,6 +317,13 @@ public class JsonConfigFinal {
 	        System.out.println(commit.getCommitter());
 	        commit.setMessage(message).call(); 
     	} 
+    	
+	public void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
+		String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+        UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
+		git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		System.out.println("push");
+	}
 	
 	
 	public static void createExcel() throws FileNotFoundException {
