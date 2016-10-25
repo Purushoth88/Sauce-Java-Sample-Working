@@ -66,6 +66,7 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
+
 @SuppressWarnings("unused")
 public class JsonConfigFinal {
 	static String fileName = "";
