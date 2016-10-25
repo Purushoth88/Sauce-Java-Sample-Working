@@ -66,7 +66,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
-
 @SuppressWarnings("unused")
 public class JsonConfigFinal {
 	static String fileName = "";
@@ -282,22 +281,32 @@ public class JsonConfigFinal {
 		// credentials
 		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
 		// clone
+		System.out.println("Test");
+
 		CloneCommand cc = new CloneCommand().setCredentialsProvider(cp).setDirectory(file).setURI(url);
+		System.out.println("Test1");
 		Git git = cc.call();
+		System.out.println("Test2");
 		// add
 		AddCommand ac = git.add();
+		System.out.println("Test3");
 		ac.addFilepattern(file.getPath());
+		System.out.println("Test4");
 		try {
 			ac.call();
+			System.out.println("Test5");
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		}
 
 		// commit
 		CommitCommand commit = git.commit();
+		System.out.println("Test6");
 		commit.setCommitter("TMall", "open@tmall.com").setMessage(file.getPath());
+		System.out.println("Test7" + file.getPath());
 		try {
 			commit.call();
+			System.out.println("Test8");
 		} catch (NoHeadException e) {
 			e.printStackTrace();
 		} catch (NoMessageException e) {
@@ -309,7 +318,9 @@ public class JsonConfigFinal {
 		}
 		// push
 		PushCommand pc = git.push();
+		System.out.println("Test9");
 		pc.setCredentialsProvider(cp).setForce(true).setPushAll();
+		System.out.println("Test10");
 		try {
 			Iterator<PushResult> it = pc.call().iterator();
 			if (it.hasNext()) {
