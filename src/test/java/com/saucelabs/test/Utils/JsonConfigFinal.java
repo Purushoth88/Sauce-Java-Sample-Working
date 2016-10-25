@@ -293,7 +293,7 @@ public class JsonConfigFinal {
 			config.save();
             PullCommand pull = git.pull();
             pull.setCredentialsProvider(upcp);
-            pull.setRemote("orgin");
+            //pull.setRemote("orgin");
             pull.call();
 			testPush(git);
 			System.out.println("push");
