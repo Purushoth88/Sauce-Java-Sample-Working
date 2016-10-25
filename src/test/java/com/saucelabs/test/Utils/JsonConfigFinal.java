@@ -288,7 +288,7 @@ public class JsonConfigFinal {
 			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 			System.out.println("Result File: " + file);
             PullCommand pull = git.pull();
-            pull.setRemote(remoteSeconPath);
+           // pull.setRemote(remoteSeconPath);
             pull.setCredentialsProvider(upcp);
             pull.call();
 			testPush(git);
