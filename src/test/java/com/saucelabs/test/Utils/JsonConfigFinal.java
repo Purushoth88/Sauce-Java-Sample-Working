@@ -54,6 +54,7 @@ import com.jayway.jsonpath.JsonPath;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
+import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
@@ -286,7 +287,10 @@ public class JsonConfigFinal {
 			git.commit().setMessage("Added Xls file").call();
 			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 			System.out.println("Result File: " + file);
-            git.pull().setRemoteBranchName(remoteSeconPath).setCredentialsProvider(upcp).call();
+            PullCommand pull = git.pull();
+            pull.setRemoteBranchName(remoteSeconPath);
+            pull.setCredentialsProvider(upcp);
+            pull.call();
 			testPush(git);
 			System.out.println("push");
 		} catch (IOException io) {
