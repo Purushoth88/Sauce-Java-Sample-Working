@@ -273,7 +273,7 @@ public class JsonConfigFinal {
 		wb.write(out);
 		out.flush();
 		out.close();
-		PushTestFile.main(file, localRepo);		
+		PushTestFile.pushFiles(file, localRepo);		
 		
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
