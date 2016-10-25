@@ -272,66 +272,7 @@ public class JsonConfigFinal {
 		wb.write(out);
 		out.flush();
 		out.close();
-		
-		///
-		String name = "Purushoth88";
-		String password = "October@12";
-		String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-
-		// credentials
-		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-		// clone
-		System.out.println("Test");
-
-		CloneCommand cc = new CloneCommand().setCredentialsProvider(cp).setDirectory(file).setURI(url);
-		System.out.println("Test1");
-		Git git = cc.call();
-		System.out.println("Test2");
-		// add
-		AddCommand ac = git.add();
-		System.out.println("Test3");
-		ac.addFilepattern(file.getPath());
-		System.out.println("Test4");
-		try {
-			ac.call();
-			System.out.println("Test5");
-		} catch (NoFilepatternException e) {
-			e.printStackTrace();
-		}
-
-		// commit
-		CommitCommand commit = git.commit();
-		System.out.println("Test6");
-		commit.setCommitter("TMall", "open@tmall.com").setMessage(file.getPath());
-		System.out.println("Test7" + file.getPath());
-		try {
-			commit.call();
-			System.out.println("Test8");
-		} catch (NoHeadException e) {
-			e.printStackTrace();
-		} catch (NoMessageException e) {
-			e.printStackTrace();
-		} catch (ConcurrentRefUpdateException e) {
-			e.printStackTrace();
-		} catch (WrongRepositoryStateException e) {
-			e.printStackTrace();
-		}
-		// push
-		PushCommand pc = git.push();
-		System.out.println("Test9");
-		pc.setCredentialsProvider(cp).setForce(true).setPushAll();
-		System.out.println("Test10");
-		try {
-			Iterator<PushResult> it = pc.call().iterator();
-			if (it.hasNext()) {
-				System.out.println(it.next().toString());
-			}
-		} catch (InvalidRemoteException e) {
-			e.printStackTrace();
-		}
-
-		// cleanup
-		file.deleteOnExit();
+		PushTestFile.main(file, localRepo);		
 		
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
