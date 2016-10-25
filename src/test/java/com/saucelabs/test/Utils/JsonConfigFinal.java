@@ -1,12 +1,12 @@
 package com.saucelabs.test.Utils;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -14,8 +14,16 @@ import java.util.List;
 import java.util.Random;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
-
+import java.io.BufferedWriter;
+import org.eclipse.jgit.lib.Repository;
 import org.apache.commons.io.FileUtils;
+import org.eclipse.jgit.transport.RefSpec;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
+import org.eclipse.jgit.api.PushCommand;
+import org.eclipse.jgit.api.errors.JGitInternalException;
+import org.eclipse.jgit.transport.PushResult;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.hssf.util.CellRangeAddress;
 import org.apache.poi.openxml4j.exceptions.InvalidFormatException;
@@ -27,7 +35,6 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.junit.rules.Verifier;
-
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -44,11 +51,9 @@ import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
-import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
@@ -58,9 +63,6 @@ import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
-import org.eclipse.jgit.transport.CredentialsProvider;
-import org.eclipse.jgit.transport.PushResult;
-import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.revwalk.RevCommit;
 
@@ -74,9 +76,7 @@ public class JsonConfigFinal {
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
-	static String generatedResultPath = "OutputFolder/Results";
-	private static Git git;
-	
+
 	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
@@ -215,28 +215,18 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 		
 		try {
-			File localPath = File.createTempFile("TestGitRepository", ""); 
-	        	localPath.delete(); 
-			//String file = System.getProperty("user.home") + "\\Result_"
-			//		+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//String generatedfile = "OutputFolder/Results/Result_"
-			//	+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//System.out.println("generatedfile File: " + generatedfile);
-			String ResultfileToImport = "Result_"
-				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String file = System.getProperty("user.dir") + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			System.out.println("file File: " + file);
-			System.out.println("User Directory" + System.getProperty("user.dir"));
-			System.out.println("localPath Directory" + localPath);
-			FileOutputStream out = new FileOutputStream(localPath + "//" + ResultfileToImport, true);
-			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
+			System.out.println("Close Excel" + System.getProperty("user.dir"));
+			String localRepo = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
+			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
+			System.out.println("Result File name :" + file);
+			FileOutputStream out = new FileOutputStream(file, true);
+			System.out.println("out File: " + out);
+			System.out.println("file.toString() : " + file.length());
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
 				Row row1 = ws.createRow(key);
-				System.out.println("Inside of generating Xls: " + row1);
 				ws.addMergedRegion(new CellRangeAddress(key, key, 0, 4));
 				row1.createCell(0).setCellValue(value);
 				CellStyle style1 = wb.createCellStyle();
@@ -276,84 +266,61 @@ public class JsonConfigFinal {
 					row.createCell(4).setCellValue(valuesList.get(4));
 					row.getCell(4).setCellStyle(style);
 				}
-			System.out.println("Finall of generating Xls:");
+
 			}
 			
-			System.out.println("Write into Xls" + wb);
-			wb.write(out);
-			System.out.println("After Write into wb");
-			String name = "Purushoth88";
-	        String password = "October@12";
-	        String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-
-	        // credentials
-	        CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-	        // clone
-    		//File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-    		//System.out.println("directory" + directory);
-    		//File dirName = new File(directory, "/" + ResultfileToImport);
-    		//System.out.println("DirName : " + dirName);
-    		CloneCommand command = Git.cloneRepository();
-    		System.out.println("command  ----" + command);
-    		command.setDirectory(localPath);
-    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
-    		Git git2 = command.call();
-    		System.out.println("Write into Xls" + git2);
-    		
-    		// clone again
-    		command = Git.cloneRepository();
-    		System.out.println("command  ===" + command);
-    		command.setDirectory(localPath);
-    		command.setURI("file://" + git.getRepository().getWorkTree().getPath());
-    		try {
-    			git2 = command.call();
-    			// we shouldn't get here
-    			//fail("destination directory already exists and is not an empty folder, cloning should fail");
-    		} catch (JGitInternalException e) {
-    			System.out.println(e);
-    			System.out.println("JsonConfigFinal.closeExcel()");
-    			//assertTrue(e.getMessage().contains("not an empty directory"));
-    			//assertTrue(e.getMessage().contains(dirName));
-    		}
-	     // add
-	        AddCommand ac = git.add();
-	        System.out.println("url dir  -- :" + url);
-	        System.out.println("ac dir  -- :" + ac.getRepository());
-	        ac.addFilepattern(ResultfileToImport);
-	        try {
-	            ac.call();
-	        } catch (NoFilepatternException e) {
-	            e.printStackTrace();
-	        }
-	        
-	        // commit
-	        CommitCommand commit = git.commit();
-		System.out.println("ac dir  -- :" + commit);
-
-	        commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-	                .setMessage("Importing the Output Result files" + ResultfileToImport);
-		System.out.println("commit dir  -- :" + commit.getCommitter());
-	        System.out.println("commit dir  -- :" + commit.getAuthor());
-			
-	        try {
-	            commit.call();
-		        PushCommand pc = git.push();
-		        System.out.println("pc  --- " + pc);
-		        pc.setCredentialsProvider(cp).setRemote(url)
-		                .setForce(true).call();
-	        } catch (NoHeadException e) {
-	            e.printStackTrace();
-	        } catch (NoMessageException e) {
-	            e.printStackTrace();
-	        } catch (ConcurrentRefUpdateException e) {
-	            e.printStackTrace();
-	        } catch (WrongRepositoryStateException e) {
-	            e.printStackTrace();
-	        }
-	        // cleanup
-	        localPath.deleteOnExit();
+		wb.write(out);
 		out.flush();
 		out.close();
+		
+		///
+		String name = "Purushoth88";
+		String password = "October@12";
+		String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+
+		// credentials
+		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
+		// clone
+		CloneCommand cc = new CloneCommand().setCredentialsProvider(cp).setDirectory(file).setURI(url);
+		Git git = cc.call();
+		// add
+		AddCommand ac = git.add();
+		ac.addFilepattern(file.getPath());
+		try {
+			ac.call();
+		} catch (NoFilepatternException e) {
+			e.printStackTrace();
+		}
+
+		// commit
+		CommitCommand commit = git.commit();
+		commit.setCommitter("TMall", "open@tmall.com").setMessage(file.getPath());
+		try {
+			commit.call();
+		} catch (NoHeadException e) {
+			e.printStackTrace();
+		} catch (NoMessageException e) {
+			e.printStackTrace();
+		} catch (ConcurrentRefUpdateException e) {
+			e.printStackTrace();
+		} catch (WrongRepositoryStateException e) {
+			e.printStackTrace();
+		}
+		// push
+		PushCommand pc = git.push();
+		pc.setCredentialsProvider(cp).setForce(true).setPushAll();
+		try {
+			Iterator<PushResult> it = pc.call().iterator();
+			if (it.hasNext()) {
+				System.out.println(it.next().toString());
+			}
+		} catch (InvalidRemoteException e) {
+			e.printStackTrace();
+		}
+
+		// cleanup
+		file.deleteOnExit();
+		
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -361,7 +328,7 @@ public class JsonConfigFinal {
 		}
 	}
 	
-    /*	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
+/*    	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
         	System.out.println("Inside Addd file" + git);
 		System.out.println("Inside filename file" + filename);
 		System.out.println("Work Tree" + git.getRepository().getWorkTree());
@@ -378,9 +345,18 @@ public class JsonConfigFinal {
     	public static void commit(Git git, String message) throws UnmergedPathException, 
 	        UnmergedPathsException, GitAPIException { 
 	        CommitCommand commit = git.commit(); 
+		System.out.println(commit.getMessage());
+	        System.out.println(commit.getCommitter());
 	        commit.setMessage(message).call(); 
-		git.push();
-    	} */
+    	} 
+    	
+	public void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
+		String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+        UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
+		git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		System.out.println("push");
+	}*/
+	
 	
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
