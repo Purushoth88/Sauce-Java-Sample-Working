@@ -284,6 +284,7 @@ public class JsonConfigFinal {
 			System.out.println("Work Tree" + git.getRepository());
 			System.out.println(" Directory" + git.getRepository().getDirectory());
 			git.add().addFilepattern(file.getPath()).call();
+			testPull(git, upcp);
 			System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
 			git.commit().setMessage("Added Xls file").call();
 			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
@@ -291,7 +292,6 @@ public class JsonConfigFinal {
 			StoredConfig config = git.getRepository().getConfig();
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
-            testPull(git, upcp);
 			testPush(git);
 			System.out.println("push");
 		} catch (IOException io) {
