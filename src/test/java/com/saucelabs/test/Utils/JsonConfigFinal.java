@@ -225,12 +225,12 @@ public class JsonConfigFinal {
 			String ResultfileToImport = "Result_"
 				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("ResultfileToImport File: " + ResultfileToImport);
-			String file = System.getProperty("user.dir") + "\\OutputFolder\\Results\\Result_"
+			String file = System.getProperty("user.dir") + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
 			System.out.println("file File: " + file);
 			System.out.println("User Directory" + System.getProperty("user.dir"));
 			System.out.println("localPath Directory" + localPath);
-			FileOutputStream out = new FileOutputStream(localPath + "/OutputFolder/Results/" + ResultfileToImport, true);
+			FileOutputStream out = new FileOutputStream(localPath + "//" + ResultfileToImport, true);
 			//FileOutputStream out = new FileOutputStream(ResultfileToImport, true);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
