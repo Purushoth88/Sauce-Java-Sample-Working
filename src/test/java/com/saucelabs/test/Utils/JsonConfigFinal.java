@@ -291,10 +291,7 @@ public class JsonConfigFinal {
 			StoredConfig config = git.getRepository().getConfig();
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
-            		PullCommand pull = git.pull();
-            		pull.setCredentialsProvider(upcp);
-            		pull.setRemote("Sauce-Java-Sample-Working");
-            		pull.call();
+            testPull(git, upcp);
 			testPush(git);
 			System.out.println("push");
 		} catch (IOException io) {
@@ -346,10 +343,43 @@ public class JsonConfigFinal {
 		String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 		UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
 				"October@12");
-		Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		/*Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
 		printPushResult(res);
 		//git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
-		System.out.println("push");
+		System.out.println("push");*/
+		try {
+			PushCommand command = git.push().setRemote(remoteSeconPath);
+			command.setCredentialsProvider(upcp);
+			Iterable<PushResult> results = command.call();
+			int updates = 0;
+			for (PushResult result : results) {
+				updates += result.getRemoteUpdates().size();
+			}
+			if (updates == 0) {
+				System.out.println("No updates pushed. Something maybe failed?");
+			} else if (updates == 1) {
+				System.out.println("Update pushed.");
+			} else {
+				System.out.println(updates + " updates pushed.");
+			}
+		} catch (JGitInternalException e) {
+			System.out.println("Push failed. Did you remember to commit first? " + e.getMessage());
+		} 
+		
+	}
+	
+	public static void testPull(Git git, UsernamePasswordCredentialsProvider upcp) throws IOException, GitAPIException {
+		try {
+/*            PullCommand pull = git.pull();
+            pull.setCredentialsProvider(upcp);
+            pull.setRemote("Sauce-Java-Sample-Working");
+            pull.call();*/
+			git.pull().setCredentialsProvider(upcp).call();
+			System.out.println("pull");
+		} catch (Exception e) {
+			System.out.println("Exception in pull");
+			e.printStackTrace();
+		}
 	}
 
 	public static void createExcel() throws FileNotFoundException {
