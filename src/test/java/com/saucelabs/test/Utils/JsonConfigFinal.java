@@ -291,10 +291,10 @@ public class JsonConfigFinal {
 			StoredConfig config = git.getRepository().getConfig();
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
-            PullCommand pull = git.pull();
-            pull.setCredentialsProvider(upcp);
-            //pull.setRemote("orgin");
-            pull.call();
+            		PullCommand pull = git.pull();
+            		pull.setCredentialsProvider(upcp);
+            		pull.setRemote("Sauce-Java-Sample-Working");
+            		pull.call();
 			testPush(git);
 			System.out.println("push");
 		} catch (IOException io) {
