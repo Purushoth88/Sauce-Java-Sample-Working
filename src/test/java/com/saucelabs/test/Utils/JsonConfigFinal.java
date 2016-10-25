@@ -1,5 +1,6 @@
 package com.saucelabs.test.Utils;
 
+import com.saucelabs.test.PushTestFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
