@@ -1,4 +1,4 @@
-package com.saucelabs.test;
+package com.saucelabs.test.Utils;
 
 import java.io.File;
 import java.net.URISyntaxException;
@@ -22,8 +22,9 @@ import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
-class PushTestFile {
-	public static void main(File file, String localRepo) throws GitAPIException, URISyntaxException {
+public class PushTestFile {
+	
+	public static void pushFiles(File file, String localRepo) throws GitAPIException, URISyntaxException {
 		String name = "Purushoth88";
 		String password = "October@12";
 		String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
@@ -34,7 +35,7 @@ class PushTestFile {
 		localRepo = Paths.get(PushTestFile.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
 
 		File dir = new File(localRepo + "/OutputFolder/Results/" + "//Result_"
-				+ "_" + new Random().nextInt(50046846) + ".xlsx");
+				+ file.getName() + "_" + new Random().nextInt(50046846) + ".xlsx");
 		CloneCommand cc = new CloneCommand().setCredentialsProvider(cp).setDirectory(dir).setURI(url);
 		Git git = cc.call();
 		// add
