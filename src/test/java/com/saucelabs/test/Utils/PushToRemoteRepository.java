@@ -7,7 +7,6 @@ import java.io.IOException;
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
-import org.eclipse.jgit.api.errors.AbortedByHookException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
@@ -37,7 +36,7 @@ public class PushToRemoteRepository {
 		Git git = Git.cloneRepository().setURI(REMOTE_URL).setDirectory(new File(localPath + "test123/.git"))
 				.setCredentialsProvider(user).call();
 		File gitDir = git.getRepository().getDirectory();
-		git.close();
+		//git.close();
 		// ...
 		// FileRepositoryBuilder builder = new FileRepositoryBuilder();
 
@@ -70,7 +69,7 @@ public class PushToRemoteRepository {
 	}
 
 	public static void commit(Git git, String message)
-			throws UnmergedPathException, Exception, AbortedByHookException, GitAPIException {
+			throws UnmergedPathException, Exception, GitAPIException {
 		CommitCommand commit = git.commit();
 		commit.setMessage(message).call();
 	}
