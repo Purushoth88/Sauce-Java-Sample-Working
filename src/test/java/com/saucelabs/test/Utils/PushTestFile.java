@@ -23,7 +23,6 @@ import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 public class PushTestFile {
-	
 	public static void pushFiles(File file, String localRepo) throws GitAPIException, URISyntaxException {
 		String name = "Purushoth88";
 		String password = "October@12";
@@ -35,14 +34,14 @@ public class PushTestFile {
 		localRepo = Paths.get(PushTestFile.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
 
 		File dir = new File(localRepo + "/OutputFolder/Results/" + "//Result_"
-				+ file.getName() + "_" + new Random().nextInt(50046846) + ".xlsx");
+				+ file.getName() +"_" + new Random().nextInt(50046846) + ".xlsx");
 		CloneCommand cc = new CloneCommand().setCredentialsProvider(cp).setDirectory(dir).setURI(url);
 		Git git = cc.call();
 		// add
+		try {
 		AddCommand ac = git.add();
 		ac.addFilepattern(file.getPath());
-		try {
-			ac.call();
+		ac.call();
 		} catch (NoFilepatternException e) {
 			e.printStackTrace();
 		}
