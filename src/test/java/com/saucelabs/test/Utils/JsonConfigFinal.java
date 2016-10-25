@@ -59,10 +59,10 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
-import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.errors.MissingObjectException;
+import org.eclipse.jgit.errors.TransportException;
 import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
@@ -334,19 +334,13 @@ public class JsonConfigFinal {
 	}
 
 	public static void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
-		try {
-			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
-					"October@12");
-			Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
-			printPushResult(res);
-			//git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
-			System.out.println("push");
-		} catch (TransportException e) {
-			assertTrue("should be caused by a MissingObjectException",
-					e.getCause().getCause() instanceof MissingObjectException);
-			fail("caught MissingObjectException for a change we don't have");
-		}
+		String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+		UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
+				"October@12");
+		Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		printPushResult(res);
+		//git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		System.out.println("push");
 	}
 
 	public static void createExcel() throws FileNotFoundException {
