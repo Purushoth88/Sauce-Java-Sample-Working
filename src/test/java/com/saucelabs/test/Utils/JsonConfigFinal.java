@@ -69,6 +69,7 @@ import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.lib.RepositoryBuilder;
+import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
@@ -267,7 +268,7 @@ public class JsonConfigFinal {
 			wb.write(out);
 			out.flush();
 			out.close();
-			String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
 					"October@12");
 			System.out.println("file.toString() : " + file.toString());
@@ -287,9 +288,12 @@ public class JsonConfigFinal {
 			git.commit().setMessage("Added Xls file").call();
 			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 			System.out.println("Result File: " + file);
+			StoredConfig config = git.getRepository().getConfig();
+			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
+			config.save();
             PullCommand pull = git.pull();
-           // pull.setRemote(remoteSeconPath);
             pull.setCredentialsProvider(upcp);
+            pull.setRemote(remoteSeconPath);
             pull.call();
 			testPush(git);
 			System.out.println("push");
