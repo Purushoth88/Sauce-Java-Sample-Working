@@ -1,4 +1,4 @@
-package com.saucelabs.test.Utils;
+package com.saucelabs.test;
 
 import java.io.File;
 import java.net.URISyntaxException;
