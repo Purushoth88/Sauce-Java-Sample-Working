@@ -13,10 +13,15 @@ import java.util.List;
 import java.util.Random;
 import java.util.Map.Entry;
 import java.util.concurrent.TimeUnit;
+
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
+
 import java.io.BufferedWriter;
 import org.eclipse.jgit.lib.Repository;
 import org.apache.commons.io.FileUtils;
 import org.eclipse.jgit.transport.RefSpec;
+import org.eclipse.jgit.transport.RemoteRefUpdate;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.api.PushCommand;
@@ -54,8 +59,10 @@ import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.api.errors.UnmergedPathsException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
+import org.eclipse.jgit.errors.MissingObjectException;
 import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.lib.Repository;
 import org.eclipse.jgit.storage.file.FileRepository;
@@ -72,13 +79,14 @@ public class JsonConfigFinal {
 	static int flag = 0;
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
-	//static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received Files\\recording.json";
+	// static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received
+	// Files\\recording.json";
 
-	 public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
+	public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
 		fileParentPath = jsonFile.getAbsolutePath();
-                System.out.println("Absolute Path : " + jsonFile.getAbsolutePath());
+		System.out.println("Absolute Path : " + jsonFile.getAbsolutePath());
 		String[] resultPathObjArray = null;
 
 		String[] resultXpathListArray = null;
@@ -107,14 +115,13 @@ public class JsonConfigFinal {
 				url = url.substring(0, url.indexOf("?"));
 			}
 
-			String pathResultJson = JsonPath.parse(jsonFile).read(
-					"$.inputs[0].ResultPath");
+			String pathResultJson = JsonPath.parse(jsonFile).read("$.inputs[0].ResultPath");
 
-			resultXpathList = JsonPath.parse(new File(pathResultJson)).read(
-					"$.Data[?(@.PageName==" + url + ")].locator.value");
+			resultXpathList = JsonPath.parse(new File(pathResultJson))
+					.read("$.Data[?(@.PageName==" + url + ")].locator.value");
 
-			resultConfLocList = JsonPath.parse(new File(pathResultJson)).read(
-					"$.Data[?(@.PageName==" + url + ")].ConfLoc");
+			resultConfLocList = JsonPath.parse(new File(pathResultJson))
+					.read("$.Data[?(@.PageName==" + url + ")].ConfLoc");
 			resultConfLocArray = resultConfLocList.toArray(new String[0]);
 
 			resultXpathListArray = resultXpathList.toArray(new String[0]);
@@ -122,25 +129,20 @@ public class JsonConfigFinal {
 			for (String resultXpath : resultXpathListArray) {
 
 				resultXpathObjList = JsonPath.parse(new File(pathResultJson))
-						.read(
-								"$.Data[?(@.ConfLoc==" + resultConfLocArray[j]
-										+ ")].objList.Expvalue");
+						.read("$.Data[?(@.ConfLoc==" + resultConfLocArray[j] + ")].objList.Expvalue");
 
-				resultObjList = JsonPath.parse(new File(pathResultJson)).read(
-						"$.Data[?(@.ConfLoc==" + resultConfLocArray[j]
-								+ ")].objName");
+				resultObjList = JsonPath.parse(new File(pathResultJson))
+						.read("$.Data[?(@.ConfLoc==" + resultConfLocArray[j] + ")].objName");
 
-				pageNameList = JsonPath.parse(new File(pathResultJson)).read(
-						"$.Data[?(@.ConfLoc==" + resultConfLocArray[j]
-								+ ")].PageName");
+				pageNameList = JsonPath.parse(new File(pathResultJson))
+						.read("$.Data[?(@.ConfLoc==" + resultConfLocArray[j] + ")].PageName");
 
 				resultObjectArray = resultObjList.toArray(new String[0]);
 				pageNameArray = pageNameList.toArray(new String[0]);
 
 				resultPathObjArray = resultXpathObjList.toArray(new String[0]);
 
-				List<WebElement> elements = wd.findElements(By
-						.xpath(resultXpath));
+				List<WebElement> elements = wd.findElements(By.xpath(resultXpath));
 				flag = flag + 1;
 				pageList.put(flag, "Page - " + pageNameArray[0]);
 				int i = 0;
@@ -160,13 +162,11 @@ public class JsonConfigFinal {
 					}
 					counter = false;
 
-					if (null != jsonAttribute && i < resultPathObjArray.length
-							&& null != resultPathObjArray[i]
+					if (null != jsonAttribute && i < resultPathObjArray.length && null != resultPathObjArray[i]
 							&& !resultPathObjArray[i].equals("")) {
 
 						if (!jsonAttribute.equals("")
-								&& StringUtils.containsIgnoreCase(
-										resultPathObjArray[i], jsonAttribute)) {
+								&& StringUtils.containsIgnoreCase(resultPathObjArray[i], jsonAttribute)) {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "PASS";
 						} else {
@@ -210,12 +210,13 @@ public class JsonConfigFinal {
 	// static SoftAssert softAssert= new SoftAssert();
 
 	public static void closeExcel() {
-		
+
 		try {
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String localRepo = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
-			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
+			String localRepo = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent()
+					.getParent().toString();
+			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_" + fileName + "_"
+					+ new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("Result File name :" + file);
 			FileOutputStream out = new FileOutputStream(file, true);
 			System.out.println("out File: " + out);
@@ -227,14 +228,12 @@ public class JsonConfigFinal {
 				ws.addMergedRegion(new CellRangeAddress(key, key, 0, 4));
 				row1.createCell(0).setCellValue(value);
 				CellStyle style1 = wb.createCellStyle();
-				style1.setFillForegroundColor(IndexedColors.BRIGHT_GREEN
-						.getIndex());
+				style1.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
 				style1.setAlignment(CellStyle.ALIGN_CENTER);
 				style1.setFillPattern(CellStyle.SOLID_FOREGROUND);
 				row1.getCell(0).setCellStyle(style1);
 
-				for (Entry<Integer, List<String>> entry : pageObjList
-						.entrySet()) {
+				for (Entry<Integer, List<String>> entry : pageObjList.entrySet()) {
 					Integer rowNum = entry.getKey();
 					List<String> valuesList = entry.getValue();
 
@@ -252,11 +251,9 @@ public class JsonConfigFinal {
 					row.createCell(3).setCellValue(valuesList.get(3).trim());
 					CellStyle style = wb.createCellStyle();
 					if (valuesList.get(4).contains("PASS")) {
-						style.setFillForegroundColor(IndexedColors.GREEN
-								.getIndex());
+						style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
 					} else {
-						style.setFillForegroundColor(IndexedColors.RED
-								.getIndex());
+						style.setFillForegroundColor(IndexedColors.RED.getIndex());
 					}
 
 					style.setFillPattern(CellStyle.SOLID_FOREGROUND);
@@ -265,76 +262,101 @@ public class JsonConfigFinal {
 				}
 
 			}
-			
-		wb.write(out);
-		out.flush();
-		out.close();
-		String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
-	    UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
-		System.out.println("file.toString() : " + file.toString());
-		System.out.println("file.toString() : " + file.getPath());
-		System.out.println("file.length() : " + file.length());
-		System.out.println("file.exists() : " + file.exists());
-		Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call(); 
-		//System.out.println("repository : " + repository);
-		//Repository repo = (Repository) github.repos();
-		//Git git = new Git(repository); 
-		System.out.println("Git Repository : " + git);
-		System.out.println("Before Getting into Add file : ");
-		System.out.println("Work Tree" + git.getRepository());
-        System.out.println(" Directory" + git.getRepository().getDirectory());
-		git.add().addFilepattern(file.getPath()).call();
-		System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
-		git.commit().setMessage("Added Xls file").call();
-		System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
-		System.out.println("Result File: " + file);
-		git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
-		System.out.println("push");
+
+			wb.write(out);
+			out.flush();
+			out.close();
+			String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
+			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
+					"October@12");
+			System.out.println("file.toString() : " + file.toString());
+			System.out.println("file.toString() : " + file.getPath());
+			System.out.println("file.length() : " + file.length());
+			System.out.println("file.exists() : " + file.exists());
+			Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
+			// System.out.println("repository : " + repository);
+			// Repository repo = (Repository) github.repos();
+			// Git git = new Git(repository);
+			System.out.println("Git Repository : " + git);
+			System.out.println("Before Getting into Add file : ");
+			System.out.println("Work Tree" + git.getRepository());
+			System.out.println(" Directory" + git.getRepository().getDirectory());
+			git.add().addFilepattern(file.getPath()).call();
+			System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
+			git.commit().setMessage("Added Xls file").call();
+			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
+			System.out.println("Result File: " + file);
+			testPush(git);
+			System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
 			System.out.println("unable to write to excel" + e);
 		}
 	}
-	
-    	public static void addFile(Git git, String filename) throws IOException, GitAPIException { 
-        	System.out.println("Inside Addd file" + git);
-		System.out.println("Inside filename file" + filename);
-		System.out.println("Work Tree" + git.getRepository().getWorkTree());
-        	System.out.println(" Directory" + git.getRepository().getDirectory());
-		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
-        	System.out.println(git.getRepository().getWorkTree());
-        	System.out.println(git.getRepository().getDirectory());
-        	writer.write(filename + "\n"); 
-        	writer.close(); 
-        	AddCommand add = git.add(); 
-        	add.addFilepattern(filename).call(); 
-    	} 
- 
-    	public static void commit(Git git, String message) throws UnmergedPathException, 
-	        UnmergedPathsException, GitAPIException { 
-	        CommitCommand commit = git.commit(); 
-		System.out.println(commit.getMessage());
-	        System.out.println(commit.getCommitter());
-	        commit.setMessage(message).call(); 
-    	} 
-    	
-	public void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
-		String remoteSeconPath = "https://github.com/Purushoth88/" + "Sauce-Java-Sample-Working" + ".git";
-        UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88", "October@12");
-		git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
-		System.out.println("push");
+
+	private static void printPushResult(Iterable<PushResult> pr) {
+		for (PushResult p : pr) {
+			System.out.println("Pushresult: " + p.getMessages());
+			for (RemoteRefUpdate rru : p.getRemoteUpdates()) {
+				System.out.println("  RemoteRefUpdate: ");
+				System.out.println("    srcRef: " + rru.getSrcRef());
+				System.out.println("    message: " + rru.getMessage());
+				System.out.println("    status: " + rru.getStatus());
+			}
+		}
 	}
 	
-	
+	public static void addFile(Git git, String filename) throws IOException, GitAPIException {
+		try {
+		System.out.println("Inside Addd file" + git);
+		System.out.println("Inside filename file" + filename);
+		System.out.println("Work Tree" + git.getRepository().getWorkTree());
+		System.out.println(" Directory" + git.getRepository().getDirectory());
+		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
+		System.out.println(git.getRepository().getWorkTree());
+		System.out.println(git.getRepository().getDirectory());
+		writer.write(filename + "\n");
+		writer.close();
+		AddCommand add = git.add();
+		add.addFilepattern(filename).call();
+		} catch (NoFilepatternException e) {
+			throw new IOException(e.getMessage());
+		}
+	}
+
+	public static void commit(Git git, String message)
+			throws UnmergedPathException, UnmergedPathsException, GitAPIException {
+		CommitCommand commit = git.commit();
+		System.out.println(commit.getMessage());
+		System.out.println(commit.getCommitter());
+		commit.setMessage(message).call();
+	}
+
+	public static void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
+		try {
+			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
+					"October@12");
+			Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+			printPushResult(res);
+			//git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+			System.out.println("push");
+		} catch (TransportException e) {
+			assertTrue("should be caused by a MissingObjectException",
+					e.getCause().getCause() instanceof MissingObjectException);
+			fail("caught MissingObjectException for a change we don't have");
+		}
+	}
+
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
 		CellStyle style = wb.createCellStyle();
 		style.setFillForegroundColor(IndexedColors.GREY_40_PERCENT.getIndex());
 		style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 		style.setAlignment(CellStyle.ALIGN_CENTER);
-		String[] stringArray = new String[] { "Serial Number", "Object Name",
-				"Expected result", "Actual Result", "Status" };
+		String[] stringArray = new String[] { "Serial Number", "Object Name", "Expected result", "Actual Result",
+				"Status" };
 
 		for (int j = 0; j < stringArray.length; j++) {
 			Cell cell1 = row.createCell(j);
@@ -344,25 +366,31 @@ public class JsonConfigFinal {
 
 	}
 
-/*	public static AndroidDriver androidMobileChromeLauncher(String deviceName, String deviceSerialNumber) throws InterruptedException, IOException {
-		*//**DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-		WebDriver wd = new ChromeDriver(capabilities);**//*
-		
-		DesiredCapabilities caps = new DesiredCapabilities();
-            caps.setCapability("automationName","Appium");
-            caps.setCapability("platformName", "Android");
-            caps.setCapability("deviceName", deviceName);
-            caps.setCapability("newCommandTimeout", "120");
-            caps.setCapability("browserName", "Chrome");
-            caps.setCapability("udid", deviceSerialNumber);
-       AndroidDriver wd = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"), caps);
-       System.out.println("session open" + wd);
-          //  wd.get("https://l4dridap1273:8446/web/earth/login");
-		//wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
-		//wd.get("https://l4dridap1273:8446/web/earth/login");
-		
-        return wd;
-     
-	}*/
+	/*
+	 * public static AndroidDriver androidMobileChromeLauncher(String
+	 * deviceName, String deviceSerialNumber) throws InterruptedException,
+	 * IOException {
+	 *//**
+		 * DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		 * WebDriver wd = new ChromeDriver(capabilities);
+		 **//*
+			 * 
+			 * DesiredCapabilities caps = new DesiredCapabilities();
+			 * caps.setCapability("automationName","Appium");
+			 * caps.setCapability("platformName", "Android");
+			 * caps.setCapability("deviceName", deviceName);
+			 * caps.setCapability("newCommandTimeout", "120");
+			 * caps.setCapability("browserName", "Chrome");
+			 * caps.setCapability("udid", deviceSerialNumber); AndroidDriver wd
+			 * = new AndroidDriver(new URL("http://127.0.0.1:4723/wd/hub"),
+			 * caps); System.out.println("session open" + wd); //
+			 * wd.get("https://l4dridap1273:8446/web/earth/login");
+			 * //wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
+			 * //wd.get("https://l4dridap1273:8446/web/earth/login");
+			 * 
+			 * return wd;
+			 * 
+			 * }
+			 */
 
 }
