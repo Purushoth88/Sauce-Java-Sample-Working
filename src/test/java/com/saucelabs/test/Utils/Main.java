@@ -14,13 +14,14 @@ import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
+import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 class Main {
-	public static void main(String args[]) throws GitAPIException {
+	public static void main(String args[]) throws TransportException, GitAPIException {
 		String name = "Purushoth88";
 		String password = "October@12";
 		String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
