@@ -224,8 +224,7 @@ public class JsonConfigFinal {
 	public static void closeExcel() throws URISyntaxException, IOException {
 
 		System.out.println("Close Excel" + System.getProperty("user.dir"));
-		String localRepo = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent()
-				.getParent().toString();
+		String localRepo = "OutputFolder/Results";
 		File file = new File(localRepo + "//Result_" + fileName + "_"
 				+ new Random().nextInt(50046846) + ".xlsx");
 		System.out.println("Result File name :" + file);
