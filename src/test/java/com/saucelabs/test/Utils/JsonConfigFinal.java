@@ -231,7 +231,8 @@ public class JsonConfigFinal {
 			System.out.println("file.exists() : " + file.exists());
 			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
 			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
-			Git git = cc.call();
+			cc.call();
+			Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
 			// System.out.println("repository : " + repository);
 			// Repository repo = (Repository) github.repos();
 			// Git git = new Git(repository);
@@ -246,7 +247,7 @@ public class JsonConfigFinal {
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
 			testPush(git);
-			testPull(git, upcp);
+			//testPull(git, upcp);
 			System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
