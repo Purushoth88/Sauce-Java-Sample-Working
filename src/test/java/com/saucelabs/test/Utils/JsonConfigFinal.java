@@ -231,8 +231,7 @@ public class JsonConfigFinal {
 			System.out.println("file.exists() : " + file.exists());
 			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
 			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
-			cc.call();
-			Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
+			Git git = cc.call();
 			// System.out.println("repository : " + repository);
 			// Repository repo = (Repository) github.repos();
 			// Git git = new Git(repository);
