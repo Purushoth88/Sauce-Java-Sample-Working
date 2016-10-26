@@ -52,6 +52,7 @@ import org.testng.asserts.SoftAssert;
 import com.google.common.base.Verify;
 import com.jayway.jsonpath.JsonPath;
 import org.eclipse.jgit.api.AddCommand;
+import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.CommitCommand;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullCommand;
@@ -228,7 +229,9 @@ public class JsonConfigFinal {
 			System.out.println("file.toString() : " + file.getPath());
 			System.out.println("file.length() : " + file.length());
 			System.out.println("file.exists() : " + file.exists());
-			Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
+			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
+			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
+			Git git = cc.call();
 			// System.out.println("repository : " + repository);
 			// Repository repo = (Repository) github.repos();
 			// Git git = new Git(repository);
@@ -237,9 +240,7 @@ public class JsonConfigFinal {
 			System.out.println("Work Tree" + git.getRepository());
 			System.out.println(" Directory" + git.getRepository().getDirectory());
 			addFile(git, file);
-			System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
 			commit(git);
-			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 			System.out.println("Result File: " + file);
 			StoredConfig config = git.getRepository().getConfig();
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
