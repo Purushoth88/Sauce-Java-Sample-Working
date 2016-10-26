@@ -1,6 +1,5 @@
 package com.saucelabs.test.Utils;
 
-import com.saucelabs.test.PushTestFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -48,6 +47,8 @@ import org.testng.asserts.SoftAssert;
 
 import com.google.common.base.Verify;
 import com.jayway.jsonpath.JsonPath;
+import com.saucelabs.test.Utils.PushTestFile;
+
 import org.eclipse.jgit.api.AddCommand;
 import org.eclipse.jgit.api.CloneCommand;
 import org.eclipse.jgit.api.CommitCommand;
