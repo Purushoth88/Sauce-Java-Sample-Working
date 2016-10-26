@@ -42,6 +42,12 @@ public class PushTestFile {
 		// add
 		try {
 		AddCommand ac = git.add();
+		System.out.println("verifyTextPresent 1" + file.getPath());
+		System.out.println("verifyTextPresent 11" + file.getAbsolutePath());
+			System.out.println("verifyTextPresent 111" + file.getCanonicalPath());
+			System.out.println("verifyTextPresent 1111" + file.file.getCanonicalFile());
+			System.out.println("verifyTextPresent 11111" + file.file.getCanonicalFile());
+			System.out.println("verifyTextPresent 111111" + file.getParentFile().toString());
 		ac.addFilepattern(file.getPath());
 		ac.call();
 		} catch (NoFilepatternException e) {
@@ -50,7 +56,8 @@ public class PushTestFile {
 
 		// commit
 		CommitCommand commit = git.commit();
-		commit.setCommitter("TMall", "open@tmall.com").setMessage("TrestPAth");
+		commit.getRepository();
+		commit.setMessage(file.getName());
 		try {
 			commit.call();
 		} catch (NoHeadException e) {
@@ -62,18 +69,17 @@ public class PushTestFile {
 		} catch (WrongRepositoryStateException e) {
 			e.printStackTrace();
 		}
+		
+		//pull
+		
+		PullCommand pu = git.pull();
+		pu.setCredentialsProvider(cp);
+		pu.call();
+		
 		// push
 		PushCommand pc = git.push();
 		pc.setCredentialsProvider(cp).setForce(true).setPushAll();
-		try {
-			Iterator<PushResult> it = pc.call().iterator();
-			if (it.hasNext()) {
-				System.out.println(it.next().toString());
-			}
-		} catch (InvalidRemoteException e) {
-			e.printStackTrace();
-		}
-
+		pc.call();
 		// cleanup
 		dir.deleteOnExit();
 	}
