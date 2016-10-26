@@ -247,8 +247,8 @@ public class JsonConfigFinal {
 			Git git = cc.call();*/
 			
 			CloneCommand clone = git.cloneRepository();
-			clone.setBare(false);
-			clone.setCloneAllBranches(true);
+			//clone.setBare(false);
+			//clone.setCloneAllBranches(true);
 			clone.setDirectory(file).setURI(remoteSeconPath);
 			clone.call();
 			// System.out.println("repository : " + repository);
