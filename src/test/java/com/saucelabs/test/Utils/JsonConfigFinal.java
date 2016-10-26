@@ -84,7 +84,12 @@ public class JsonConfigFinal {
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	// static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received
 	// Files\\recording.json";
-
+	private static String localPath;
+	private String remotePath;
+	private static Repository repository;
+	private static Git git;
+	private static FileRepositoryBuilder builder;
+	
 	public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
 		fileName = jsonFile.getName().replaceAll(".json", "");
@@ -225,13 +230,27 @@ public class JsonConfigFinal {
 			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
 					"October@12");
+			
+			builder= new FileRepositoryBuilder();
+/*			File f = new File(localRepo + "/OutputFolder/Results/" + "//Result_"
+					+ "_" + new Random().nextInt(50046846) + ".xlsx");*/
+			 repository = builder.setGitDir(file).readEnvironment()
+					.findGitDir().build();
+			 git = new Git(repository);
+			
 			System.out.println("file.toString() : " + file.toString());
 			System.out.println("file.toString() : " + file.getPath());
 			System.out.println("file.length() : " + file.length());
 			System.out.println("file.exists() : " + file.exists());
 			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
-			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
-			Git git = cc.call();
+/*			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
+			Git git = cc.call();*/
+			
+			CloneCommand clone = git.cloneRepository();
+			clone.setBare(false);
+			clone.setCloneAllBranches(true);
+			clone.setDirectory(file).setURI(remoteSeconPath);
+			clone.call();
 			// System.out.println("repository : " + repository);
 			// Repository repo = (Repository) github.repos();
 			// Git git = new Git(repository);
@@ -246,7 +265,7 @@ public class JsonConfigFinal {
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
 			testPush(git);
-			//testPull(git, upcp);
+			testPull(git, upcp);
 			System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
