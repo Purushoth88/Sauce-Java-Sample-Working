@@ -220,54 +220,7 @@ public class JsonConfigFinal {
 			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_" + fileName + "_"
 					+ new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("Result File name :" + file);
-			FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("out File: " + out);
-			System.out.println("file.toString() : " + file.length());
-			for (Entry<Integer, String> e : pageList.entrySet()) {
-				Integer key = e.getKey();
-				String value = e.getValue();
-				Row row1 = ws.createRow(key);
-				ws.addMergedRegion(new CellRangeAddress(key, key, 0, 4));
-				row1.createCell(0).setCellValue(value);
-				CellStyle style1 = wb.createCellStyle();
-				style1.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
-				style1.setAlignment(CellStyle.ALIGN_CENTER);
-				style1.setFillPattern(CellStyle.SOLID_FOREGROUND);
-				row1.getCell(0).setCellStyle(style1);
-
-				for (Entry<Integer, List<String>> entry : pageObjList.entrySet()) {
-					Integer rowNum = entry.getKey();
-					List<String> valuesList = entry.getValue();
-
-					Row row = ws.createRow(rowNum);
-					row.createCell(0).setCellValue(valuesList.get(0));
-					row.createCell(1).setCellValue(valuesList.get(1));
-					String jsonResult = valuesList.get(2);
-					try {
-						jsonResult = jsonResult.split("\\|\\|")[0].trim();
-					} catch (Exception ex) {
-						jsonResult = jsonResult.trim();
-						// TODO: handle exception
-					}
-					row.createCell(2).setCellValue(jsonResult);
-					row.createCell(3).setCellValue(valuesList.get(3).trim());
-					CellStyle style = wb.createCellStyle();
-					if (valuesList.get(4).contains("PASS")) {
-						style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
-					} else {
-						style.setFillForegroundColor(IndexedColors.RED.getIndex());
-					}
-
-					style.setFillPattern(CellStyle.SOLID_FOREGROUND);
-					row.createCell(4).setCellValue(valuesList.get(4));
-					row.getCell(4).setCellStyle(style);
-				}
-
-			}
-
-			wb.write(out);
-			out.flush();
-			out.close();
+			
 			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
 					"October@12");
@@ -283,16 +236,16 @@ public class JsonConfigFinal {
 			System.out.println("Before Getting into Add file : ");
 			System.out.println("Work Tree" + git.getRepository());
 			System.out.println(" Directory" + git.getRepository().getDirectory());
-			git.add().addFilepattern(file.getPath()).call();
-			testPull(git, upcp);
+			addFile(git, file);
 			System.out.println(" Adding File into Local Repo " + git.add().addFilepattern(file.getPath()).call());
-			git.commit().setMessage("Added Xls file").call();
+			commit(git);
 			System.out.println(" Committing File into Local Repo " + git.commit().setMessage("Added Xls file").call());
 			System.out.println("Result File: " + file);
 			StoredConfig config = git.getRepository().getConfig();
 			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
 			config.save();
 			testPush(git);
+			testPull(git, upcp);
 			System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
@@ -313,30 +266,81 @@ public class JsonConfigFinal {
 		}
 	}
 	
-	public static void addFile(Git git, String filename) throws IOException, GitAPIException {
+	public static void addFile(Git git, File file) throws IOException, GitAPIException {
 		try {
 		System.out.println("Inside Addd file" + git);
-		System.out.println("Inside filename file" + filename);
+		System.out.println("Inside filename file" + file);
 		System.out.println("Work Tree" + git.getRepository().getWorkTree());
 		System.out.println(" Directory" + git.getRepository().getDirectory());
-		FileWriter writer = new FileWriter(new File(git.getRepository().getWorkTree(), filename));
+		
+		FileOutputStream out = new FileOutputStream(file, true);
+		System.out.println("out File: " + out);
+		System.out.println("file.toString() : " + file.length());
+		for (Entry<Integer, String> e : pageList.entrySet()) {
+			Integer key = e.getKey();
+			String value = e.getValue();
+			Row row1 = ws.createRow(key);
+			ws.addMergedRegion(new CellRangeAddress(key, key, 0, 4));
+			row1.createCell(0).setCellValue(value);
+			CellStyle style1 = wb.createCellStyle();
+			style1.setFillForegroundColor(IndexedColors.BRIGHT_GREEN.getIndex());
+			style1.setAlignment(CellStyle.ALIGN_CENTER);
+			style1.setFillPattern(CellStyle.SOLID_FOREGROUND);
+			row1.getCell(0).setCellStyle(style1);
+
+			for (Entry<Integer, List<String>> entry : pageObjList.entrySet()) {
+				Integer rowNum = entry.getKey();
+				List<String> valuesList = entry.getValue();
+
+				Row row = ws.createRow(rowNum);
+				row.createCell(0).setCellValue(valuesList.get(0));
+				row.createCell(1).setCellValue(valuesList.get(1));
+				String jsonResult = valuesList.get(2);
+				System.out.println("Inside writing xls file");
+
+				try {
+					jsonResult = jsonResult.split("\\|\\|")[0].trim();
+				} catch (Exception ex) {
+					jsonResult = jsonResult.trim();
+					// TODO: handle exception
+				}
+				row.createCell(2).setCellValue(jsonResult);
+				row.createCell(3).setCellValue(valuesList.get(3).trim());
+				CellStyle style = wb.createCellStyle();
+				if (valuesList.get(4).contains("PASS")) {
+					style.setFillForegroundColor(IndexedColors.GREEN.getIndex());
+				} else {
+					style.setFillForegroundColor(IndexedColors.RED.getIndex());
+				}
+				System.out.println("Inside writing xls file1-------");
+				style.setFillPattern(CellStyle.SOLID_FOREGROUND);
+				row.createCell(4).setCellValue(valuesList.get(4));
+				row.getCell(4).setCellStyle(style);
+			}
+
+		}
+		System.out.println("file.toString() : " + file.toString());
+		System.out.println("file.toString() : " + file.getPath());
+		System.out.println("file.length() : " + file.length());
+		System.out.println("file.exists() : " + file.exists());
 		System.out.println(git.getRepository().getWorkTree());
 		System.out.println(git.getRepository().getDirectory());
-		writer.write(filename + "\n");
-		writer.close();
 		AddCommand add = git.add();
-		add.addFilepattern(filename).call();
+		wb.write(out);
+		out.flush();
+		out.close();
+		add.addFilepattern(file.getPath()).call();
 		} catch (NoFilepatternException e) {
 			throw new IOException(e.getMessage());
 		}
 	}
 
-	public static void commit(Git git, String message)
+	public static void commit(Git git)
 			throws UnmergedPathException, UnmergedPathsException, GitAPIException {
 		CommitCommand commit = git.commit();
 		System.out.println(commit.getMessage());
 		System.out.println(commit.getCommitter());
-		commit.setMessage(message).call();
+		commit.setMessage("Purushoth88").call();
 	}
 
 	public static void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
