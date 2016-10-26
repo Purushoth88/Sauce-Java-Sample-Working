@@ -45,8 +45,7 @@ public class PushTestFile {
 		System.out.println("verifyTextPresent 1" + file.getPath());
 		System.out.println("verifyTextPresent 11" + file.getAbsolutePath());
 			System.out.println("verifyTextPresent 111" + file.getCanonicalPath());
-			System.out.println("verifyTextPresent 1111" + file.file.getCanonicalFile());
-			System.out.println("verifyTextPresent 11111" + file.file.getCanonicalFile());
+			System.out.println("verifyTextPresent 1111" + file.getCanonicalFile());
 			System.out.println("verifyTextPresent 111111" + file.getParentFile().toString());
 		ac.addFilepattern(file.getPath());
 		ac.call();
