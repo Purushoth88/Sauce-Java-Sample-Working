@@ -236,7 +236,7 @@ public class JsonConfigFinal {
 		repository = builder.setGitDir(file).readEnvironment().findGitDir().build();
 		git = new Git(repository);
 		CloneCommand clone = git.cloneRepository();
-		clone.setBare(false);
+		clone.setBare(true);
 		clone.setCloneAllBranches(true);
 		clone.setDirectory(file).setURI(remoteSeconPath);
 		clone.setCredentialsProvider(upcp);
