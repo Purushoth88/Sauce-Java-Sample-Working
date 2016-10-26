@@ -14,16 +14,18 @@ import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.InvalidRemoteException;
+import org.eclipse.jgit.api.errors.JGitInternalException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
 import org.eclipse.jgit.api.errors.WrongRepositoryStateException;
+import org.eclipse.jgit.errors.UnmergedPathException;
 import org.eclipse.jgit.transport.CredentialsProvider;
 import org.eclipse.jgit.transport.PushResult;
 import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 
 public class PushTestFile {
-	public static void pushFiles(File file, String localRepo) throws GitAPIException, URISyntaxException {
+	public static void pushFiles(File file, String localRepo) throws GitAPIException, URISyntaxException, UnmergedPathException, JGitInternalException {
 		String name = "Purushoth88";
 		String password = "October@12";
 		String url = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
