@@ -223,8 +223,9 @@ public class JsonConfigFinal {
 
 	public static void closeExcel() throws URISyntaxException, IOException {
 
+
 		System.out.println("Close Excel" + System.getProperty("user.dir"));
-		String localRepo = "OutputFolder/Results";
+		String localRepo = "CloneRepo/TempLocation/";
 		File file = new File(localRepo + "//Result_" + fileName + "_"
 				+ new Random().nextInt(50046846) + ".xlsx");
 		System.out.println("Result File name :" + file);
@@ -236,7 +237,7 @@ public class JsonConfigFinal {
 		repository = builder.setGitDir(file).readEnvironment().findGitDir().build();
 		git = new Git(repository);
 		CloneCommand clone = git.cloneRepository();
-		clone.setBare(true);
+		clone.setBare(false);
 		clone.setCloneAllBranches(true);
 		clone.setDirectory(file).setURI(remoteSeconPath);
 		clone.setCredentialsProvider(upcp);
