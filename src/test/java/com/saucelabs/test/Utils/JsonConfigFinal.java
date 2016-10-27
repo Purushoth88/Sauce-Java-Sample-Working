@@ -233,7 +233,7 @@ public class JsonConfigFinal {
 		String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 		UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
 				"October@12");
-		builder = new FileRepositoryBuilder();
+/*		builder = new FileRepositoryBuilder();
 		repository = builder.setGitDir(file).readEnvironment().findGitDir().build();
 		git = new Git(repository);
 		CloneCommand clone = git.cloneRepository();
@@ -241,10 +241,10 @@ public class JsonConfigFinal {
 		clone.setCloneAllBranches(true);
 		clone.setDirectory(file).setURI(remoteSeconPath);
 		clone.setCredentialsProvider(upcp);
-		clone.call();
+		clone.call();*/
 		
 		try {
-/*			System.out.println("file.toString() : " + file.toString());
+			System.out.println("file.toString() : " + file.toString());
 			System.out.println("file.toString() : " + file.getPath());
 			System.out.println("file.length() : " + file.length());
 			System.out.println("file.exists() : " + file.exists());
@@ -257,7 +257,7 @@ public class JsonConfigFinal {
 			System.out.println("Git Repository : " + git);
 			System.out.println("Before Getting into Add file : ");
 			System.out.println("Work Tree" + git.getRepository());
-			System.out.println(" Directory" + git.getRepository().getDirectory());*/
+			System.out.println(" Directory" + git.getRepository().getDirectory());
 			addFile(git, file);
 			commit(git, file);
 			System.out.println("Result File: " + file);
