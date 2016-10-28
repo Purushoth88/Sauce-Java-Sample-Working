@@ -223,50 +223,8 @@ public class JsonConfigFinal {
 
 	public static void closeExcel() throws URISyntaxException, IOException {
 
-
-		System.out.println("Close Excel" + System.getProperty("user.dir"));
-		String localRepo = "CloneRepo/TempLocation/";
-		File file = new File(localRepo + "//Result_" + fileName + "_"
-				+ new Random().nextInt(50046846) + ".xlsx");
-		System.out.println("Result File name :" + file);
-		
-		String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-		UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
-				"October@12");
-/*		builder = new FileRepositoryBuilder();
-		repository = builder.setGitDir(file).readEnvironment().findGitDir().build();
-		git = new Git(repository);
-		CloneCommand clone = git.cloneRepository();
-		clone.setBare(false);
-		clone.setCloneAllBranches(true);
-		clone.setDirectory(file).setURI(remoteSeconPath);
-		clone.setCredentialsProvider(upcp);
-		clone.call();*/
-		
 		try {
-			System.out.println("file.toString() : " + file.toString());
-			System.out.println("file.toString() : " + file.getPath());
-			System.out.println("file.length() : " + file.length());
-			System.out.println("file.exists() : " + file.exists());
-			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
-			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
-			Git git = cc.call();
-			// System.out.println("repository : " + repository);
-			// Repository repo = (Repository) github.repos();
-			// Git git = new Git(repository);
-			System.out.println("Git Repository : " + git);
-			System.out.println("Before Getting into Add file : ");
-			System.out.println("Work Tree" + git.getRepository());
-			System.out.println(" Directory" + git.getRepository().getDirectory());
-			addFile(git, file);
-			commit(git, file);
-			System.out.println("Result File: " + file);
-			StoredConfig config = git.getRepository().getConfig();
-			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
-			config.save();
-			testPush(git);
-			testPull(git, upcp);
-			System.out.println("push");
+			JgitTest1.pushFiles();
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -284,7 +242,7 @@ public class JsonConfigFinal {
 				System.out.println("    status: " + rru.getStatus());
 			}
 		}
-	}*/
+	}
 	
 	
 	public static void addFile(Git git, File file) throws IOException, GitAPIException {
@@ -411,17 +369,17 @@ public class JsonConfigFinal {
 	
 	public static void testPull(Git git, UsernamePasswordCredentialsProvider upcp) throws IOException, GitAPIException {
 		try {
-/*            PullCommand pull = git.pull();
+            PullCommand pull = git.pull();
             pull.setCredentialsProvider(upcp);
             pull.setRemote("Sauce-Java-Sample-Working");
-            pull.call();*/
+            pull.call();
 			git.pull().setCredentialsProvider(upcp).call();
 			System.out.println("pull");
 		} catch (Exception e) {
 			System.out.println("Exception in pull");
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
