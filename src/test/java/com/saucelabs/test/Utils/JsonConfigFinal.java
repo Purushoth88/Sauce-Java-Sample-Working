@@ -217,7 +217,7 @@ public class JsonConfigFinal {
 		try {
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
 			String localRepo = "/tmp/Sauce-Java-Sample-Working";
-			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_" + fileName + "_"
+			File file = new File("//Result_" + fileName + "_"
 					+ new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("Result File name :" + file);
 			
