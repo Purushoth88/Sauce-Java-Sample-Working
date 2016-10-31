@@ -81,8 +81,8 @@ public class JgitTest1 {
 		try {
 		System.out.println("Inside Addd file" + git);
 		System.out.println("Inside filename file" + file);
-		System.out.println("Work Tree" + git.getRepository().getWorkTree());
-		System.out.println(" Directory" + git.getRepository().getDirectory());
+		//System.out.println("Work Tree" + git.getRepository().getWorkTree());
+		//System.out.println(" Directory" + git.getRepository().getDirectory());
 		
 		FileOutputStream out = new FileOutputStream(file, true);
 		System.out.println("out File: " + out);
