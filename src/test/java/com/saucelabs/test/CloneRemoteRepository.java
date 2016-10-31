@@ -1,4 +1,4 @@
-package com.saucelabs.test.Utils;
+package com.saucelabs.test;
 
 /*
    Copyright 2013, 2014 Dominik Stadler
@@ -12,6 +12,7 @@ package com.saucelabs.test.Utils;
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
 import java.io.File;
 import java.io.IOException;
 
@@ -45,8 +46,29 @@ public class CloneRemoteRepository {
                     .call();
 	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
+	        
+	        
+	        // Add
+	        File myfile = new File(result.getRepository().getDirectory().getParent(), "testfile");
+            if(!myfile.createNewFile()) {
+                throw new IOException("Could not create file " + myfile);
+            }
+
+            // run the add-call
+            result.add()
+                    .addFilepattern("testfile")
+                    .call();
+
+            System.out.println("Added file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
+	        
+            // Committ
+            
+            result.commit().setMessage("Added testfile").call();
+
+			System.out.println("Committed file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
         } catch(Exception e) {
         	System.out.println(e);
-        }
+        } 
+        
     }
 }
