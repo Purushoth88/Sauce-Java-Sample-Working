@@ -216,8 +216,8 @@ public class JsonConfigFinal {
 
 		try {
 			System.out.println("Close Excel" + System.getProperty("user.dir"));
-			String localRepo = "/tmp/Sauce-Java-Sample-Working";
-			File file = new File("//Result_" + fileName + "_"
+			String localRepo = "/tmp/Sauce-Java-Sample-Working/";
+			File file = new File("Result_" + fileName + "_"
 					+ new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("Result File name :" + file);
 			
@@ -325,10 +325,10 @@ public class JsonConfigFinal {
 		System.out.println("file.exists() : " + file.exists());
 		System.out.println(git.getRepository().getWorkTree());
 		System.out.println(git.getRepository().getDirectory());
-		AddCommand add = git.add();
 		wb.write(out);
 		out.flush();
 		out.close();
+		AddCommand add = git.add();
 		add.addFilepattern(file.getPath()).call();
 		} catch (NoFilepatternException e) {
 			throw new IOException(e.getMessage());
