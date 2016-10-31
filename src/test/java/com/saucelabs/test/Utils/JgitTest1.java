@@ -54,6 +54,12 @@ public class JgitTest1 {
 	public static void pushFiles() throws IOException, GitAPIException {
 		localPath = System.getProperty("java.io.tmpdir", "/CloneRepo/TempLocation");
 		System.out.println("localPath" + localPath);
+		String localPath1 = System.getProperty("user.home", "/CloneRepo/TempLocation");
+		System.out.println("localPath1--" + localPath1);
+		String localPath2 = System.getProperty("user.dir", "/CloneRepo/TempLocation");
+		System.out.println("localPath2--" + localPath2);
+		String localPath3 = System.getProperty("user.name", "/CloneRepo/TempLocation");
+		System.out.println("localPath3--" + localPath3);
 		remotePath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 		//localRepo = new FileRepository(localPath + "/.git");
 		//git = new Git(localRepo);
