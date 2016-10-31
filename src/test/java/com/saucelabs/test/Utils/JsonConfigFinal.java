@@ -209,25 +209,18 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
-			String path = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
-			System.out.println("path :" + path);
-			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
-			System.out.println("path file  :" + file);
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file exists :" + file.listFiles());
-			
-    			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-			System.out.println("directory file  :" + directory);
-    			/*String file = System.getProperty("user.dir") + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			String ResultfileToImport = "Result_"
-				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);*/
-			FileOutputStream out = new FileOutputStream(file);
+			File localPath = File.createTempFile("TestGitRepository", "");
++			System.out.println(localPath.isAbsolute());
++			System.out.println(localPath.getParentFile());
++			System.out.println(localPath.getPath());
++			builder = new FileRepositoryBuilder();
++			localPath.delete();
++
++			File myfile = new File(localPath + "/OutputFolder/Results/" + "Result_" + fileName + "_"
++					+ new Random().nextInt(50046846) + ".xlsx");
++			System.out.println(" myfile  " + myfile);
++
++			FileOutputStream out = new FileOutputStream(myfile, true);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
