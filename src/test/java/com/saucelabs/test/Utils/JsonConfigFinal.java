@@ -5,12 +5,10 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Map.Entry;
@@ -60,7 +58,6 @@ import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.PullCommand;
 import org.eclipse.jgit.api.errors.ConcurrentRefUpdateException;
 import org.eclipse.jgit.api.errors.GitAPIException;
-import org.eclipse.jgit.api.errors.InvalidRemoteException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 import org.eclipse.jgit.api.errors.NoHeadException;
 import org.eclipse.jgit.api.errors.NoMessageException;
@@ -75,7 +72,6 @@ import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
 import org.eclipse.jgit.lib.RepositoryBuilder;
 import org.eclipse.jgit.lib.StoredConfig;
 import org.eclipse.jgit.revwalk.RevCommit;
-import org.eclipse.jgit.revwalk.RevWalk;
 
 @SuppressWarnings("unused")
 public class JsonConfigFinal {
@@ -88,11 +84,6 @@ public class JsonConfigFinal {
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
 	// static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received
 	// Files\\recording.json";
-	private static String localPath;
-	private String remotePath;
-	private static Repository repository;
-	private static Git git;
-	private static FileRepositoryBuilder builder;
 
 	public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
@@ -221,10 +212,41 @@ public class JsonConfigFinal {
 
 	// static SoftAssert softAssert= new SoftAssert();
 
-	public static void closeExcel() throws URISyntaxException, IOException {
+	public static void closeExcel() {
 
 		try {
-			JgitTest1.pushFiles();
+			System.out.println("Close Excel" + System.getProperty("user.dir"));
+			String localRepo = "/tmp/Sauce-Java-Sample-Working";
+			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_" + fileName + "_"
+					+ new Random().nextInt(50046846) + ".xlsx");
+			System.out.println("Result File name :" + file);
+			
+			String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+			UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
+					"October@12");
+			System.out.println("file.toString() : " + file.toString());
+			System.out.println("file.toString() : " + file.getPath());
+			System.out.println("file.length() : " + file.length());
+			System.out.println("file.exists() : " + file.exists());
+			//Git git = Git.init().setDirectory(new File(localRepo, file.toString())).setBare(false).call();
+			CloneCommand cc = new CloneCommand().setCredentialsProvider(upcp).setDirectory(file).setURI(remoteSeconPath);
+			Git git = cc.call();
+			// System.out.println("repository : " + repository);
+			// Repository repo = (Repository) github.repos();
+			// Git git = new Git(repository);
+			System.out.println("Git Repository : " + git);
+			System.out.println("Before Getting into Add file : ");
+			System.out.println("Work Tree" + git.getRepository());
+			System.out.println(" Directory" + git.getRepository().getDirectory());
+			addFile(git, file);
+			commit(git);
+			System.out.println("Result File: " + file);
+			StoredConfig config = git.getRepository().getConfig();
+			config.setString("remote", "origin", "fetch", "+refs/*:refs/*");
+			config.save();
+			testPush(git);
+			testPull(git, upcp);
+			System.out.println("push");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
@@ -232,7 +254,7 @@ public class JsonConfigFinal {
 		}
 	}
 
-/*	private static void printPushResult(Iterable<PushResult> pr) {
+	private static void printPushResult(Iterable<PushResult> pr) {
 		for (PushResult p : pr) {
 			System.out.println("Pushresult: " + p.getMessages());
 			for (RemoteRefUpdate rru : p.getRemoteUpdates()) {
@@ -243,7 +265,6 @@ public class JsonConfigFinal {
 			}
 		}
 	}
-	
 	
 	public static void addFile(Git git, File file) throws IOException, GitAPIException {
 		try {
@@ -308,78 +329,62 @@ public class JsonConfigFinal {
 		wb.write(out);
 		out.flush();
 		out.close();
-		//add.addFilepattern(file.getPath()).call();
-		 repository = builder.setGitDir(file).readEnvironment()
-					.findGitDir().build();
-		git = new Git(repository);
-		git.add().addFilepattern(localPath).call();
-		git.commit().setCommitter("chenzhirong", "253494709@qq.com")
-				.setMessage("jonee commit").call();
-
-		// 
-		for (RevCommit revCommit : git.log().call()) {
-			System.out.println(revCommit);
-			System.out.println(revCommit.getFullMessage());
-			System.out.println(revCommit.getCommitterIdent().getName()
-					+ "======="
-					+ revCommit.getCommitterIdent().getEmailAddress());
-		}
-		
+		add.addFilepattern(file.getPath()).call();
 		} catch (NoFilepatternException e) {
 			throw new IOException(e.getMessage());
 		}
 	}
 
-	public static void commit(Git git, File file)
-			throws UnmergedPathsException, GitAPIException, IOException {
-		RepositoryBuilder builder=new RepositoryBuilder();
-		File f = new File(localPath+"/.git");
-		Repository repository=builder.setGitDir(f).readEnvironment().findGitDir().build();
-		
-		git = new Git(repository);
-		RevWalk walk = new RevWalk(repository);
-		RevCommit commit = null;
-		Iterable<RevCommit> logs = git.log().call();
-		Iterator<RevCommit> i = logs.iterator();
-
-		while (i.hasNext()) {
-		    commit = walk.parseCommit( i.next() );
-		    System.out.println( commit.getFullMessage() );
-		}
+	public static void commit(Git git)
+			throws UnmergedPathException, UnmergedPathsException, GitAPIException {
+		CommitCommand commit = git.commit();
+		System.out.println(commit.getMessage());
+		System.out.println(commit.getCommitter());
+		commit.setMessage("Purushoth88").call();
 	}
 
 	public static void testPush(Git git) throws IOException, JGitInternalException, GitAPIException {
+		String remoteSeconPath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+		UsernamePasswordCredentialsProvider upcp = new UsernamePasswordCredentialsProvider("Purushoth88",
+				"October@12");
+		/*Iterable<PushResult> res = git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		printPushResult(res);
+		//git.push().setRemote(remoteSeconPath).setCredentialsProvider(upcp).call();
+		System.out.println("push");*/
 		try {
-		      Repository localRepo = new FileRepository("https://github.com/chenzhirong/rcp_view.git");
-		      localRepo.create();
-		      //testAdd();
-		      git=new Git(localRepo);
-		      git.push().call();
-		      localRepo.close();
-		} catch (IllegalStateException ise) {
-		        System.out.println("The repository already exists!");
-		} catch (IOException ioe) {
-		        System.out.println("Failed to create the repository!");
-		} catch (GitAPIException e) {
-		    // TODO Auto-generated catch block
-		    e.printStackTrace();
-		}
+			PushCommand command = git.push().setRemote(remoteSeconPath);
+			command.setCredentialsProvider(upcp);
+			Iterable<PushResult> results = command.call();
+			int updates = 0;
+			for (PushResult result : results) {
+				updates += result.getRemoteUpdates().size();
+			}
+			if (updates == 0) {
+				System.out.println("No updates pushed. Something maybe failed?");
+			} else if (updates == 1) {
+				System.out.println("Update pushed.");
+			} else {
+				System.out.println(updates + " updates pushed.");
+			}
+		} catch (JGitInternalException e) {
+			System.out.println("Push failed. Did you remember to commit first? " + e.getMessage());
+		} 
 		
 	}
 	
 	public static void testPull(Git git, UsernamePasswordCredentialsProvider upcp) throws IOException, GitAPIException {
 		try {
-            PullCommand pull = git.pull();
+/*            PullCommand pull = git.pull();
             pull.setCredentialsProvider(upcp);
             pull.setRemote("Sauce-Java-Sample-Working");
-            pull.call();
+            pull.call();*/
 			git.pull().setCredentialsProvider(upcp).call();
 			System.out.println("pull");
 		} catch (Exception e) {
 			System.out.println("Exception in pull");
 			e.printStackTrace();
 		}
-	}*/
+	}
 
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
