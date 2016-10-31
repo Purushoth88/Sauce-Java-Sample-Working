@@ -39,12 +39,15 @@ public class CloneRemoteRepository {
 
         // then clone
         System.out.println("Cloning from " + REMOTE_URL + " to " + localPath);
-        try (Git result = Git.cloneRepository()
-                .setURI(REMOTE_URL)
-                .setDirectory(localPath)
-                .call()) {
+        try {
+        	Git result = Git.cloneRepository()
+                    .setURI(REMOTE_URL)
+                    .setDirectory(localPath)
+                    .call();
 	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
+        } catch(Exception e) {
+        	System.out.println(e);
         }
     }
 }
