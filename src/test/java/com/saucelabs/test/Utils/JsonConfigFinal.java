@@ -219,7 +219,7 @@ public class JsonConfigFinal {
 			String localRepo = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent()
 					.getParent().toString();
 			System.out.println("Result File name :" + localRepo);
-			File file = new File(localRepo + "//Result_" + fileName + "_"
+			File file = new File(localRepo + "/OutputFolder/Results/" + "//Result_" + fileName + "_"
 					+ new Random().nextInt(50046846) + ".xlsx");
 			System.out.println("Result File name :" + file);
 			
