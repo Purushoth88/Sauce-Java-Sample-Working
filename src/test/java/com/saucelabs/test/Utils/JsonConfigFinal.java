@@ -7,7 +7,6 @@ import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -67,6 +66,11 @@ import org.eclipse.jgit.revwalk.RevCommit;
 
 @SuppressWarnings("unused")
 public class JsonConfigFinal {
+
+	private String localPath, remotePath;
+	private Repository repository;
+	private static FileRepositoryBuilder builder;
+
 	static String fileName = "";
 	static String fileParentPath = "";
 	static Workbook wb = new XSSFWorkbook();
@@ -210,18 +214,18 @@ public class JsonConfigFinal {
 
 		try {
 			File localPath = File.createTempFile("TestGitRepository", "");
-+			System.out.println(localPath.isAbsolute());
-+			System.out.println(localPath.getParentFile());
-+			System.out.println(localPath.getPath());
-+			builder = new FileRepositoryBuilder();
-+			localPath.delete();
-+
-+			File myfile = new File(localPath + "/OutputFolder/Results/" + "Result_" + fileName + "_"
-+					+ new Random().nextInt(50046846) + ".xlsx");
-+			System.out.println(" myfile  " + myfile);
-+
-+			FileOutputStream out = new FileOutputStream(myfile, true);
-			System.out.println("out File: " + out);
+			System.out.println(localPath.isAbsolute());
+			System.out.println(localPath.getParentFile());
+			System.out.println(localPath.getPath());
+			builder = new FileRepositoryBuilder();
+			localPath.delete();
+
+			File myfile = new File(localPath + "/OutputFolder/Results/" + "Result_" + fileName + "_"
+					+ new Random().nextInt(50046846) + ".xlsx");
+			System.out.println(" myfile  " + myfile);
+
+			FileOutputStream out = new FileOutputStream(myfile, true);
+
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -273,18 +277,30 @@ public class JsonConfigFinal {
 			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 
 			// credentials
-	        	File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
-	       		//localPath.delete();
 			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			Git command = Git.cloneRepository().setDirectory(localPath).setURI(url).setBare(true).call();
-			
-			System.out.println("path file  :" + file);
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file listFiles :" + file.listFiles());
-			System.out.println("path file getName :" + file.getName());
-			
+			// clone
+			// File directory =
+			// File.createTempFile(System.getProperty("user.dir"),
+			// Long.toString(System.nanoTime()));
+			// System.out.println("directory" + directory);
+			// File dirName = new File(directory, "/" + ResultfileToImport);
+			// System.out.println("DirName : " + dirName);
+			CloneCommand command = Git.cloneRepository();
+			System.out.println("command  ----" + command);
+			command.setDirectory(localPath);
+			System.out.println("command localPath ----" + localPath);
+			command.setURI(url);
+
+			try {
+				Git git2 = command.call();
+			} catch (JGitInternalException e) {
+				System.out.println(e);
+				System.out.println("JsonConfigFinal.closeExcel()");
+				// assertTrue(e.getMessage().contains("not an empty
+				// directory"));
+				// assertTrue(e.getMessage().contains(dirName));
+			}
+
 			// add
 			AddCommand ac = git.add();
 			String LogStatus = git.log().toString();
@@ -293,7 +309,7 @@ public class JsonConfigFinal {
 			System.out.println("GitStatus" + GitStatus);
 			System.out.println("url dir  -- :" + url);
 			System.out.println("ac dir  -- :" + ac.getRepository());
-			ac.addFilepattern(file.toString());
+			ac.addFilepattern(myfile.toString());
 			try {
 				ac.call();
 			} catch (NoFilepatternException e) {
@@ -305,7 +321,7 @@ public class JsonConfigFinal {
 			System.out.println("ac dir  -- :" + commit);
 
 			commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-					.setMessage("Importing the Output Result files" + file.toString());
+					.setMessage("Importing the Output Result files" + myfile);
 			System.out.println("commit dir  -- :" + commit.getCommitter());
 			System.out.println("commit dir  -- :" + commit.getAuthor());
 
@@ -324,7 +340,7 @@ public class JsonConfigFinal {
 				e.printStackTrace();
 			}
 			// cleanup
-			//localPath.close();
+			localPath.deleteOnExit();
 			out.flush();
 			out.close();
 		} catch (IOException io) {
@@ -369,5 +385,4 @@ public class JsonConfigFinal {
 		}
 
 	}
-
 }
