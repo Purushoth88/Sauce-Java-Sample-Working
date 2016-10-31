@@ -52,7 +52,7 @@ public class JgitTest1 {
 
 	@Before
 	public static void pushFiles() throws IOException, GitAPIException {
-		localPath = System.getProperty("user.dir");
+		localPath = System.getProperty("user.dir") + "/Temp/";
 		System.out.println("localPath" + localPath);
 		remotePath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 		//localRepo = new FileRepository(localPath + "/.git");
