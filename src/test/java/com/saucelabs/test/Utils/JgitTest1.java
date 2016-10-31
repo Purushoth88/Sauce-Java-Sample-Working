@@ -52,12 +52,14 @@ public class JgitTest1 {
 
 	@Before
 	public static void pushFiles() throws IOException, GitAPIException {
-		localPath = "/CloneRepo/TempLocation/";
+		localPath = System.getProperty("java.io.tmpdir");
+		System.out.println("localPath" + localPath);
 		remotePath = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
 		//localRepo = new FileRepository(localPath + "/.git");
 		//git = new Git(localRepo);
 		builder= new FileRepositoryBuilder();
 		File file = new File(localPath);
+		System.out.println("localPath file" + file);
 		 repository = builder.setGitDir(file).readEnvironment()
 				.findGitDir().build();
 		git = new Git(repository);
