@@ -281,16 +281,17 @@ public class JsonConfigFinal {
 			wb.write(out);
 			out.flush();
 			out.close();
+			System.out.println("Result Path files ----" + result.getRepository().getDirectory().getParent());
 	        // Add
 	        File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
-            if(!myfile.createNewFile()) {
+            if(!file.createNewFile()) {
                 throw new IOException("Could not create file " + myfile);
             }
             
             // run the add-call
-            result.add().addFilepattern("testfile").call();
+            result.add().addFilepattern(file.toString()).call();
 
-            System.out.println("Added file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
+            System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
             result.commit().setMessage("Added testfile").call();
 
 			System.out.println("Committed file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
