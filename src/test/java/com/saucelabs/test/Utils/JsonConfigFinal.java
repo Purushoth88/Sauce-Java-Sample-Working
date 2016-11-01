@@ -299,7 +299,7 @@ public class JsonConfigFinal {
             }*/
             
             // run the add-call
-            result.add().addFilepattern(".xlsx").call();
+            result.add().addFilepattern(".").call();
 
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
             result.commit().setMessage("Result file pushed to GitHub Repository").call();
