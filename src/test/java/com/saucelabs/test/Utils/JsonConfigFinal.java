@@ -74,12 +74,7 @@ public class JsonConfigFinal {
 	static int flag = 0;
 	static HashMap<Integer, String> pageList = new HashMap<Integer, String>();
 	static HashMap<Integer, List<String>> pageObjList = new HashMap<Integer, List<String>>();
-	// static String jsonFilePath = "C:\\Users\\A0717585\\Documents\\My Received
-	// Files\\recording.json";
-	static String generatedResultPath = "OutputFolder/Results";
-	private static Git git;
     private static final String REMOTE_URL = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-
 
 	public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
@@ -168,9 +163,11 @@ public class JsonConfigFinal {
 								&& StringUtils.containsIgnoreCase(resultPathObjArray[i], jsonAttribute)) {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "PASS";
+							Assert.assertEquals(resultPathObjArray[i], resultStatus);
 						} else {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "Fail";
+							Assert.assertEquals(resultPathObjArray[i], resultStatus);
 
 						}
 						flag = flag + 1;
@@ -211,7 +208,6 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
-			
 	        File localPath = File.createTempFile("Sauce-Java-Sample-Working" + "_" + new Random().nextInt(50046846), "");
 	        if(!localPath.delete()) {
 	            throw new IOException("Could not delete temporary file " + localPath);
@@ -224,19 +220,12 @@ public class JsonConfigFinal {
 	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
 	        
-	        
-			File file = new File(result.getRepository().getDirectory().getParent() + "/OutputFolder/Results/" , "Result_"
+			File file = new File(result.getRepository().getDirectory().getParent() + "/OutputFolder/Results/", "Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
 			if(!file.createNewFile()) {
                 throw new IOException("Could not create file " + file);
             }
-			System.out.println("path file  :" + file);
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file exists :" + file.listFiles());
 			FileOutputStream out = new FileOutputStream(file);
-			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
 				Integer key = e.getKey();
 				String value = e.getValue();
@@ -249,7 +238,6 @@ public class JsonConfigFinal {
 				style1.setAlignment(CellStyle.ALIGN_CENTER);
 				style1.setFillPattern(CellStyle.SOLID_FOREGROUND);
 				row1.getCell(0).setCellStyle(style1);
-
 				for (Entry<Integer, List<String>> entry : pageObjList.entrySet()) {
 					Integer rowNum = entry.getKey();
 					List<String> valuesList = entry.getValue();
@@ -279,36 +267,19 @@ public class JsonConfigFinal {
 				}
 				System.out.println("Finall of generating Xls:");
 			}
-
-			System.out.println("Write into Xls" + wb);
 			wb.write(out);
 			out.flush();
 			out.close();
-			System.out.println("Result Path files ----" + result.getRepository().getDirectory().getParent());
-			System.out.println("Result Path files 1----" + file.getParent());
-			System.out.println("Result Path files 2----" + file.getPath());
-			System.out.println("path file Length 1:" + file.length());
-			System.out.println("path file lastModified 1:" + file.lastModified());
-			System.out.println("path file exists 1:" + file.exists());
-			System.out.println("path file exists 1:" + file.listFiles());
-			System.out.println("path file exists 1:" + file.getAbsoluteFile().toString());
-	        // Add
-	        //File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
-/*            if(!file.createNewFile()) {
-                throw new IOException("Could not create file " + file);
-            }*/
-            
             // run the add-call
             result.add().addFilepattern(".").call();
 
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
-            result.commit().setMessage("Result file pushed to GitHub Repository").call();
+            result.commit().setMessage("Result file commited into GitHub Repository").call();
 
 			System.out.println("Committed file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
 			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
-
 			result.push().setRemote(REMOTE_URL).setCredentialsProvider(user).call();
-			System.out.println("File Pushed");
+			System.out.println("File Pushed to GitHub Repository");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
