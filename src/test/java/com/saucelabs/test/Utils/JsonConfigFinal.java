@@ -282,10 +282,17 @@ public class JsonConfigFinal {
 			out.flush();
 			out.close();
 			System.out.println("Result Path files ----" + result.getRepository().getDirectory().getParent());
+			System.out.println("Result Path files 1----" + file.getParent());
+			System.out.println("Result Path files 2----" + file.getPath());
+			System.out.println("path file Length 1:" + file.length());
+			System.out.println("path file lastModified 1:" + file.lastModified());
+			System.out.println("path file exists 1:" + file.exists());
+			System.out.println("path file exists 1:" + file.listFiles());
+
 	        // Add
-	        File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
+	        //File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
             if(!file.createNewFile()) {
-                throw new IOException("Could not create file " + myfile);
+                throw new IOException("Could not create file " + file);
             }
             
             // run the add-call
@@ -294,7 +301,7 @@ public class JsonConfigFinal {
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
             result.commit().setMessage("Added testfile").call();
 
-			System.out.println("Committed file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
+			System.out.println("Committed file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
 			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
 
 			result.push().setRemote(REMOTE_URL).setCredentialsProvider(user).call();
