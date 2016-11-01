@@ -299,7 +299,7 @@ public class JsonConfigFinal {
             }*/
             
             // run the add-call
-            result.add().addFilepattern(file.getAbsoluteFile().toString()).call();
+            result.add().addFilepattern(FileUtils.readFileToString(file)).call();
 
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
             result.commit().setMessage("Added testfile").call();
