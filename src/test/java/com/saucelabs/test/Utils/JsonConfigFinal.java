@@ -266,6 +266,7 @@ public class JsonConfigFinal {
 					style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 					row.createCell(4).setCellValue(valuesList.get(4));
 					row.getCell(4).setCellStyle(style);
+					System.out.println(valuesList.get(0) +  " : " + valuesList.get(1) +   " : " +valuesList.get(2) +   " : " +valuesList.get(3)+   " : " +valuesList.get(4));
 				}
 				System.out.println("Finall of generating Xls:");
 			}
