@@ -225,7 +225,7 @@ public class JsonConfigFinal {
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
 	        
 	        
-			File file = new File(result.getRepository().getDirectory().getParent() , "Result_"
+			File file = new File(result.getRepository().getDirectory().getParent() + "/OutputFolder/Results/" , "Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
 			if(!file.createNewFile()) {
                 throw new IOException("Could not create file " + file);
