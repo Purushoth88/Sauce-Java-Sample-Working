@@ -291,9 +291,9 @@ public class JsonConfigFinal {
 
 	        // Add
 	        //File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
-            if(!file.createNewFile()) {
+/*            if(!file.createNewFile()) {
                 throw new IOException("Could not create file " + file);
-            }
+            }*/
             
             // run the add-call
             result.add().addFilepattern(file.toString()).call();
