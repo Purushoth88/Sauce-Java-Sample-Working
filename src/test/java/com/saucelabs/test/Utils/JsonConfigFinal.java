@@ -78,6 +78,8 @@ public class JsonConfigFinal {
 	// Files\\recording.json";
 	static String generatedResultPath = "OutputFolder/Results";
 	private static Git git;
+    private static final String REMOTE_URL = "https://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
+
 
 	public static void readAndCompareJson(String pathFirstJson, WebDriver wd) {
 		File jsonFile = new File(pathFirstJson);
@@ -209,24 +211,27 @@ public class JsonConfigFinal {
 	public static void closeExcel() {
 
 		try {
-			String path = Paths.get(JsonConfigFinal.class.getClassLoader().getResource(".").toURI()).getParent().getParent().toString();
-			System.out.println("path :" + path);
-			File file = new File(path + "/OutputFolder/Results/" + "//Result_"
+			
+	        File localPath = File.createTempFile("Sauce-Java-Sample-Working" + "_" + new Random().nextInt(50046846), "");
+	        if(!localPath.delete()) {
+	            throw new IOException("Could not delete temporary file " + localPath);
+	        }
+	        
+	        Git result = Git.cloneRepository()
+                    .setURI(REMOTE_URL)
+                    .setDirectory(localPath)
+                    .call();
+	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
+	        System.out.println("Having repository: " + result.getRepository().getDirectory());
+	        
+			File file = new File(localPath + "//Result_"
 					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
+	        
 			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
 			System.out.println("path file exists :" + file.exists());
 			System.out.println("path file exists :" + file.listFiles());
-			
-    			File directory = File.createTempFile(System.getProperty("user.dir"), Long.toString(System.nanoTime()));
-			System.out.println("directory file  :" + directory);
-    			/*String file = System.getProperty("user.dir") + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			String ResultfileToImport = "Result_"
-				+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx";
-			//FileOutputStream out = new FileOutputStream(file, true);
-			System.out.println("Result File name :" + file);*/
 			FileOutputStream out = new FileOutputStream(file);
 			System.out.println("out File: " + out);
 			for (Entry<Integer, String> e : pageList.entrySet()) {
@@ -274,91 +279,31 @@ public class JsonConfigFinal {
 
 			System.out.println("Write into Xls" + wb);
 			wb.write(out);
-			System.out.println("After Write into wb");
-			String name = "Purushoth88";
-			String password = "October@12";
-			String url = "http://github.com/Purushoth88/Sauce-Java-Sample-Working.git";
-
-			// credentials
-	        	File localPath = File.createTempFile("Sauce-Java-Sample-Working", "");
-	       		//localPath.delete();
-			CredentialsProvider cp = new UsernamePasswordCredentialsProvider(name, password);
-			Git command = Git.cloneRepository().setDirectory(file).setURI(url).setBare(false).call();
-			
-			System.out.println("path file  :" + file);
-			System.out.println("path file Length :" + file.length());
-			System.out.println("path file lastModified :" + file.lastModified());
-			System.out.println("path file exists :" + file.exists());
-			System.out.println("path file listFiles :" + file.listFiles());
-			System.out.println("path file getName :" + file.getName());
-			
-			// add
-			AddCommand ac = git.add();
-			String LogStatus = git.log().toString();
-			System.out.println("LogStatus" + LogStatus);
-			String GitStatus = git.status().toString();
-			System.out.println("GitStatus" + GitStatus);
-			System.out.println("url dir  -- :" + url);
-			System.out.println("ac dir  -- :" + ac.getRepository());
-			ac.addFilepattern(file.toString());
-			try {
-				ac.call();
-			} catch (NoFilepatternException e) {
-				e.printStackTrace();
-			}
-
-			// commit
-			CommitCommand commit = git.commit();
-			System.out.println("ac dir  -- :" + commit);
-
-			commit.setCommitter("Purushoth", "purushothaman.v@aonhewitt.com")
-					.setMessage("Importing the Output Result files" + file.toString());
-			System.out.println("commit dir  -- :" + commit.getCommitter());
-			System.out.println("commit dir  -- :" + commit.getAuthor());
-
-			try {
-				commit.call();
-				PushCommand pc = git.push();
-				System.out.println("pc  --- " + pc);
-				pc.setCredentialsProvider(cp).setRemote(url).setForce(true).call();
-			} catch (NoHeadException e) {
-				e.printStackTrace();
-			} catch (NoMessageException e) {
-				e.printStackTrace();
-			} catch (ConcurrentRefUpdateException e) {
-				e.printStackTrace();
-			} catch (WrongRepositoryStateException e) {
-				e.printStackTrace();
-			}
-			// cleanup
-			//localPath.close();
 			out.flush();
 			out.close();
+	        // Add
+	        File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
+            if(!myfile.createNewFile()) {
+                throw new IOException("Could not create file " + myfile);
+            }
+            
+            // run the add-call
+            result.add().addFilepattern("testfile").call();
+
+            System.out.println("Added file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
+            result.commit().setMessage("Added testfile").call();
+
+			System.out.println("Committed file " + myfile + " to repository at " + result.getRepository().getDirectory().getParent());
+			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
+
+			result.push().setRemote(REMOTE_URL).setCredentialsProvider(user).call();
+			System.out.println("File Pushed");
 		} catch (IOException io) {
 			System.out.println("unable to write to excel" + io);
 		} catch (Exception e) {
 			System.out.println("unable to write to excel" + e);
 		}
 	}
-
-	/*
-	 * public static void addFile(Git git, String filename) throws IOException,
-	 * GitAPIException { System.out.println("Inside Addd file" + git);
-	 * System.out.println("Inside filename file" + filename);
-	 * System.out.println("Work Tree" + git.getRepository().getWorkTree());
-	 * System.out.println(" Directory" + git.getRepository().getDirectory());
-	 * FileWriter writer = new FileWriter(new
-	 * File(git.getRepository().getWorkTree(), filename));
-	 * System.out.println(git.getRepository().getWorkTree());
-	 * System.out.println(git.getRepository().getDirectory());
-	 * writer.write(filename + "\n"); writer.close(); AddCommand add =
-	 * git.add(); add.addFilepattern(filename).call(); }
-	 * 
-	 * public static void commit(Git git, String message) throws
-	 * UnmergedPathException, UnmergedPathsException, GitAPIException {
-	 * CommitCommand commit = git.commit(); commit.setMessage(message).call();
-	 * git.push(); }
-	 */
 
 	public static void createExcel() throws FileNotFoundException {
 		Row row = ws.createRow(ws.getPhysicalNumberOfRows());
