@@ -224,9 +224,12 @@ public class JsonConfigFinal {
 	        // Note: the call() returns an opened repository already which needs to be closed to avoid file handle leaks!
 	        System.out.println("Having repository: " + result.getRepository().getDirectory());
 	        
-			File file = new File(localPath + "//Result_"
-					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
 	        
+			File file = new File(result.getRepository().getDirectory().getParent() , "Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx");
+			if(!file.createNewFile()) {
+                throw new IOException("Could not create file " + file);
+            }
 			System.out.println("path file  :" + file);
 			System.out.println("path file Length :" + file.length());
 			System.out.println("path file lastModified :" + file.lastModified());
@@ -288,7 +291,7 @@ public class JsonConfigFinal {
 			System.out.println("path file lastModified 1:" + file.lastModified());
 			System.out.println("path file exists 1:" + file.exists());
 			System.out.println("path file exists 1:" + file.listFiles());
-
+			System.out.println("path file exists 1:" + file.getAbsoluteFile().toString());
 	        // Add
 	        //File myfile = new File(result.getRepository().getDirectory().getParent(), file.getPath());
 /*            if(!file.createNewFile()) {
@@ -296,7 +299,7 @@ public class JsonConfigFinal {
             }*/
             
             // run the add-call
-            result.add().addFilepattern(file.toString()).call();
+            result.add().addFilepattern(file.getAbsoluteFile().toString()).call();
 
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
             result.commit().setMessage("Added testfile").call();
