@@ -299,10 +299,11 @@ public class JsonConfigFinal {
             }*/
             
             // run the add-call
-            result.add().addFilepattern(FileUtils.readFileToString(file)).call();
+            result.add().addFilepattern("Result_"
+					+ fileName + "_" + new Random().nextInt(50046846) + ".xlsx").call();
 
             System.out.println("Added file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
-            result.commit().setMessage("Added testfile").call();
+            result.commit().setMessage("Result file pushed to GitHub Repository").call();
 
 			System.out.println("Committed file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
 			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
