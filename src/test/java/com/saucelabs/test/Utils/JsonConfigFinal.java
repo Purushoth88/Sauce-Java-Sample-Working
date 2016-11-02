@@ -279,7 +279,10 @@ public class JsonConfigFinal {
             result.commit().setMessage("Result file commited into GitHub Repository").call();
 
 			System.out.println("Committed file " + file + " to repository at " + result.getRepository().getDirectory().getParent());
-			UsernamePasswordCredentialsProvider user = new UsernamePasswordCredentialsProvider("Purushoth88","October@12");
+			String GitHubUserName = AppVariables.get("GitHubUserName");
+			String GitHubPassword = AppVariables.get("GitHubPassword");
+			UsernamePasswordCredentialsProvider user = 
+				new UsernamePasswordCredentialsProvider(GitHubUserName, GitHubPassword);
 			result.push().setRemote(REMOTE_URL).setCredentialsProvider(user).call();
 			System.out.println("File Pushed to GitHub Repository");
 		} catch (IOException io) {
