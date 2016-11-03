@@ -8,8 +8,3 @@ sudo: false # route your build to the container-based infrastructure for a faste
 
 notifications:
   email: false
-      
-# branch whitelist, only for GitHub Pages
-branches:
-  only:
-  - /src/test/java/com/saucelabs/test   # test the gh-pages branch
