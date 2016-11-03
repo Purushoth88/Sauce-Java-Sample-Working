@@ -232,7 +232,7 @@
 </dependencies>
 
     <build>
-	    <sourceDirectory>src/test/java</sourceDirectory>
+	    <sourceDirectory>src/test/java/com/saucelabs/test</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
