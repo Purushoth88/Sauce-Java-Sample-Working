@@ -1,1 +1,5 @@
-/.project
+$ cat > .gitignore << LINES
+/config
+/RecordedScripts
+/OutputFolder/Results
+/JsonFiles/Result
