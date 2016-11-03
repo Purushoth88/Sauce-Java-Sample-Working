@@ -163,12 +163,12 @@ public class JsonConfigFinal {
 								&& StringUtils.containsIgnoreCase(resultPathObjArray[i], jsonAttribute)) {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "PASS";
-							System.out.println(resultPathObjArray[i] + resultStatus);
+							//System.out.println(resultPathObjArray[i] + resultStatus);
 							Assert.assertTrue(true , resultPathObjArray[i]);
 						} else {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "Fail";
-							System.out.println(resultPathObjArray[i] + resultStatus);
+							//System.out.println(resultPathObjArray[i] + resultStatus);
 							Assert.assertFalse(false , resultPathObjArray[i]);
 						}
 						flag = flag + 1;
@@ -265,7 +265,7 @@ public class JsonConfigFinal {
 					style.setFillPattern(CellStyle.SOLID_FOREGROUND);
 					row.createCell(4).setCellValue(valuesList.get(4));
 					row.getCell(4).setCellStyle(style);
-					System.out.println(valuesList.get(0) +  " : " + valuesList.get(1) +   " : " +valuesList.get(2) +   " : " +valuesList.get(3)+   " : " +valuesList.get(4));
+					//System.out.println(valuesList.get(0) +  " : " + valuesList.get(1) +   " : " +valuesList.get(2) +   " : " +valuesList.get(3)+   " : " +valuesList.get(4));
 				}
 				System.out.println("Finall of generating Xls:");
 			}
