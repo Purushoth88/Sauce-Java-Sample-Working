@@ -1,4 +1,5 @@
 language: java
+sudo: false # faster builds
 env:
   global:
   - secure: "nDrA1a6uLr3xwKEeewaM4g0HhzY1qWmwe1el+1+Uw81VlZVajSTd3KcLAHJL\ntT2E8fnnCaaLtdV46nMibijZZ6tvUzjoBHUL6ElV2Aomm3uIH9Tm5SSrJyYC\nHKV7I0OsABEUXyio4yuPHEoscK4++zldck23xYaI2vIZw4aNwKs="
@@ -7,10 +8,3 @@ notifications:
   email:
   recipients:
       - purushothaman.v@aonhewitt.com
-matrix:
-  exclude:
-    gemfile: OutputFolder/Results
-    
-branches:
-  except:
-    - test 
