@@ -232,6 +232,7 @@
 </dependencies>
 
     <build>
+	    <sourceDirectory>src/test/java</sourceDirectory>
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
