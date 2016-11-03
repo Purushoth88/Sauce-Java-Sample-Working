@@ -250,8 +250,6 @@
              			<!-- structural tests don't work and it's known -->
              			<!-- currently there are two tests failing, and I am trying to fix them -->
              			<exclude>JsonFiles/Result</exclude>
-             			<exclude>OutputFolder/Results</exclude> 
-
              			<!-- This skips
              			the tests for the rationals library which is a fork and we do not
              			expect to change. There are 67 tests in total - so the maven
