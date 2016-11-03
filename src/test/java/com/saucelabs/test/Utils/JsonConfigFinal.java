@@ -163,12 +163,12 @@ public class JsonConfigFinal {
 								&& StringUtils.containsIgnoreCase(resultPathObjArray[i], jsonAttribute)) {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "PASS";
-							System.out.println(resultPathObjArray[i] + "--" + resultStatus);
+							System.out.println(resultPathObjArray[3] + "--" + resultStatus);
 							//Assert.assertTrue(true , resultPathObjArray[i]);
 						} else {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "Fail";
-							System.out.println(resultPathObjArray[i] + "--" + resultStatus);
+							System.out.println(resultPathObjArray[3] + "--" + resultStatus);
 							//Assert.assertFalse(false , resultPathObjArray[i]);
 						}
 						flag = flag + 1;
