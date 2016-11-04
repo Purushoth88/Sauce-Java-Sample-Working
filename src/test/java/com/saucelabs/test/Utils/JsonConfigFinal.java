@@ -164,12 +164,12 @@ public class JsonConfigFinal {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "PASS";
 							System.out.println(resultPathObjArray[i] + "--" + resultStatus);
-							//Assert.assertTrue(true , resultPathObjArray[i]);
+							Assert.assertTrue(true , resultPathObjArray[i]);
 						} else {
 							jsonResult = resultPathObjArray[i];
 							resultStatus = "Fail";
 							System.out.println(resultPathObjArray[i] + "--" + resultStatus);
-							//Assert.assertFalse(false , resultPathObjArray[i]);
+							Assert.assertFalse(false , resultPathObjArray[i]);
 						}
 						flag = flag + 1;
 						List<String> str = new ArrayList<String>();
