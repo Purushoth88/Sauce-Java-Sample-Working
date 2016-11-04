@@ -232,6 +232,17 @@
 </dependencies>
 
     <build>
+    
+    	<resources>
+		<resource>
+			<directory>src/test/java</directory>
+			<excludes>
+	                   <exclude>**/*.xlsx</exclude>
+        	        </excludes>
+		        <filtering>true</filtering>
+		</resource>
+	</resources>
+	    
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
