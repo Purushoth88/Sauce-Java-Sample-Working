@@ -10,8 +10,8 @@ sudo: false # route your build to the container-based infrastructure for a faste
 notifications:
   email: false
 
-env:
-  - matrix:
-    exclude:
-    - /*.xlsx
-    - /OutputFolder/Results/*
+skip:
+  - pattern:
+    - "OutputFolder/Results/*"
+    - README.md
+    - "*.xlsx"
