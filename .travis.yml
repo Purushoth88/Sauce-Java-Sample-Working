@@ -8,7 +8,13 @@ env:
 sudo: false # route your build to the container-based infrastructure for a faster build
 
 after_success:
-- coveralls --exclude-pattern '*.xlsx' --gcov-options '\-lp'
+#- coveralls --exclude-pattern '*.xlsx' --gcov-options '\-lp'
+ coveralls 
+        --extension .xlsx 
+        --exclude OutputFolder/Results/ 
+        --exclude-pattern '.*/OutputFolder/Results/.*' 
+        --gcov-options '\-lp';
+
 
 notifications:
   email:
