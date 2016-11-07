@@ -7,11 +7,9 @@ env:
 
 sudo: false # route your build to the container-based infrastructure for a faster build
 
-notifications:
-  email: false
+after_success:
+  - coveralls --exclude "OutputFolder/Results/*" --exclude-pattern ".*\.xlsx"
 
-skip:
-  - pattern:
-    - "OutputFolder/Results/*"
-    - README.md
-    - "*.xlsx"
+notifications:
+  email:
+    - purushothaman.v@aonhewitt.com
