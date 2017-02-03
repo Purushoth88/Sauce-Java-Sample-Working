@@ -18,21 +18,6 @@
     		<url>http://github.com/Purushoth88/Sauce-Java-Sample-Working</url>
 	  </scm>
 	
-
-	<repositories>
-		<repository>
-			<id>saucelabs-repository</id>
-			<url>http://repository-saucelabs.forge.cloudbees.com/release</url>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-
-	</repositories>
-
 	<dependencies>
 		<dependency>
 			<groupId>junit</groupId>
