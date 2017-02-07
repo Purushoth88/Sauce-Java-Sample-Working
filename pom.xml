@@ -216,6 +216,21 @@
 
 </dependencies>
 
+  <pluginRepositories>
+    <pluginRepository>
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>file://C:/Users/Ah0144719/.m2/repository</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <releases>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+    </pluginRepository>
+  </pluginRepositories>
+	
     <build>
         <plugins>
             <plugin>
