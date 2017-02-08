@@ -1,24 +1,32 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>4.0.0</modelVersion>
-    <artifactId>Sauce-Java-Sample-Working</artifactId>
-    <groupId>com.saucelabs</groupId>
-    <version>1.0.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
-    <name>sauce_quickstart</name>
-    <description>A sample Maven project that demonstrates how to integrate Sauce OnDemand with WebDriver tests
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<artifactId>Sauce-Java-Sample-Working</artifactId>
+	<groupId>com.saucelabs</groupId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>jar</packaging>
+	<name>sauce_quickstart</name>
+	<description>A sample Maven project that demonstrates how to integrate Sauce OnDemand with WebDriver tests
         that run using JUnit
     </description>
 
-	
-	  <scm>
-    		<connection>scm:git:http://github.com/Purushoth88/Sauce-Java-Sample-Working.git</connection>
-    		<developerConnection>scm:git:ssh://github.com/Purushoth88/Sauce-Java-Sample-Working.git</developerConnection>
-    		<url>http://github.com/Purushoth88/Sauce-Java-Sample-Working</url>
-	  </scm>
-	
+
+	<scm>
+		<connection>scm:git:http://github.com/Purushoth88/Sauce-Java-Sample-Working.git</connection>
+		<developerConnection>scm:git:ssh://github.com/Purushoth88/Sauce-Java-Sample-Working.git</developerConnection>
+		<url>http://github.com/Purushoth88/Sauce-Java-Sample-Working</url>
+	</scm>
+
 	<dependencies>
+
+		<!-- https://mvnrepository.com/artifact/org.jenkins-ci.plugins/sauce-ondemand -->
+		<dependency>
+			<groupId>org.jenkins-ci.plugins</groupId>
+			<artifactId>sauce-ondemand</artifactId>
+			<version>1.160</version>
+		</dependency>
+		
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -26,7 +34,7 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/junit-4.12.jar</systemPath>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.saucelabs</groupId>
 			<artifactId>sauce_java_common</artifactId>
@@ -50,13 +58,13 @@
 			<scope>system</scope>
 			<systemPath>${basedir}/lib/sauce_junit-2.1.21.jar</systemPath>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.seleniumhq.selenium</groupId>
 			<artifactId>selenium-server-standalone</artifactId>
 			<version>2.53.0</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/selenium-server-standalone-2.53.0.jar</systemPath>
+			<systemPath>${basedir}/lib/selenium-server-standalone-2.53.0.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -64,7 +72,7 @@
 			<artifactId>poi-ooxml-schemas</artifactId>
 			<version>3.11</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/poi-ooxml-schemas-3.11.jar</systemPath>
+			<systemPath>${basedir}/lib/poi-ooxml-schemas-3.11.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -72,7 +80,7 @@
 			<artifactId>gson</artifactId>
 			<version>2.2.4</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/gson-2.2.4.jar</systemPath>
+			<systemPath>${basedir}/lib/gson-2.2.4.jar</systemPath>
 		</dependency>
 
 
@@ -81,7 +89,7 @@
 			<artifactId>java-client</artifactId>
 			<version>4.1.0</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/java-client-4.1.0.jar</systemPath>
+			<systemPath>${basedir}/lib/java-client-4.1.0.jar</systemPath>
 		</dependency>
 
 
@@ -90,7 +98,7 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>1.7.21</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/slf4j-api-1.7.21.jar</systemPath>
+			<systemPath>${basedir}/lib/slf4j-api-1.7.21.jar</systemPath>
 		</dependency>
 
 
@@ -99,7 +107,7 @@
 			<artifactId>slf4j-log4j12</artifactId>
 			<version>1.7.21</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/slf4j-log4j12-1.7.21.jar</systemPath>
+			<systemPath>${basedir}/lib/slf4j-log4j12-1.7.21.jar</systemPath>
 		</dependency>
 
 
@@ -108,7 +116,7 @@
 			<artifactId>xmlbeans</artifactId>
 			<version>2.3.0</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/xmlbeans-2.3.0.jar</systemPath>
+			<systemPath>${basedir}/lib/xmlbeans-2.3.0.jar</systemPath>
 		</dependency>
 
 
@@ -117,7 +125,7 @@
 			<artifactId>dom4j</artifactId>
 			<version>1.6</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/dom4j-1.6.jar</systemPath>
+			<systemPath>${basedir}/lib/dom4j-1.6.jar</systemPath>
 		</dependency>
 
 
@@ -126,17 +134,17 @@
 			<artifactId>json-path</artifactId>
 			<version>0.9.0</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/json-path-0.9.0.jar</systemPath>
+			<systemPath>${basedir}/lib/json-path-0.9.0.jar</systemPath>
 		</dependency>
 
-	<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
-	<dependency>
-		<groupId>com.jayway.restassured</groupId>
-		<artifactId>json-path</artifactId>
-		<version>2.0.1</version>
-		<scope>system</scope>
-		<systemPath>${basedir}/lib/json-path-2.0.1.jar</systemPath>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/com.jayway.jsonpath/json-path -->
+		<dependency>
+			<groupId>com.jayway.restassured</groupId>
+			<artifactId>json-path</artifactId>
+			<version>2.0.1</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/json-path-2.0.1.jar</systemPath>
+		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/com.jayway.restassured/json-path -->
 		<dependency>
@@ -144,7 +152,7 @@
 			<artifactId>json-path</artifactId>
 			<version>1.8.0</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/json-path-1.8.0.jar</systemPath>
+			<systemPath>${basedir}/lib/json-path-1.8.0.jar</systemPath>
 		</dependency>
 
 
@@ -154,7 +162,7 @@
 			<artifactId>json-smart</artifactId>
 			<version>1.2</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/json-smart-1.2.jar</systemPath>
+			<systemPath>${basedir}/lib/json-smart-1.2.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -162,7 +170,7 @@
 			<artifactId>jsoup</artifactId>
 			<version>1.9.2</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/jsoup-1.9.2.jar</systemPath>
+			<systemPath>${basedir}/lib/jsoup-1.9.2.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -170,7 +178,7 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.15</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/log4j-1.2.15.jar</systemPath>
+			<systemPath>${basedir}/lib/log4j-1.2.15.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -178,7 +186,7 @@
 			<artifactId>poi</artifactId>
 			<version>3.9</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/poi-3.9.jar</systemPath>
+			<systemPath>${basedir}/lib/poi-3.9.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -186,34 +194,34 @@
 			<artifactId>poi-ooxml</artifactId>
 			<version>3.9</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/poi-ooxml-3.9.jar</systemPath>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
-		<dependency>
-    			<groupId>org.eclipse.jgit</groupId>
-    			<artifactId>org.eclipse.jgit</artifactId>
-    			<version>4.5.0.201609210915-r</version>
-    			<scope>system</scope>
-    			<systemPath>${basedir}/lib/org.eclipse.jgit-4.5.0.201609210915-r.jar</systemPath>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
-		<dependency>
-    			<groupId>com.jcraft</groupId>
-    			<artifactId>jsch</artifactId>
-    			<version>0.1.54</version>
-			<scope>system</scope>
-    			<systemPath>${basedir}/lib/jsch-0.1.54.jar</systemPath>
+			<systemPath>${basedir}/lib/poi-ooxml-3.9.jar</systemPath>
 		</dependency>
 
 		<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
 		<dependency>
-    			<groupId>org.eclipse.jgit</groupId>
-    			<artifactId>org.eclipse.jgit</artifactId>
-    			<version>1.3.0</version>
-    			<scope>system</scope>
-    			<systemPath>${basedir}/lib/org.eclipse.jgit-1.3.0.jar</systemPath>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>4.5.0.201609210915-r</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.jgit-4.5.0.201609210915-r.jar</systemPath>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/com.jcraft/jsch -->
+		<dependency>
+			<groupId>com.jcraft</groupId>
+			<artifactId>jsch</artifactId>
+			<version>0.1.54</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/jsch-0.1.54.jar</systemPath>
+		</dependency>
+
+		<!-- https://mvnrepository.com/artifact/org.eclipse.jgit/org.eclipse.jgit -->
+		<dependency>
+			<groupId>org.eclipse.jgit</groupId>
+			<artifactId>org.eclipse.jgit</artifactId>
+			<version>1.3.0</version>
+			<scope>system</scope>
+			<systemPath>${basedir}/lib/org.eclipse.jgit-1.3.0.jar</systemPath>
 		</dependency>
 
 		<dependency>
@@ -221,58 +229,54 @@
 			<artifactId>common-lang3</artifactId>
 			<version>3.4</version>
 			<scope>system</scope>
-    		<systemPath>${basedir}/lib/common-lang3.jar</systemPath>
+			<systemPath>${basedir}/lib/common-lang3.jar</systemPath>
 		</dependency>
-		
 
-</dependencies>
 
-  <pluginRepositories>
-    <pluginRepository>
-      <id>central</id>
-      <name>Central Repository</name>
-      <url>file://C:/Users/Ah0144719/.m2/repository</url>
-      <layout>default</layout>
-      <snapshots>
-        <enabled>false</enabled>
-      </snapshots>
-      <releases>
-        <updatePolicy>never</updatePolicy>
-      </releases>
-    </pluginRepository>
-  </pluginRepositories>
-	
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-                <version>2.6</version>
-		    <configuration>
-                    <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-            </plugin>
-           <!-- <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.1</version>
-                <configuration>
-			 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
-                </configuration>
-            </plugin> -->
+	</dependencies>
 
-		<plugin>
-    <inherited>true</inherited>
-    <groupId>org.apache.maven.plugins</groupId>
-    <artifactId>maven-compiler-plugin</artifactId>              
-</plugin>
-		
-           
-    <!-- To use the plugin goals in your POM or parent POM -->
+	<pluginRepositories>
+		<pluginRepository>
+			<id>central</id>
+			<name>Central Repository</name>
+			<url>file://C:/Users/Ah0144719/.m2/repository</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
 
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-plugin</artifactId>
-      </plugin>
-        </plugins>
-    </build>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<version>2.6</version>
+				<configuration>
+					<dependencyLocationsEnabled>false</dependencyLocationsEnabled>
+				</configuration>
+			</plugin>
+			<!-- <plugin> <artifactId>maven-compiler-plugin</artifactId> <version>3.1</version> 
+				<configuration> <dependencyLocationsEnabled>false</dependencyLocationsEnabled> 
+				</configuration> </plugin> -->
+
+			<plugin>
+				<inherited>true</inherited>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+
+			<!-- To use the plugin goals in your POM or parent POM -->
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</build>
 </project>
