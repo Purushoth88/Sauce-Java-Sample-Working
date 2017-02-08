@@ -233,6 +233,52 @@
 	
     <build>
         <plugins>
+	
+	<plugin>
+                <!--
+                Checks that the version of user's maven installation is 3.0.4,
+                the JDK is 1.5+, no non-standard repositories are specified in
+                the project, requires only release versions of dependencies of other artifacts.
+                -->
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <id>enforce-versions</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <fail>true</fail>
+                            <rules>
+                                <requireMavenVersion>
+                                    <!-- Some plugin features require a recent Maven runtime to work properly -->
+                                    <message>Current version of Maven ${maven.version} required to build the project
+                                        should be ${project.prerequisites.maven}, or higher!
+                                    </message>
+                                    <version>[${project.prerequisites.maven},)</version>
+                                </requireMavenVersion>
+                                <requireJavaVersion>
+                                    <message>Current JDK version ${java.version} should be ${jdkVersion}, or higher!
+                                    </message>
+                                    <version>${jdkVersion}</version>
+                                </requireJavaVersion>
+                                <requireNoRepositories>
+                                    <message>Best Practice is to never define repositories in pom.xml (use a repository
+                                        manager instead).
+                                    </message>
+                                </requireNoRepositories>
+                                <requireReleaseDeps>
+                                    <message>No Snapshots Dependencies Allowed!</message>
+                                </requireReleaseDeps>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+		
+		
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-resources-plugin</artifactId>
@@ -260,7 +306,7 @@
                     <target>${jdkVersion}</target>
                     <testSource>${jdkVersion}</testSource>
                     <testTarget>${jdkVersion}</testTarget>
-                    <compilerVersion>1.7</compilerVersion>
+                    <compilerVersion>1.6</compilerVersion>
                     <showDeprecation>true</showDeprecation>
                     <showWarnings>true</showWarnings>
                     <debug>true</debug>
