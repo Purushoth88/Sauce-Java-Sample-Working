@@ -294,10 +294,10 @@
 			 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin> -->
-	<plugin><!-- Using jdk 1.5.0_22, package-info.java files are compiled correctly. -->
+<!--	<plugin><!-- Using jdk 1.5.0_22, package-info.java files are compiled correctly. -->
                 <!--
                 java compiler plugin forked in extra process
-                -->
+                
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.0</version>
                 <configuration>
@@ -317,7 +317,12 @@
                     <maxmem>128m</maxmem>
                 </configuration>
             </plugin>	
-	
+	-->
+		<plugin>
+    <inherited>true</inherited>
+    <groupId>org.apache.maven.plugins</groupId>
+    <artifactId>maven-compiler-plugin</artifactId>              
+</plugin>
 		
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
