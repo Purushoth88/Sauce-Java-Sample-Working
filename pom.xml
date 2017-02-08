@@ -294,30 +294,7 @@
 			 <dependencyLocationsEnabled>false</dependencyLocationsEnabled>
                 </configuration>
             </plugin> -->
-<!--	<plugin><!-- Using jdk 1.5.0_22, package-info.java files are compiled correctly. -->
-                <!--
-                java compiler plugin forked in extra process
-                
-                <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.0</version>
-                <configuration>
-                    <encoding>${project.build.sourceEncoding}</encoding>
-                    <source>${jdkVersion}</source>
-                    <target>${jdkVersion}</target>
-                    <testSource>${jdkVersion}</testSource>
-                    <testTarget>${jdkVersion}</testTarget>
-                    <compilerVersion>1.6</compilerVersion>
-                    <showDeprecation>true</showDeprecation>
-                    <showWarnings>true</showWarnings>
-                    <debug>true</debug>
-                    <fork>true</fork>
-                    <compilerArgs>
-                        <arg>-Xlint:unchecked</arg>
-                    </compilerArgs>
-                    <maxmem>128m</maxmem>
-                </configuration>
-            </plugin>	
-	-->
+
 		<plugin>
     <inherited>true</inherited>
     <groupId>org.apache.maven.plugins</groupId>
