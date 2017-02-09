@@ -25,6 +25,7 @@
     			<groupId>com.saucelabs.selenium</groupId>
     			<artifactId>sauce-ondemand-driver</artifactId>
     			<version>1.2</version>
+			<scope>system</scope>
 			<systemPath>${basedir}/lib/sauce-ondemand-driver-1.2.jar</systemPath>
 		</dependency>
 
@@ -34,6 +35,7 @@
 			<groupId>org.jenkins-ci.plugins</groupId>
 			<artifactId>sauce-ondemand</artifactId>
 			<version>1.160</version>
+			<scope>system</scope>
 			<systemPath>${basedir}/lib/sauce-ondemand-1.160.jar</systemPath>
 		</dependency>
 		
