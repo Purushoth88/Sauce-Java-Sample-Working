@@ -43,7 +43,7 @@ public class SauceRunner implements SauceOnDemandSessionIdProvider {
 	}
 	
 	public static String buildSauceUri() {
-        String seleniumURI = "@ondemand.saucelabs.com:443";
+        String seleniumURI = "@saucelabs.com:443";
         String seleniumPort = System.getenv("SELENIUM_PORT");
         String seleniumHost = System.getenv("SELENIUM_HOST");
         if (seleniumPort != null &&
