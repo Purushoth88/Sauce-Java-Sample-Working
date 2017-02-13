@@ -48,7 +48,7 @@ public class SauceRunner implements SauceOnDemandSessionIdProvider {
         String seleniumHost = System.getenv("SELENIUM_HOST");
         if (seleniumPort != null &&
                 seleniumHost != null &&
-                !seleniumHost.contentEquals("ondemand.saucelabs.com")) {
+                !seleniumHost.contentEquals("saucelabs.com")) {
             //While running in CI, if Sauce Connect is running the SELENIUM_PORT env var will be set.
             //use SC relay port
             seleniumURI = String.format("@localhost:%s", seleniumPort);
