@@ -33,7 +33,7 @@ public class SauceRunner implements SauceOnDemandSessionIdProvider {
 		caps.setCapability("name", "PremierQCScriptTestJU");
 		//String seleniumURI = buildSauceUri();
 		wd =  new RemoteWebDriver(
-                new URL("https://" + username+ ":" + accesskey + "@ondemand.saucelabs.com:443" +"/wd/hub"),
+                new URL("https://" + username+ ":" + accesskey + "@maki76254.miso.saucelabs.com:443" +"/wd/hub"),
                 caps);
 		wd.manage().timeouts().implicitlyWait(60, TimeUnit.SECONDS);
 		sessionId = wd.getSessionId().toString();
